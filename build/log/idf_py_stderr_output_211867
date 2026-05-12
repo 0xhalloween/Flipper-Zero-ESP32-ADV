@@ -1,0 +1,9 @@
+[0;33m--- esp-idf-monitor 1.9.0 on /dev/ttyACM0 115200[0m
+[0;33m--- Warning: ELF file '/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build/furi_esp32.elf' does not exist[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0;33m--- Connection to /dev/ttyACM0 failed. Available ports:
+--- /dev/ttyS3
+--- /dev/ttyS2
+--- /dev/ttyS1
+--- /dev/ttyS0[0m
+[0m

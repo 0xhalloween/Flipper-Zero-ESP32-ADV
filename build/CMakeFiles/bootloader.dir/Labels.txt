@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build/CMakeFiles/bootloader
+/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build/CMakeFiles/bootloader.rule
+/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build/CMakeFiles/bootloader-complete.rule
+/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

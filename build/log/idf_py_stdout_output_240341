@@ -1,0 +1,477 @@
+[0;32mI (505) esp_image: segment 4: paddr=0024b8c4 vaddr=403796c0 sizeESP-ROM:esp32s3-20210327[0m
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038be2b
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcc4
+load:0x403cb700,len:0x2eb0
+entry 0x403c890c
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time May 12 2026 14:52:41[0m
+[0;33mW (27) boot: Unicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (30) boot: efuse block revision: v1.3[0m
+[0;32mI (34) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (37) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3c1c0020 size=74fc0h (479168) map[0m
+[0;32mI (173) esp_image: segment 1: paddr=00084fe8 vaddr=3fca6300 size=05968h ( 22888) load[0m
+[0;32mI (178) esp_image: segment 2: paddr=0008a958 vaddr=40374000 size=056c0h ( 22208) load[0m
+[0;32mI (183) esp_image: segment 3: paddr=00090020 vaddr=42000020 size=1bb89ch (1816732) map[0m
+[0;32mI (505) esp_image: segment 4: paddr=0024b8c4 vaddr=403796c0 size=1cb68h (117608) load[0m
+[0;32mI (530) esp_image: segment 5: paddr=00268434 vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (544) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (544) boot: Disabling RNG early entropy source...[0m
+[1;31mE (554) octal_psram: PSRAM ID read error: 0x00000000, PSRAM chip not found or not supported, or wrong PSRAM line mode[0m
+[1;31mE (555) esp_psram: PSRAM enabled but initialization failed. Bailing out.[0m
+[0;32mI (560) cpu_start: Failed to init external RAM; continuing without it.[0m
+[0;32mI (566) cpu_start: Unicore app[0m
+[0;32mI (569) cpu_start: Single core mode[0m
+[0;32mI (586) cpu_start: Pro cpu start user code[0m
+[0;32mI (586) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (586) app_init: Application information:[0m
+[0;32mI (586) app_init: Project name:     furi_esp32[0m
+[0;32mI (590) app_init: App version:      1[0m
+[0;32mI (593) app_init: Compile time:     May 12 2026 14:52:06[0m
+[0;32mI (598) app_init: ELF file SHA256:  efb74dfec...[0m
+[0;32mI (603) app_init: ESP-IDF:          v5.4.1-dirty[0m
+[0;32mI (607) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (611) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (615) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (619) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (625) heap_init: At 3FCBA0A0 len 0002F670 (189 KiB): RAM[0m
+[0;32mI (630) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (635) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (640) heap_init: At 600FE120 len 00001EC8 (7 KiB): RTCRAM[0m
+[0;32mI (649) spi_flash: detected chip: gd[0m
+[0;32mI (649) spi_flash: flash io: dio[0m
+[0;33mW (653) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (662) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (668) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (675) coexist: coex firmware version: e727207[0m
+[0;32mI (679) coexist: coexist rom version e7ae62f[0m
+[0;32mI (684) main_task: Started on CPU0[0m
+[0;32mI (687) main_task: Calling app_main()[0m
+[0;32mI (689) Main: Starting Furi Core on ESP32...[0m
+[0;32mI (694) gpio: GPIO[38]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (702) FuriHal: PWR_EN GPIO65535 set HIGH[0m
+[0;32mI (705) FuriHal: NRF24_CSN GPIO65535 set HIGH (deselect)[0m
+[0;32mI (710) FuriHal: NRF24_CE GPIO65535 set LOW (standby)[0m
+[0;32mI (715) FuriHal: Early init complete[0m
+[0;33mW (790) BQ27220: BQ27220 not found at 0x00 (no ACK)[0m
+[0;33mW (792) BQ25896: BQ25896 not found at 0x6B[0m
+[0;33mW (793) FuriHalSpi: SPI pins are not mapped yet; using stub responses[0m
+[0;33mW (795) FuriHalSpi: SPI pins are not mapped yet; using stub responses[0m
+[0;33mW (802) FuriHalSubGhz: CC1101 probe failed: part=0x00 version=0x00 status=0xFF reset_status=0xFF (all-zero reply, check power/CSN/SCK/MOSI)[0m
+[0;32mI (815) FuriHalLight: Backlight PWM initialized on GPIO38[0m
+[0;32mI (822) FuriHalLight: WS2812 ring (1 LEDs) on GPIO21 initialized[0m
+[0;32mI (824) FuriHalDisplay: Initializing display for M5Stack Cardputer-ADV[0m
+[0;32mI (835) gpio: GPIO[34]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (840) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (987) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1243) FuriHalDisplay: Display initialized (128x64, scaled 240x120, stripe=8 lines, buf=3840 bytes)[0m
+[0;32mI (1244) gpio: GPIO[43]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[1;31mE (1251) i2c: i2c driver install error[0m
+[1;31mE (1253) FuriHalI2cBus: i2c_driver_install failed: ESP_FAIL[0m
+[0;32mI (1260) ES8311: ES8311 initialized[0m
+581 [0;32m[I][FuriHalSpeaker] [0mInit OK (I2S, BCLK=41 WS=43 DOUT=42)
+584 [0;32m[I][FuriHalNfc] [0mNFC HAL: no NFC hardware on this board
+[0;32mI (1274) FuriHal: Init complete[0m
+593 [0;32m[I][Flipper] [0m
+	Firmware version:	1.4.3
+	Build date:		May 12 2026
+	Git Commit:		esp32-dev (0) (dirty)
+	Git Branch:		esp32-port
+605 [0;32m[I][Flipper] [0mBoot mode 0, ESP32 port
+610 [0;32m[I][Flipper] [0mStartup complete
+[0;32mI (1298) Main: Registry counts: services=11 startup=6 apps=0 settings=3 extsettings=3 external=6 internal_external=3 system=13 debug=0[0m
+[0;32mI (1310) Main: service[0]: appid=cli_vcp name=CliVcpSrv stack=4096[0m
+[0;32mI (1316) Main: service[1]: appid=input name=InputSrv stack=4096[0m
+[0;32mI (1321) Main: service[2]: appid=notification name=NotificationSrv stack=4096[0m
+[0;32mI (1328) Main: service[3]: appid=gui name=GuiSrv stack=8192[0m
+[0;32mI (1334) Main: service[4]: appid=dialogs name=DialogsSrv stack=4096[0m
+[0;32mI (1340) Main: service[5]: appid=bt name=BtSrv stack=4096[0m
+[0;32mI (1345) Main: service[6]: appid=dolphin name=DolphinSrv stack=4096[0m
+[0;32mI (1351) Main: service[7]: appid=loader name=LoaderSrv stack=4096[0m
+[0;32mI (1357) Main: service[8]: appid=power name=PowerSrv stack=4096[0m
+[0;32mI (1362) Main: service[9]: appid=storage name=StorageSrv stack=4096[0m
+[0;32mI (1368) Main: service[10]: appid=desktop name=DesktopSrv stack=4096[0m
+[0;32mI (1374) Main: settings[0]: appid=power_settings name=Power stack=4096[0m
+[0;32mI (1380) Main: settings[1]: appid=storage_settings name=Storage stack=4096[0m
+[0;32mI (1387) Main: settings[2]: appid=notification_settings name=Sound & Display stack=4096[0m
+[0;32mI (1395) Main: extsettings[0]: name=About launch=about[0m
+[0;32mI (1400) Main: extsettings[1]: name=Bluetooth launch=bt_settings[0m
+[0;32mI (1405) Main: extsettings[2]: name=Passport launch=passport[0m
+[1;31mE (1424) i2c: i2c driver install error[0m
+[1;31mE (1425) FuriHalI2cBus: i2c_driver_install failed: ESP_FAIL[0m
+[0;32mI (1427) InputCardputerAdv: Cardputer-ADV TCA8418 input initialised[0m
+745 [0;32m[I][Input] [0mInput service started
+753 [0;32m[I][SavedStruct] [0mLoading "/int/.notification.settings" -> NVS key "notification_se"
+759 [0;32m[I][NotificationSrv] [0mLOAD ok: brightness=1.00 vol=1.00 delay_ms=30000
+816 [0;32m[I][RpcSrv] [0mRPC service initialized
+820 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+844 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+854 [0;32m[I][Loader] [0mLoader service started
+864 [0;32m[I][StorageExt] [0mcard detected
+[0;32mI (1550) FuriHalSd: Initializing SD card on SPI3_HOST, CS=GPIO12[0m
+[0;32mI (1553) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (1562) FuriHalSd: SDSPI config: host=2 cs=12 target_probe_freq_khz=20000[0m
+[0;32mI (1576) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1583) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1594) Main: All services started, entering background...[0m
+[0;32mI (1631) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+Name: SD8GB
+Type: SDHC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: 7384MB
+CSD: ver=2, sector_size=512, capacity=15122432 read_bl_len=9
+SSR: bus_width=1
+989 [0;32m[I][StorageExt] [0mcard mounted
+994 [0;32m[I][SavedStruct] [0mLoading "/int/.dolphin.state" -> NVS key "dolphin_state"
+1000 [0;32m[I][BtSrv] [0mKeys unchanged
+1000 [0;32m[I][BtSrv] [0mbt_start_application: current_profile=0x0
+1003 [0;32m[I][BtSrv] [0mStarting ble_profile_serial...
+1014 [0;32m[I][SavedStruct] [0mI (1699) BLE_INIT: BT controller compile version [d74042a]
+Loading "/int/.power.settings" -> NVS key "power_settings"
+[0;32mI (1716) BLE_INIT: Bluetooth MAC: 3c:0f:02:e9:6b:02[0m
+[0;32mI (1724) phy_init: phy_version 700,8582a7fd,Feb 10 2025,20:13:11[0m
+[0;32mI (1839) ble_serial: alloc name=Flipper Edge bonding=1 pairing=0[0m
+[0;32mI (1843) ble_serial: alloc: registering GAP callback[0m
+[0;32mI (1843) ble_serial: alloc: registering GATTS callback[0m
+[0;32mI (1847) ble_serial: alloc: applying security config[0m
+[0;32mI (1856) ble_serial: alloc: configuring advertising, has_custom_mac=0[0m
+[0;32mI (1858) ble_serial: adv_config name_len=12 adv_name_len=12 raw_len=21[0m
+[0;32mI (1869) ble_serial: gap: adv data set complete[0m
+[0;32mI (1870) ble_serial: try_start_adv: requested=0 adv_pending=0 rand_pending=0 advertising=0 active=0x3fce0964 connected=0 svc_started=0[0m
+[0;33mW (1880) ble_serial:   blocked: not requested[0m
+[0;32mI (1885) ble_serial: alloc: adv configured, adv_data_pending=0[0m
+[0;32mI (1890) ble_serial: alloc: registering GATTS app (async)[0m
+[0;32mI (1898) ble_serial: gatts: app registered, gatts_if=3[0m
+[0;32mI (1903) ble_serial: gatts: serial attr table created, starting service[0m
+[0;32mI (1907) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1911) ble_serial: gatts: creating DIS attribute table...[0m
+[0;32mI (1918) ble_serial: gatts: DIS attr table created, starting service[0m
+[0;32mI (1923) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1927) ble_serial: gatts: creating BAS attribute table...[0m
+[0;32mI (1934) ble_serial: gatts: BAS attr table created, starting service[0m
+[0;32mI (1939) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1943) ble_serial: gatts: BAS started, all services ready[0m
+[0;32mI (1951) ble_serial: alloc: waiting for GATT service start...[0m
+[0;32mI (1955) ble_serial: Serial service ready, adv_data_pending=0 rand_addr_pending=0[0m
+[0;32mI (1962) FuriHalBt: BLE profile started[0m
+1281 [0;32m[I][BtSrv] [0mBLE App started OK, profile=0x3fcd7d58
+1286 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+1296 [0;32m[I][BtSrv] [0mbt_apply_settings: enabled=1
+[0;32mI (1983) FuriHalBt: furi_hal_bt_start_advertising: profile=0x3fcd7d58[0m
+[0;32mI (1989) FuriHalBt:   is_hid=0 is_serial=1[0m
+[0;32mI (1993) ble_serial: ble_serial_start_advertising called, active=0x3fce0964[0m
+[0;32mI (2000) ble_serial: try_start_adv: requested=1 adv_pending=0 rand_pending=0 advertising=0 active=0x3fce0964 connected=0 svc_started=1[0m
+[0;32mI (2011) ble_serial:   -> calling esp_ble_gap_start_advertising[0m
+[0;32mI (2024) ble_serial: gap: advertising started[0m
+[0;32mI (2027) ble_serial:   -> advertising started OK[0m
+[0;32mI (2027) ble_serial: ble_serial_start_advertising returning 1[0m
+[0;32mI (2031) FuriHalBt:   started=1[0m
+1351 [0;32m[I][BtSrv] [0mBtSrv ready (enabled=1)
+1976 [0;32m[I][AnimationManager] [0mSelect 'L1_Laptop_128x51' animation
+2036 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+[0;32mI (8233) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (8235) InputCardputerAdv:   -> nav key: 4[0m
+
+[BANIM] key=4 type=0
+
+[DMAIN] key=4 type=0 dummy=0
+[0;32mI (8389) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (8391) InputCardputerAdv:   -> nav key: 4[0m
+
+[BANIM] key=4 type=2
+
+[DMAIN] key=4 type=2 dummy=0
+
+[BANIM] key=4 type=1
+
+[
+[LM] threadDMAIN] key=_start free=4 type=1 du3468
+mmy=0
+
+[LM] settings_counts internal=3 external=3
+
+[LM] settings_internal[0] appid=power_settings name=Power
+
+[LM] settings_internal[1] appid=storage_settings name=Storage
+
+[LM] settings_internal[2] appid=notification_settings name=Sound & Display
+
+[LM] settings_external[0] launch=about name=About
+
+[LM] settings_external[1] launch=bt_settings name=Bluetooth
+
+[LM] settings_external[2] launch=passport name=Passport
+
+[LM] app_alloc free=3036
+
+[LM] attached free=3036
+[0;32mI (15090) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (15092) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (15201) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (15203) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (15505) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (15507) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (15595) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (15597) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (15878) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (15880) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (15968) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (15971) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (16230) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (16232) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (16323) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (16325) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (16629) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (16631) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (16740) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (16742) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (17024) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (17026) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (17135) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (17137) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (17566) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (17568) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (17676) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (17677) InputCardputerAdv:   -> nav key: 4[0m
+
+[LDR] start_by_name name='infrared'
+16999 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Laptop_128x51'
+[LDR] find_app('infrared')=0x3c200f78
+[LDR] found name='Infrared' appid='infrared' stack=8192
+17011 [0;32m[I][Loader] [0mStarting Infrared
+17025 [0;32m[I][SavedStruct] [0mLoading "/ext/infrared/.infrared.settings" -> NVS key "infrared_settin"
+[0;32mI (19995) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (19997) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (20173) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (20175) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (20901) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (20903) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (21014) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (21016) InputCardputerAdv:   -> nav key: 4[0m
+[1;31mE (25422) dma_utils: esp_dma_capable_malloc(181): Not enough heap memory[0m
+[1;31mE (25422) FuriHalSd: SD read failed: ESP_ERR_NO_MEM[0m
+[0;32mI (27631) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (27633) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (27762) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (27764) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (29795) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (29797) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (29950) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (29952) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (31038) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (31040) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (31170) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (31172) InputCardputerAdv:   -> nav key: 5[0m
+30579 [0;32m[I][Loader] [0mApp returned: 0
+30580 [0;32m[I][Loader] [0mApplication stopped. Free heap: 58824
+31088 [0;32m[I][AnimationManager] [0mSelect 'L1_Laptop_128x51' animation
+31090 [0;32m[I][AnimationManager] [0mLoad animation 'L1_Laptop_128x51'
+[0;32mI (32309) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (32311) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (32419) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (32420) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (32872) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (32874) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (32982) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (32983) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (33816) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (33818) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (33927) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (33928) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (34633) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (34636) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (34744) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (34746) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (36314) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (36316) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (36425) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (36426) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (36749) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (36751) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (36839) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (36841) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (37563) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (37565) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (37718) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (37720) InputCardputerAdv:   -> nav key: 4[0m
+
+[LDR] start_by_name name='Storage'
+37047 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Laptop_128x51'
+[LDR] find_app('Storage')=0x3c200e98
+[LDR] found name='Storage' appid='storage_settings' stack=4096
+37053 [0;32m[I][Loader] [0mStarting Storage
+[0;32mI (39184) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (39186) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (39276) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (39278) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (40805) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (40807) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (40916) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (40917) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (41723) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (41725) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (41835) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (41837) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (42136) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (42138) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (42204) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (42205) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (42485) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (42487) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (42574) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (42575) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (42938) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (42940) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (43048) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (43049) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (43287) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (43289) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (43376) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (43377) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (44287) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (44289) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (44400) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (44402) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (45925) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (45927) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (46056) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (46057) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (46507) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (46509) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (46638) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (46639) InputCardputerAdv:   -> nav key: 5[0m
+46039 [0;32m[I][Loader] [0mApp returned: 0
+46041 [0;32m[I][Loader] [0mApplication stopped. Free heap: 58816
+46509 [0;32m[I][AnimationManager] [0mSelect 'L1_Laptop_128x51' animation
+46511 [0;32m[I][AnimationManager] [0mLoad animation 'L1_Laptop_128x51'
+[0;32mI (47310) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (47312) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (47462) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (47463) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (47915) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (47917) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (48046) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (48047) InputCardputerAdv:   -> nav key: 5[0m
+
+[LM] dispatcher_return free=2860
+
+[LM] thread_end free=2860
+[0;32mI (50212) InputCardputerAdv: TCA8418 key: id=0x40(64) row=6 col=3 PRESS[0m
+[0;32mI (50214) InputCardputerAdv:   -> nav key: 2[0m
+
+[BANIM] key=2 type=0
+
+[DMAIN] key=2 type=0 dummy=0
+[0;32mI (50345) InputCardputerAdv: TCA8418 key: id=0x40(64) row=6 col=3 RELEASE[0m
+[0;32mI (50347) InputCardputerAdv:   -> nav key: 2[0m
+
+[BANIM] key=2 type=2
+
+[LDR] start_by_name name='Passport'
+49668 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Laptop_128x51'
+
+[LDR] find_app('Passp[BANIM] key=ort')=0x3c202 type=1
+0fd8
+[LDR] 
+[DMAIN] kefound name='y=2 type=1 Passport' apdummy=0
+pid='passport' stack=4096
+49687 [0;32m[I][Loader] [0mStarting Passport
+[0;32mI (50901) InputCardputerAdv: TCA8418 key: id=0x40(64) row=6 col=3 PRESS[0m
+[0;32mI (50903) InputCardputerAdv:   -> nav key: 2[0m
+[0;32mI (51032) InputCardputerAdv: TCA8418 key: id=0x40(64) row=6 col=3 RELEASE[0m
+[0;32mI (51033) InputCardputerAdv:   -> nav key: 2[0m
+[0;32mI (51834) InputCardputerAdv: TCA8418 key: id=0x36(54) row=5 col=3 PRESS[0m
+[0;32mI (51836) InputCardputerAdv:   -> nav key: 3[0m
+[0;32mI (51944) InputCardputerAdv: TCA8418 key: id=0x36(54) row=5 col=3 RELEASE[0m
+[0;32mI (51945) InputCardputerAdv:   -> nav key: 3[0m
+[0;32mI (52284) InputCardputerAdv: TCA8418 key: id=0x36(54) row=5 col=3 PRESS[0m
+[0;32mI (52285) InputCardputerAdv:   -> nav key: 3[0m
+[0;32mI (52372) InputCardputerAdv: TCA8418 key: id=0x36(54) row=5 col=3 RELEASE[0m
+[0;32mI (52373) InputCardputerAdv:   -> nav key: 3[0m
+[0;32mI (52775) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (52777) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (52926) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (52927) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (53833) InputCardputerAdv: TCA8418 key: id=0x36(54) row=5 col=3 PRESS[0m
+[0;32mI (53835) InputCardputerAdv:   -> nav key: 3[0m
+[0;32mI (53964) InputCardputerAdv: TCA8418 key: id=0x36(54) row=5 col=3 RELEASE[0m
+[0;32mI (53965) InputCardputerAdv:   -> nav key: 3[0m
+[0;32mI (54325) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (54326) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (54454) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (54455) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (55067) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (55069) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (55177) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (55178) InputCardputerAdv:   -> nav key: 5[0m
+54514 [0;32m[I][Loader] [0mApp returned: 0
+54516 [0;32m[I][Loader] [0mApplication stopped. Free heap: 66608
+54977 [0;32m[I][AnimationManager] [0mSelect 'L1_Laptop_128x51' animation
+54979 [0;32m[I][AnimationManager] [0mLoad animation 'L1_Laptop_128x51'
+[0;32mI (56271) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (56273) InputCardputerAdv:   -> nav key: 5[0m
+
+[BANIM] key=5 type=0
+
+[DMAIN] key=5 type=0 dummy=0
+[0;32mI (56382) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (56383) InputCardputerAdv:   -> nav key: 5[0m
+
+[BANIM] key=5 type=2
+
+[DMAIN] key=5 type=2 dummy=0
+
+[BANIM] key=5 type=1
+
+[DMAIN] key=5 type=1 dummy=0
+[0;32mI (57128) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (57130) InputCardputerAdv:   -> nav key: 4[0m
+
+[BANIM] key=4 type=0
+
+[DMAIN] key=4 type=0 dummy=0
+[0;32mI (57262) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (57264) InputCardputerAdv:   -> nav key: 4[0m
+
+[BANIM] key=4 type=2
+
+[DMAIN] key=4 type=2 dummy=0
+
+[BANIM] key=4 type=1
+
+[DMAIN] key
+[LM] thread=4 type=1 d_start free=ummy=0
+3580
+
+[LM] settings_counts internal=3 external=3
+
+[LM] settings_internal[0] appid=power_settings name=Power
+
+[LM] settings_internal[1] appid=storage_settings name=Storage
+
+[LM] settings_internal[2] appid=notification_settings name=Sound & Display
+
+[LM] settings_external[0] launch=about name=About
+
+[LM] settings_external[1] launch=bt_settings name=Bluetooth
+
+[LM] settings_external[2] launch=passport name=Passport
+
+[LM] app_alloc free=2956
+
+[LM] attached free=2956

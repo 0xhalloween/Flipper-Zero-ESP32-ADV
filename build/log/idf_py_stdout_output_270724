@@ -1,0 +1,355 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4037f0a7
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcc4
+load:0x403cb700,len:0x2eb0
+entry 0x403c890c
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time May 12 2026 15:04:11[0m
+[0;33mW (27) boot: Unicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (30) boot: efuse block revision: v1.3[0m
+[0;32mI (34) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (37) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3c1c0020 size=74fc0h (479168) map[0m
+[0;32mI (173) esp_image: segment 1: paddr=00084fe8 vaddr=3fca5600 size=055e8h ( 21992) load[0m
+[0;32mI (178) esp_image: segment 2: paddr=0008a5d8 vaddr=40374000 size=05a40h ( 23104) load[0m
+[0;32mI (183) esp_image: segment 3: paddr=00090020 vaddr=42000020 size=1bb8a4h (1816740) map[0m
+[0;32mI (505) esp_image: segment 4: paddr=0024b8cc vaddr=40379a40 size=1bb78h (113528) load[0m
+[0;32mI (530) esp_image: segment 5: paddr=0026744c vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (543) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (543) boot: Disabling RNG early entropy source...[0m
+[1;31mE (553) quad_psram: PSRAM ID read error: 0x00ffffff, PSRAM chip not found or not supported, or wrong PSRAM line mode[0m
+[1;31mE (553) esp_psram: PSRAM enabled but initialization failed. Bailing out.[0m
+[0;32mI (558) cpu_start: Failed to init external RAM; continuing without it.[0m
+[0;32mI (565) cpu_start: Unicore app[0m
+[0;32mI (567) cpu_start: Single core mode[0m
+[0;32mI (584) cpu_start: Pro cpu start user code[0m
+[0;32mI (584) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (584) app_init: Application information:[0m
+[0;32mI (585) app_init: Project name:     furi_esp32[0m
+[0;32mI (588) app_init: App version:      1[0m
+[0;32mI (592) app_init: Compile time:     May 12 2026 15:03:37[0m
+[0;32mI (597) app_init: ELF file SHA256:  95657e467...[0m
+[0;32mI (601) app_init: ESP-IDF:          v5.4.1-dirty[0m
+[0;32mI (606) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (609) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (613) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (618) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (624) heap_init: At 3FCB8FD8 len 00030738 (193 KiB): RAM[0m
+[0;32mI (629) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (634) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (639) heap_init: At 600FE120 len 00001EC8 (7 KiB): RTCRAM[0m
+[0;32mI (647) spi_flash: detected chip: gd[0m
+[0;32mI (648) spi_flash: flash io: dio[0m
+[0;33mW (652) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (661) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (667) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (674) coexist: coex firmware version: e727207[0m
+[0;32mI (678) coexist: coexist rom version e7ae62f[0m
+[0;32mI (682) main_task: Started on CPU0[0m
+[0;32mI (685) main_task: Calling app_main()[0m
+[0;32mI (687) Main: Starting Furi Core on ESP32...[0m
+[0;32mI (692) gpio: GPIO[38]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (700) FuriHal: PWR_EN GPIO65535 set HIGH[0m
+[0;32mI (703) FuriHal: NRF24_CSN GPIO65535 set HIGH (deselect)[0m
+[0;32mI (708) FuriHal: NRF24_CE GPIO65535 set LOW (standby)[0m
+[0;32mI (713) FuriHal: Early init complete[0m
+[0;33mW (786) BQ27220: BQ27220 not found at 0x00 (no ACK)[0m
+[0;33mW (788) BQ25896: BQ25896 not found at 0x6B[0m
+[0;33mW (789) FuriHalSpi: SPI pins are not mapped yet; using stub responses[0m
+[0;33mW (791) FuriHalSpi: SPI pins are not mapped yet; using stub responses[0m
+[0;33mW (798) FuriHalSubGhz: CC1101 probe failed: part=0x00 version=0x00 status=0xFF reset_status=0xFF (all-zero reply, check power/CSN/SCK/MOSI)[0m
+[0;32mI (811) FuriHalLight: Backlight PWM initialized on GPIO38[0m
+[0;32mI (817) FuriHalLight: WS2812 ring (1 LEDs) on GPIO21 initialized[0m
+[0;32mI (820) FuriHalDisplay: Initializing display for M5Stack Cardputer-ADV[0m
+[0;32mI (831) gpio: GPIO[34]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (835) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (983) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1239) FuriHalDisplay: Display initialized (128x64, scaled 240x120, stripe=8 lines, buf=3840 bytes)[0m
+[0;32mI (1240) gpio: GPIO[43]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[1;31mE (1247) i2c: i2c driver install error[0m
+[1;31mE (1249) FuriHalI2cBus: i2c_driver_install failed: ESP_FAIL[0m
+[0;32mI (1256) ES8311: ES8311 initialized[0m
+579 [0;32m[I][FuriHalSpeaker] [0mInit OK (I2S, BCLK=41 WS=43 DOUT=42)
+581 [0;32m[I][FuriHalNfc] [0mNFC HAL: no NFC hardware on this board
+[0;32mI (1270) FuriHal: Init complete[0m
+591 [0;32m[I][Flipper] [0m
+	Firmware version:	1.4.3
+	Build date:		May 12 2026
+	Git Commit:		esp32-dev (0) (dirty)
+	Git Branch:		esp32-port
+603 [0;32m[I][Flipper] [0mBoot mode 0, ESP32 port
+608 [0;32m[I][Flipper] [0mStartup complete
+[0;32mI (1294) Main: Registry counts: services=11 startup=6 apps=0 settings=3 extsettings=3 external=6 internal_external=3 system=13 debug=0[0m
+[0;32mI (1306) Main: service[0]: appid=input name=InputSrv stack=4096[0m
+[0;32mI (1311) Main: service[1]: appid=cli_vcp name=CliVcpSrv stack=4096[0m
+[0;32mI (1317) Main: service[2]: appid=notification name=NotificationSrv stack=4096[0m
+[0;32mI (1324) Main: service[3]: appid=gui name=GuiSrv stack=8192[0m
+[0;32mI (1329) Main: service[4]: appid=dialogs name=DialogsSrv stack=4096[0m
+[0;32mI (1336) Main: service[5]: appid=bt name=BtSrv stack=4096[0m
+[0;32mI (1341) Main: service[6]: appid=dolphin name=DolphinSrv stack=4096[0m
+[0;32mI (1347) Main: service[7]: appid=loader name=LoaderSrv stack=4096[0m
+[0;32mI (1352) Main: service[8]: appid=power name=PowerSrv stack=4096[0m
+[0;32mI (1358) Main: service[9]: appid=storage name=StorageSrv stack=4096[0m
+[0;32mI (1364) Main: service[10]: appid=desktop name=DesktopSrv stack=4096[0m
+[0;32mI (1370) Main: settings[0]: appid=power_settings name=Power stack=4096[0m
+[0;32mI (1376) Main: settings[1]: appid=storage_settings name=Storage stack=4096[0m
+[0;32mI (1383) Main: settings[2]: appid=notification_settings name=Sound & Display stack=4096[0m
+[0;32mI (1391) Main: extsettings[0]: name=About launch=about[0m
+[0;32mI (1395) Main: extsettings[1]: name=Bluetooth launch=bt_settings[0m
+[0;32mI (1401) Main: extsettings[2]: name=Passport launch=passport[0m
+[1;31mE (1409) i2c: i2c driver install error[0m
+[1;31mE (1410) FuriHalI2cBus: i2c_driver_install failed: ESP_FAIL[0m
+[0;32mI (1417) InputCardputerAdv: Cardputer-ADV TCA8418 input initialised[0m
+740 [0;32m[I][Input] [0mInput service started
+757 [0;32m[I][SavedStruct] [0mLoading "/int/.notification.settings" -> NVS key "notification_se"
+760 [0;32m[I][NotificationSrv] [0mLOAD ok: brightness=1.00 vol=1.00 delay_ms=30000
+813 [0;32m[I][RpcSrv] [0mRPC service initialized
+817 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+848 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+852 [0;32m[I][Loader] [0mLoader service started
+873 [0;32m[I][StorageExt] [0mcard detected
+[0;32mI (1557) FuriHalSd: Initializing SD card on SPI3_HOST, CS=GPIO12[0m
+[0;32mI (1561) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (1567) FuriHalSd: SDSPI config: host=2 cs=12 target_probe_freq_khz=20000[0m
+[0;32mI (1584) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1589) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1610) Main: All services started, entering background...[0m
+[0;32mI (1634) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+Name: SD8GB
+Type: SDHC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: 7384MB
+CSD: ver=2, sector_size=512, capacity=15122432 read_bl_len=9
+SSR: bus_width=1
+993 [0;32m[I][StorageExt] [0mcard mounted
+999 [0;32m[I][SavedStruct] [0mLoading "/int/.dolphin.state" -> NVS key "dolphin_state"
+1005 [0;32m[I][BtSrv] [0mKeys unchanged
+1008 [0;32m[I][BtSrv] [0mbt_start_application: current_profile=0x0
+1016 [0;32m[I][BtSrv] [0mStarting ble_profile_serial...
+1019 [0;32m[I][SavedStruct] [0mLoading "/int/.power.settings" -> NVS key "power_settings"
+[0;32mI (1706) BLE_INIT: BT controller compile version [d74042a][0m
+[0;32mI (1718) BLE_INIT: Bluetooth MAC: 3c:0f:02:e9:6b:02[0m
+[0;32mI (1726) phy_init: phy_version 700,8582a7fd,Feb 10 2025,20:13:11[0m
+[0;32mI (1840) ble_serial: alloc name=Flipper Edge bonding=1 pairing=0[0m
+[0;32mI (1843) ble_serial: alloc: registering GAP callback[0m
+[0;32mI (1843) ble_serial: alloc: registering GATTS callback[0m
+[0;32mI (1848) ble_serial: alloc: applying security config[0m
+[0;32mI (1856) ble_serial: alloc: configuring advertising, has_custom_mac=0[0m
+[0;32mI (1859) ble_serial: adv_config name_len=12 adv_name_len=12 raw_len=21[0m
+[0;32mI (1869) ble_serial: gap: adv data set complete[0m
+[0;32mI (1870) ble_serial: try_start_adv: requested=0 adv_pending=0 rand_pending=0 advertising=0 active=0x3fcdf95c connected=0 svc_started=0[0m
+[0;33mW (1880) ble_serial:   blocked: not requested[0m
+[0;32mI (1885) ble_serial: alloc: adv configured, adv_data_pending=0[0m
+[0;32mI (1891) ble_serial: alloc: registering GATTS app (async)[0m
+[0;32mI (1897) ble_serial: gatts: app registered, gatts_if=3[0m
+[0;32mI (1903) ble_serial: gatts: serial attr table created, starting service[0m
+[0;32mI (1907) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1911) ble_serial: gatts: creating DIS attribute table...[0m
+[0;32mI (1918) ble_serial: gatts: DIS attr table created, starting service[0m
+[0;32mI (1923) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1927) ble_serial: gatts: creating BAS attribute table...[0m
+[0;32mI (1934) ble_serial: gatts: BAS attr table created, starting service[0m
+[0;32mI (1939) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1943) ble_serial: gatts: BAS started, all services ready[0m
+[0;32mI (1952) ble_serial: alloc: waiting for GATT service start...[0m
+[0;32mI (1954) ble_serial: Serial service ready, adv_data_pending=0 rand_addr_pending=0[0m
+[0;32mI (1962) FuriHalBt: BLE profile started[0m
+1283 [0;32m[I][BtSrv] [0mBLE App started OK, profile=0x3fcd7078
+1288 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+1298 [0;32m[I][BtSrv] [0mbt_apply_settings: enabled=1
+[0;32mI (1983) FuriHalBt: furi_hal_bt_start_advertising: profile=0x3fcd7078[0m
+[0;32mI (1989) FuriHalBt:   is_hid=0 is_serial=1[0m
+[0;32mI (1993) ble_serial: ble_serial_start_advertising called, active=0x3fcdf95c[0m
+[0;32mI (2000) ble_serial: try_start_adv: requested=1 adv_pending=0 rand_pending=0 advertising=0 active=0x3fcdf95c connected=0 svc_started=1[0m
+[0;32mI (2011) ble_serial:   -> calling esp_ble_gap_start_advertising[0m
+[0;32mI (2024) ble_serial: gap: advertising started[0m
+[0;32mI (2026) ble_serial:   -> advertising started OK[0m
+[0;32mI (2027) ble_serial: ble_serial_start_advertising returning 1[0m
+[0;32mI (2031) FuriHalBt:   started=1[0m
+1353 [0;32m[I][BtSrv] [0mBtSrv ready (enabled=1)
+5101 [0;32m[I][AnimationManager] [0mSelect 'L1_Kaiju_128x64' animation
+5158 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+[0;32mI (95457) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (95459) InputCardputerAdv:   -> nav key: 4[0m
+
+[BANIM] key=4 type=0
+
+[DMAIN] key=4 type=0 dummy=0
+[0;32mI (95610) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (95611) InputCardputerAdv:   -> nav key: 4[0m
+
+[BANIM] key=4 type=2
+
+[DMAIN] key=4 type=2 dummy=0
+
+[BANIM] key=4 type=1
+
+[DMAIN] key=4 type=1 dummy=0
+
+[LM] thread_start free=3568
+
+[LM] settings_counts internal=3 external=3
+
+[LM] settings_internal[0] appid=power_settings name=Power
+
+[LM] settings_internal[1] appid=storage_settings name=Storage
+
+[LM] settings_internal[2] appid=notification_settings name=Sound & Display
+
+[LM] settings_external[0] launch=about name=About
+
+[LM] settings_external[1] launch=bt_settings name=Bluetooth
+
+[LM] settings_external[2] launch=passport name=Passport
+
+[LM] app_alloc free=2960
+
+[LM] attached free=2960
+[0;32mI (97671) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (97673) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (97803) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (97805) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (98044) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (98046) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (98155) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (98157) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (98437) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (98439) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (98550) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (98552) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (98767) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (98769) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (98877) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (98879) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (99138) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (99140) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (99228) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (99230) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (99552) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 PRESS[0m
+[0;32mI (99554) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (99644) InputCardputerAdv: TCA8418 key: id=0x39(57) row=5 col=6 RELEASE[0m
+[0;32mI (99646) InputCardputerAdv:   -> nav key: 0[0m
+[0;32mI (100183) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (100185) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (100293) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (100294) InputCardputerAdv:   -> nav key: 4[0m
+
+[LDR] start_by_name name='infrared'
+99620 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Kaiju_128x64'
+[LDR] find_app('infrared')=0x3c200f78
+[LDR] found name='Infrared' appid='infrared' stack=8192
+99630 [0;32m[I][Loader] [0mStarting Infrared
+99644 [0;32m[I][SavedStruct] [0mLoading "/ext/infrared/.infrared.settings" -> NVS key "infrared_settin"
+[0;32mI (101682) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (101685) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (101815) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (101817) InputCardputerAdv:   -> nav key: 4[0m
+101141 [0;33m[W][ViewPort] [0mViewPort lockup: see ./components/gui/view_port.c:185
+101183 [0;33m[W][ViewPort] [0mViewPort lockup: see ./components/gui/view_port.c:185
+[0;32mI (102903) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (102905) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (103039) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (103041) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (111206) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (111208) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (111365) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (111367) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (114551) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (114553) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (114704) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (114706) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (114814) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (114816) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (114903) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (114904) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (115013) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (115016) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (115103) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (115104) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (115888) InputCardputerAdv: TCA8418 key: id=0x01(1) row=0 col=0 PRESS[0m
+[0;33mW (115890) InputCardputerAdv:   -> UNMAPPED key id=0x01(1) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (116023) InputCardputerAdv: TCA8418 key: id=0x01(1) row=0 col=0 RELEASE[0m
+[0;33mW (116025) InputCardputerAdv:   -> UNMAPPED key id=0x01(1) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (116576) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (116578) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (116690) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (116692) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (116863) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (116865) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (116996) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (116998) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (117974) InputCardputerAdv: TCA8418 key: id=0x04(4) row=0 col=3 PRESS[0m
+[0;33mW (117976) InputCardputerAdv:   -> UNMAPPED key id=0x04(4) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (118129) InputCardputerAdv: TCA8418 key: id=0x04(4) row=0 col=3 RELEASE[0m
+[0;33mW (118131) InputCardputerAdv:   -> UNMAPPED key id=0x04(4) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (119746) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (119748) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (119856) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (119857) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (120154) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (120156) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (120242) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (120243) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (120877) InputCardputerAdv: TCA8418 key: id=0x01(1) row=0 col=0 PRESS[0m
+[0;33mW (120879) InputCardputerAdv:   -> UNMAPPED key id=0x01(1) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (121030) InputCardputerAdv: TCA8418 key: id=0x01(1) row=0 col=0 RELEASE[0m
+[0;33mW (121031) InputCardputerAdv:   -> UNMAPPED key id=0x01(1) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (121371) InputCardputerAdv: TCA8418 key: id=0x01(1) row=0 col=0 PRESS[0m
+[0;33mW (121372) InputCardputerAdv:   -> UNMAPPED key id=0x01(1) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (121523) InputCardputerAdv: TCA8418 key: id=0x01(1) row=0 col=0 RELEASE[0m
+[0;33mW (121524) InputCardputerAdv:   -> UNMAPPED key id=0x01(1) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (122242) InputCardputerAdv: TCA8418 key: id=0x04(4) row=0 col=3 PRESS[0m
+[0;33mW (122244) InputCardputerAdv:   -> UNMAPPED key id=0x04(4) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (122374) InputCardputerAdv: TCA8418 key: id=0x04(4) row=0 col=3 RELEASE[0m
+[0;33mW (122375) InputCardputerAdv:   -> UNMAPPED key id=0x04(4) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (122505) InputCardputerAdv: TCA8418 key: id=0x04(4) row=0 col=3 PRESS[0m
+[0;33mW (122506) InputCardputerAdv:   -> UNMAPPED key id=0x04(4) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (122657) InputCardputerAdv: TCA8418 key: id=0x04(4) row=0 col=3 RELEASE[0m
+[0;33mW (122658) InputCardputerAdv:   -> UNMAPPED key id=0x04(4) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (123019) InputCardputerAdv: TCA8418 key: id=0x0D(13) row=1 col=2 PRESS[0m
+[0;33mW (123021) InputCardputerAdv:   -> UNMAPPED key id=0x0D(13) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (123025) InputCardputerAdv: TCA8418 key: id=0x11(17) row=1 col=6 PRESS[0m
+[0;33mW (123031) InputCardputerAdv:   -> UNMAPPED key id=0x11(17) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (123124) InputCardputerAdv: TCA8418 key: id=0x11(17) row=1 col=6 RELEASE[0m
+[0;33mW (123124) InputCardputerAdv:   -> UNMAPPED key id=0x11(17) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (123150) InputCardputerAdv: TCA8418 key: id=0x0D(13) row=1 col=2 RELEASE[0m
+[0;33mW (123150) InputCardputerAdv:   -> UNMAPPED key id=0x0D(13) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (123449) InputCardputerAdv: TCA8418 key: id=0x17(23) row=2 col=2 PRESS[0m
+[0;33mW (123450) InputCardputerAdv:   -> UNMAPPED key id=0x17(23) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (123580) InputCardputerAdv: TCA8418 key: id=0x17(23) row=2 col=2 RELEASE[0m
+[0;33mW (123580) InputCardputerAdv:   -> UNMAPPED key id=0x17(23) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (124215) InputCardputerAdv: TCA8418 key: id=0x1B(27) row=2 col=6 PRESS[0m
+[0;33mW (124217) InputCardputerAdv:   -> UNMAPPED key id=0x1B(27) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (124347) InputCardputerAdv: TCA8418 key: id=0x1B(27) row=2 col=6 RELEASE[0m
+[0;33mW (124348) InputCardputerAdv:   -> UNMAPPED key id=0x1B(27) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (124604) InputCardputerAdv: TCA8418 key: id=0x11(17) row=1 col=6 PRESS[0m
+[0;33mW (124605) InputCardputerAdv:   -> UNMAPPED key id=0x11(17) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (124630) InputCardputerAdv: TCA8418 key: id=0x0D(13) row=1 col=2 PRESS[0m
+[0;33mW (124631) InputCardputerAdv:   -> UNMAPPED key id=0x0D(13) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (124719) InputCardputerAdv: TCA8418 key: id=0x0D(13) row=1 col=2 RELEASE[0m
+[0;33mW (124719) InputCardputerAdv:   -> UNMAPPED key id=0x0D(13) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (124745) InputCardputerAdv: TCA8418 key: id=0x11(17) row=1 col=6 RELEASE[0m
+[0;33mW (124747) InputCardputerAdv:   -> UNMAPPED key id=0x11(17) — update KB_ADV_KEY_* in board header[0m
+[0;32mI (125843) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 PRESS[0m
+[0;32mI (125845) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (125952) InputCardputerAdv: TCA8418 key: id=0x41(65) row=6 col=4 RELEASE[0m
+[0;32mI (125954) InputCardputerAdv:   -> nav key: 5[0m
+[0;32mI (126313) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 PRESS[0m
+[0;32mI (126314) InputCardputerAdv:   -> nav key: 4[0m
+[0;32mI (126400) InputCardputerAdv: TCA8418 key: id=0x43(67) row=6 col=6 RELEASE[0m
+[0;32mI (126401) InputCardputerAdv:   -> nav key: 4[0m
