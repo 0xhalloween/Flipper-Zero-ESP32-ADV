@@ -1,0 +1,48 @@
+--- build.sh
++++ build.sh
+@@ -19,6 +19,8 @@ declare -A TARGETS=(
+     ["esp32s3"]="esp32s3"
+     ["waveshare_c6"]="esp32c6"
+     ["t_embed"]="esp32s3"
++    ["cardputer"]="esp32s3"
++    ["cardputer_adv"]="esp32s3"
+ )
+ 
+ declare -A NAMES=(
+@@ -26,6 +28,8 @@ declare -A NAMES=(
+     ["esp32s3"]="esp32s3_generic"
+     ["waveshare_c6"]="waveshare_c6_1.9"
+     ["t_embed"]="lilygo_t_embed_cc1101"
++    ["cardputer"]="m5stack_cardputer"
++    ["cardputer_adv"]="m5stack_cardputer_adv"
+ )
+ 
+ declare -A DIRS=(
+@@ -33,6 +37,8 @@ declare -A DIRS=(
+     ["esp32s3"]="build_s3"
+     ["waveshare_c6"]="build_waveshare_c6"
+     ["t_embed"]="build_t_embed"
++    ["cardputer"]="build_cardputer"
++    ["cardputer_adv"]="build_cardputer_adv"
+ )
+ 
+ usage() {
+@@ -40,7 +46,7 @@ usage() {
+ cat <<EOF
+ Usage: $(basename "$0") --board <name> [options]
+ 
+-Boards: esp32s3, waveshare_c6, t_embed
++Boards: esp32s3, waveshare_c6, t_embed, cardputer, cardputer_adv
+ 
+ Options: -p|--port, -m|--monitor, --build-only
+ EOF
+@@ -65,7 +71,7 @@ done
+ 
+-if [[ -z "${SELECTED_BOARD}" || -z "${NAMES[$SELECTED_BOARD]+x}" ]]; then
+-    echo "Error: Valid --board required (esp32s3, waveshare_c6, t_embed)." >&2
++if [[ -z "${SELECTED_BOARD}" || -z "${NAMES[$SELECTED_BOARD]+x}" ]]; then
++    echo "Error: Valid --board required (esp32s3, waveshare_c6, t_embed, cardputer, cardputer_adv)." >&2
+     exit 1
+ fi
+ 
+ 

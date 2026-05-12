@@ -1,0 +1,7 @@
+# Target-specific overrides for M5Stack Cardputer-ADV
+CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
+CONFIG_ESPTOOLPY_FLASHSIZE="8MB"
+
+# 8 MB Octal PSRAM on Stamp-S3A module (ESP32-S3FN8 + PSRAM8)
+# Re-enabled after confirmed stable boot.
+CONFIG_SPIRAM=n

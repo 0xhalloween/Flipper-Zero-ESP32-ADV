@@ -1,0 +1,4 @@
+# Target-specific overrides for M5Stack Cardputer
+CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
+CONFIG_ESPTOOLPY_FLASHSIZE="8MB"
+CONFIG_SPIRAM=n
