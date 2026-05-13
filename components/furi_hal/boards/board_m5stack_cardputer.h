@@ -38,6 +38,10 @@
 
 #pragma once
 
+/* Keyboard uses GPIO matrix scan — no I2C keyboard controller */
+/* KB_I2C_PIN_SDA intentionally not defined */
+#define BOARD_KB_TYPE_GPIO_MATRIX
+
 /* ---- Board metadata ---- */
 #define BOARD_NAME        "M5Stack Cardputer"
 #define BOARD_TARGET      "esp32s3"
