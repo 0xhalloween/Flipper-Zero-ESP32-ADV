@@ -184,6 +184,11 @@ static int32_t speaker_writer_thread(void* context) {
 /* ---- Public API ---- */
 
 void furi_hal_speaker_init(void) {
+    if(!GPIO_IS_VALID_GPIO(FURI_HAL_SPEAKER_GPIO)) {
+        FURI_LOG_W(TAG, "Speaker GPIO %d not valid for this board, skipping init", (int)FURI_HAL_SPEAKER_GPIO);
+        return;
+    }
+
     furi_assert(speaker_mutex == NULL);
     speaker_mutex = furi_mutex_alloc(FuriMutexTypeNormal);
 
