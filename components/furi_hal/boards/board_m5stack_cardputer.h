@@ -69,8 +69,8 @@
 #define BOARD_LCD_MIRROR_X      true
 #define BOARD_LCD_MIRROR_Y      false
 #define BOARD_LCD_INVERT_COLOR  true    /* ST7789V2 uses inversion ON */
-#define BOARD_LCD_GAP_X         0
-#define BOARD_LCD_GAP_Y         0
+#define BOARD_LCD_GAP_X         40
+#define BOARD_LCD_GAP_Y         53
 #define BOARD_LCD_BL_ACTIVE_LOW false   /* Backlight active-high */
 #define BOARD_LCD_COLOR_ORDER_BGR false
 
@@ -80,9 +80,9 @@
 
 /* ---- SD Card via SPI3 (separate from LCD SPI2) ---- */
 #define BOARD_PIN_SD_CS         12
-#define BOARD_PIN_SD_MOSI       40      /* NOTE: also KB col GPIO40 — see file header */
-#define BOARD_PIN_SD_MISO       39      /* NOTE: also KB col GPIO39 */
-#define BOARD_PIN_SD_SCLK       47
+#define BOARD_PIN_SD_MOSI       14      
+#define BOARD_PIN_SD_MISO       39      /* NOTE: also KB col GPIO39 — see file header */
+#define BOARD_PIN_SD_SCLK       40      /* NOTE: also KB col GPIO40 */
 
 /* Tell furi_hal_sd.c to use SPI3 instead of SPI2.
  * The SD driver will initialise its own bus on these pins. */
@@ -162,13 +162,10 @@
 #define BOARD_PIN_NFC_RST       UINT16_MAX
 #define BOARD_NFC_I2C_PORT      I2C_NUM_0
 
-/* ---- Speaker (buzzer via DAC / ledc — no I2S amp) ---- */
-/* On standard Cardputer the speaker is driven by a passive buzzer on GPIO2.
- * The I2S speaker path is NOT wired on the standard model.
- * Set to UINT16_MAX to disable I2S speaker init. */
+/* ---- Speaker (buzzer via GPIO2) ---- */
 #define BOARD_PIN_SPEAKER_BCLK  UINT16_MAX
 #define BOARD_PIN_SPEAKER_WCLK  UINT16_MAX
-#define BOARD_PIN_SPEAKER_DOUT  UINT16_MAX
+#define BOARD_PIN_SPEAKER_DOUT  2   /* Buzzer is on GPIO2 */
 
 /* ---- Microphone (PDM) ---- */
 #define BOARD_PIN_MIC_DATA      43
@@ -184,7 +181,7 @@
 #define BOARD_RFID_UART_NUM     1
 
 /* ---- Grove / Qwiic I2C ---- */
-#define BOARD_PIN_QWIIC_SDA     2
+#define BOARD_PIN_QWIIC_SDA     UINT16_MAX /* Moved to Speaker (GPIO2) */
 #define BOARD_PIN_QWIIC_SCL     1
 
 /* ---- Feature flags ---- */
@@ -194,7 +191,7 @@
 #define BOARD_HAS_BLE           1
 #define BOARD_HAS_RGB_LED       0
 #define BOARD_HAS_VIBRO         0
-#define BOARD_HAS_SPEAKER       0   /* No I2S amp; buzzer only via ledc */
+#define BOARD_HAS_SPEAKER       1   /* Buzzer enabled */
 #define BOARD_HAS_IR            1
 #define BOARD_HAS_IBUTTON       0
 #define BOARD_HAS_RFID          0
