@@ -282,7 +282,7 @@ void furi_hal_power_init(void) {
 
     /* Initialize shared I2C bus for power ICs (BQ27220 + BQ25896) */
 #if defined(BOARD_PIN_QWIIC_SDA) && defined(BOARD_PIN_QWIIC_SCL)
-    {
+    if(GPIO_IS_VALID_GPIO(I2C_SDA_GPIO) && GPIO_IS_VALID_GPIO(I2C_SCL_GPIO)) {
         i2c_config_t conf = {
             .mode = I2C_MODE_MASTER,
             .sda_io_num = BOARD_PIN_QWIIC_SDA,
@@ -296,6 +296,8 @@ void furi_hal_power_init(void) {
         if(i2c_err != ESP_OK && i2c_err != ESP_ERR_INVALID_STATE) {
             ESP_LOGW(TAG, "Power I2C bus init failed: %s", esp_err_to_name(i2c_err));
         }
+    } else {
+        ESP_LOGW(TAG, "I2C pins not configured for this board, skipping");
     }
 #endif
 
