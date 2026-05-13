@@ -166,6 +166,7 @@
 #define BOARD_PIN_SPEAKER_BCLK  UINT16_MAX
 #define BOARD_PIN_SPEAKER_WCLK  UINT16_MAX
 #define BOARD_PIN_SPEAKER_DOUT  2   /* Buzzer is on GPIO2 */
+#define FURI_HAL_SPEAKER_GPIO   BOARD_PIN_SPEAKER_WCLK
 
 /* ---- Microphone (PDM) ---- */
 #define BOARD_PIN_MIC_DATA      43
@@ -183,6 +184,8 @@
 /* ---- Grove / Qwiic I2C ---- */
 #define BOARD_PIN_QWIIC_SDA     UINT16_MAX /* Moved to Speaker (GPIO2) */
 #define BOARD_PIN_QWIIC_SCL     1
+#define I2C_SDA_GPIO            BOARD_PIN_QWIIC_SDA
+#define I2C_SCL_GPIO            BOARD_PIN_QWIIC_SCL
 
 /* ---- Feature flags ---- */
 #define BOARD_HAS_TOUCH         0
