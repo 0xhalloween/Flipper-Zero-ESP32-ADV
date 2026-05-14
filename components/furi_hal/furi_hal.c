@@ -10,13 +10,17 @@ static const char* TAG = "FuriHal";
 void furi_hal_init_early(void) {
     furi_hal_cortex_init_early();
 
-    /* Cardputer-ADV: Force backlight ON as early as possible */
+    /* Force backlight ON as early as possible */
     gpio_config_t bl_cfg = {
         .mode = GPIO_MODE_OUTPUT,
-        .pin_bit_mask = 1ULL << 38,
+        .pin_bit_mask = 1ULL << BOARD_PIN_LCD_BL,
     };
     gpio_config(&bl_cfg);
-    gpio_set_level(38, 1);
+#if defined(BOARD_LCD_BL_ACTIVE_LOW) && BOARD_LCD_BL_ACTIVE_LOW
+    gpio_set_level(BOARD_PIN_LCD_BL, 0);
+#else
+    gpio_set_level(BOARD_PIN_LCD_BL, 1);
+#endif
 
 #ifdef BOARD_PIN_PWR_EN
     /* Power-enable must be set early — powers CC1101, BQ27220 fuel gauge, WS2812 */
