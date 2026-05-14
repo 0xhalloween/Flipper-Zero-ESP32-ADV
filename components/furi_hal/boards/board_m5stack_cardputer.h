@@ -79,6 +79,7 @@
 #define BOARD_LCD_BG_COLOR      0x0000  /* Black */
 
 /* ---- SD Card via SPI3 (separate from LCD SPI2) ---- */
+#define BOARD_HAS_SD            1
 #define BOARD_PIN_SD_CS         12
 #define BOARD_PIN_SD_MOSI       14      
 #define BOARD_PIN_SD_MISO       39      /* NOTE: also KB col GPIO39 — see file header */
@@ -88,28 +89,26 @@
  * The SD driver will initialise its own bus on these pins. */
 #define BOARD_SD_SPI_HOST       SPI3_HOST
 
-/* ---- GPIO Matrix Keyboard ---- */
-/* Output pins (driven LOW one at a time to scan rows) */
-#define BOARD_KB_ROW_COUNT  7
-#define BOARD_KB_COL_COUNT  7
+/* ---- 74HC138 Keyboard Decoder (Original/v1.1) ---- */
+#define BOARD_KB_TYPE_74HC138
 
-/* Row output GPIOs — order matches M5Cardputer Keyboard.cpp */
-#define BOARD_KB_ROW0  8
-#define BOARD_KB_ROW1  9
-#define BOARD_KB_ROW2  11
-#define BOARD_KB_ROW3  13
-#define BOARD_KB_ROW4  15
-#define BOARD_KB_ROW5  3
-#define BOARD_KB_ROW6  4
+/* Decoder Address Pins (outputs) */
+#define BOARD_KB_PIN_A0         8
+#define BOARD_KB_PIN_A1         9
+#define BOARD_KB_PIN_A2         11
 
-/* Column input GPIOs (internal pullup, read LOW = key pressed) */
-#define BOARD_KB_COL0  5
-#define BOARD_KB_COL1  6
-#define BOARD_KB_COL2  7
-#define BOARD_KB_COL3  42
-#define BOARD_KB_COL4  41
-#define BOARD_KB_COL5  40   /* Shared with SD MOSI — see note above */
-#define BOARD_KB_COL6  39   /* Shared with SD MISO — see note above */
+/* Column Input Pins (internal pullup) */
+#define BOARD_KB_COL_COUNT      7
+#define BOARD_KB_PIN_COL0       13
+#define BOARD_KB_PIN_COL1       15
+#define BOARD_KB_PIN_COL2       3
+#define BOARD_KB_PIN_COL3       4
+#define BOARD_KB_PIN_COL4       5
+#define BOARD_KB_PIN_COL5       6
+#define BOARD_KB_PIN_COL6       7
+
+/* Legacy compatibility macros (will be replaced in target_input.c) */
+#define BOARD_KB_ROW_COUNT      8
 
 /* ---- Encoder / Rotary input — NOT PRESENT ---- */
 #define BOARD_PIN_ENCODER_A     UINT16_MAX
