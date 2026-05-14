@@ -194,15 +194,19 @@
 /* ---- Grove / Qwiic I2C ---- */
 #define BOARD_PIN_QWIIC_SDA     2
 #define BOARD_PIN_QWIIC_SCL     1
+#define I2C_SDA_GPIO            BOARD_PIN_QWIIC_SDA
+#define I2C_SCL_GPIO            BOARD_PIN_QWIIC_SCL
 
 /* ---- Feature flags ---- */
 #define BOARD_HAS_TOUCH         0
 #define BOARD_HAS_ENCODER       0
 #define BOARD_HAS_SD_CARD       1
 #define BOARD_HAS_BLE           1
+#define BOARD_HAS_RGB_LED       0
 #define BOARD_HAS_VIBRO         0
 #define BOARD_HAS_SPEAKER       1
-#define BOARD_HAS_IR            1
+#define FURI_HAL_SPEAKER_GPIO   BOARD_PIN_SPEAKER_DOUT
+
 #define BOARD_HAS_IBUTTON       0
 #define BOARD_HAS_RFID          0
 #define BOARD_HAS_NFC           0
