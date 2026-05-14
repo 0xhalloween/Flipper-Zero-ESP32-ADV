@@ -24,6 +24,7 @@
 #include <furi.h>
 
 #include "furi_hal_resources.h"
+#include <math.h>
 
 #define TAG "FuriHalPower"
 
