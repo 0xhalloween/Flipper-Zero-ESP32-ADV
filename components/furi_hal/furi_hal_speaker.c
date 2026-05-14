@@ -28,9 +28,8 @@
 
 #include <driver/i2s_std.h>
 #include <driver/gpio.h>
-#include <esp_timer.h>
-
 #include <math.h>
+#include <esp_timer.h>
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
