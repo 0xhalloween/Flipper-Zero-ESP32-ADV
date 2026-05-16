@@ -70,6 +70,12 @@ target_compile_definitions(${COMPONENT_LIB} PUBLIC
     BOARD_INCLUDE="board_${FLIPPER_BOARD}.h"
 )
 
+if(FLIPPER_BOARD STREQUAL "m5stack_cardputer_adv")
+    target_compile_definitions(${COMPONENT_LIB} PRIVATE BOARD_M5STACK_CARDPUTER_ADV=1)
+elseif(FLIPPER_BOARD STREQUAL "m5stack_cardputer")
+    target_compile_definitions(${COMPONENT_LIB} PRIVATE BOARD_M5STACK_CARDPUTER=1)
+endif()
+
 target_compile_options(${COMPONENT_LIB} PRIVATE
     -Wno-error=implicit-function-declaration
     -Wno-error=builtin-declaration-mismatch

@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+#include <math.h>
 #include "mf_classic_poller_i.h"
 
 #include <protocols/nfc_poller_base.h>

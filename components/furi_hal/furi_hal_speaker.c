@@ -13,6 +13,10 @@
  * peripheral; frequency and volume changes regenerate the buffer.
  */
 
+#include <math.h>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 #include "furi_hal_speaker.h"
 #include "boards/board.h"
 #include <furi.h>
@@ -27,12 +31,9 @@
 #if BOARD_HAS_SPEAKER
 
 #include <driver/i2s_std.h>
-#include <driver/gpio.h>
 #include <math.h>
+#include <driver/gpio.h>
 #include <esp_timer.h>
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
 
 /* ---- Configuration ---- */
 #define SPEAKER_SAMPLE_RATE   44100

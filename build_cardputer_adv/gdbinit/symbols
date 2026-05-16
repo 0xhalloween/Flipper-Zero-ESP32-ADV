@@ -13,8 +13,8 @@ end
 
 # Load bootloader symbols
 set confirm off
-    add-symbol-file /home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/bootloader/bootloader.elf
+    add-symbol-file /home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/bootloader/bootloader.elf
 set confirm on
 
 # Load application symbols
-file /home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/furi_esp32.elf
+file /home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/furi_esp32.elf

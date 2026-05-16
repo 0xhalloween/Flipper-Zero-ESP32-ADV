@@ -10,7 +10,6 @@ i2c_master_bus_handle_t furi_hal_i2c_get_bus_node(void) {
     /* We return NULL but initialize the legacy driver for internal components.
      * The target_input.c and speaker.c will use the legacy driver too. */
     if (!i2c_installed) {
-#ifdef KB_I2C_PIN_SDA
         i2c_config_t conf = {
             .mode = I2C_MODE_MASTER,
             .sda_io_num = KB_I2C_PIN_SDA,
@@ -31,10 +30,6 @@ i2c_master_bus_handle_t furi_hal_i2c_get_bus_node(void) {
         }
         i2c_installed = true;
         ESP_LOGI(TAG, "Shared I2C bus (LEGACY) created on GPIO%d/GPIO%d", KB_I2C_PIN_SDA, KB_I2C_PIN_SCL);
-#else
-        ESP_LOGW(TAG, "Keyboard uses GPIO matrix - I2C keyboard bus skipped");
-        i2c_installed = true;
-#endif
     }
     return NULL; // Legacy driver doesn't use bus handles
 }

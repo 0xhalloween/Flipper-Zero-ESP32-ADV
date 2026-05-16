@@ -481,6 +481,7 @@ void furi_hal_subghz_init(void) {
 
 void furi_hal_subghz_sleep(void) {
     if(furi_hal_subghz.state == FuriHalSubGhzStateInit) furi_hal_subghz_init();
+    if(!furi_hal_subghz.connected) return;
 
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_switch_to_idle(&furi_hal_spi_bus_handle_subghz);
@@ -490,6 +491,10 @@ void furi_hal_subghz_sleep(void) {
 }
 
 void furi_hal_subghz_dump_state(void) {
+    if(!furi_hal_subghz.connected) {
+        printf("[furi_hal_subghz] CC1101 not connected\r\n");
+        return;
+    }
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     printf(
         "[furi_hal_subghz] cc1101 chip %u, version %u\r\n",
@@ -500,6 +505,7 @@ void furi_hal_subghz_dump_state(void) {
 
 void furi_hal_subghz_load_custom_preset(const uint8_t* preset_data) {
     furi_check(preset_data);
+    if(!furi_hal_subghz.connected) return;
     furi_hal_subghz_reset();
 
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
@@ -517,6 +523,7 @@ void furi_hal_subghz_load_custom_preset(const uint8_t* preset_data) {
 
 void furi_hal_subghz_load_registers(const uint8_t* data) {
     furi_check(data);
+    if(!furi_hal_subghz.connected) return;
     furi_hal_subghz_reset();
 
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
@@ -530,6 +537,7 @@ void furi_hal_subghz_load_registers(const uint8_t* data) {
 
 void furi_hal_subghz_load_patable(const uint8_t data[8]) {
     furi_check(data);
+    if(!furi_hal_subghz.connected) return;
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_set_pa_table(&furi_hal_spi_bus_handle_subghz, data);
     furi_hal_spi_release(&furi_hal_spi_bus_handle_subghz);
@@ -538,6 +546,7 @@ void furi_hal_subghz_load_patable(const uint8_t data[8]) {
 void furi_hal_subghz_write_packet(const uint8_t* data, uint8_t size) {
     furi_check(data);
     furi_check(size);
+    if(!furi_hal_subghz.connected) return;
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_flush_tx(&furi_hal_spi_bus_handle_subghz);
     cc1101_write_reg(&furi_hal_spi_bus_handle_subghz, CC1101_FIFO, size);
@@ -546,6 +555,7 @@ void furi_hal_subghz_write_packet(const uint8_t* data, uint8_t size) {
 }
 
 bool furi_hal_subghz_rx_pipe_not_empty(void) {
+    if(!furi_hal_subghz.connected) return false;
     CC1101RxBytes status = {0};
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_read_reg(
@@ -557,6 +567,7 @@ bool furi_hal_subghz_rx_pipe_not_empty(void) {
 }
 
 bool furi_hal_subghz_is_rx_data_crc_valid(void) {
+    if(!furi_hal_subghz.connected) return false;
     uint8_t data = 0;
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_read_reg(&furi_hal_spi_bus_handle_subghz, CC1101_STATUS_LQI | CC1101_BURST, &data);
@@ -567,18 +578,24 @@ bool furi_hal_subghz_is_rx_data_crc_valid(void) {
 void furi_hal_subghz_read_packet(uint8_t* data, uint8_t* size) {
     furi_check(data);
     furi_check(size);
+    if(!furi_hal_subghz.connected) {
+        *size = 0;
+        return;
+    }
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_read_fifo(&furi_hal_spi_bus_handle_subghz, data, size);
     furi_hal_spi_release(&furi_hal_spi_bus_handle_subghz);
 }
 
 void furi_hal_subghz_flush_rx(void) {
+    if(!furi_hal_subghz.connected) return;
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_flush_rx(&furi_hal_spi_bus_handle_subghz);
     furi_hal_spi_release(&furi_hal_spi_bus_handle_subghz);
 }
 
 void furi_hal_subghz_flush_tx(void) {
+    if(!furi_hal_subghz.connected) return;
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_flush_tx(&furi_hal_spi_bus_handle_subghz);
     furi_hal_spi_release(&furi_hal_spi_bus_handle_subghz);
@@ -589,6 +606,7 @@ void furi_hal_subghz_shutdown(void) {
 }
 
 void furi_hal_subghz_reset(void) {
+    if(!furi_hal_subghz.connected) return;
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_switch_to_idle(&furi_hal_spi_bus_handle_subghz);
     cc1101_reset(&furi_hal_spi_bus_handle_subghz);
@@ -599,6 +617,7 @@ void furi_hal_subghz_reset(void) {
 }
 
 void furi_hal_subghz_idle(void) {
+    if(!furi_hal_subghz.connected) return;
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_switch_to_idle(&furi_hal_spi_bus_handle_subghz);
     cc1101_wait_status_state(&furi_hal_spi_bus_handle_subghz, CC1101StateIDLE, 10000);
@@ -607,6 +626,7 @@ void furi_hal_subghz_idle(void) {
 }
 
 void furi_hal_subghz_rx(void) {
+    if(!furi_hal_subghz.connected) return;
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_switch_to_rx(&furi_hal_spi_bus_handle_subghz);
     cc1101_wait_status_state(&furi_hal_spi_bus_handle_subghz, CC1101StateRX, 10000);
@@ -614,6 +634,7 @@ void furi_hal_subghz_rx(void) {
 }
 
 bool furi_hal_subghz_tx(void) {
+    if(!furi_hal_subghz.connected) return false;
     if(furi_hal_subghz.regulation != FuriHalSubGhzRegulationTxRx) return false;
 
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
@@ -624,6 +645,7 @@ bool furi_hal_subghz_tx(void) {
 }
 
 float furi_hal_subghz_get_rssi(void) {
+    if(!furi_hal_subghz.connected) return -128.0f;
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     int32_t rssi_dec = cc1101_get_rssi(&furi_hal_spi_bus_handle_subghz);
     furi_hal_spi_release(&furi_hal_spi_bus_handle_subghz);
@@ -638,6 +660,7 @@ float furi_hal_subghz_get_rssi(void) {
 }
 
 uint8_t furi_hal_subghz_get_lqi(void) {
+    if(!furi_hal_subghz.connected) return 0;
     uint8_t data = 0;
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     cc1101_read_reg(&furi_hal_spi_bus_handle_subghz, CC1101_STATUS_LQI | CC1101_BURST, &data);
@@ -684,6 +707,8 @@ uint32_t furi_hal_subghz_set_frequency(uint32_t value) {
     furi_hal_subghz.regulation = furi_hal_subghz_is_tx_allowed(value) ?
                                      FuriHalSubGhzRegulationTxRx :
                                      FuriHalSubGhzRegulationOnlyRx;
+
+    if(!furi_hal_subghz.connected) return value;
 
     furi_hal_spi_acquire(&furi_hal_spi_bus_handle_subghz);
     uint32_t real_frequency = cc1101_set_frequency(&furi_hal_spi_bus_handle_subghz, value);
@@ -741,6 +766,8 @@ void furi_hal_subghz_start_async_rx(FuriHalSubGhzCaptureCallback callback, void*
     ESP_LOGI(TAG, "start_async_rx: GDO0=GPIO%d freq=%lu connected=%d",
         gpio_cc1101_g0.pin, (unsigned long)furi_hal_subghz.frequency, furi_hal_subghz.connected);
 
+    if(!furi_hal_subghz.connected || gpio_cc1101_g0.pin == UINT16_MAX) return;
+
     furi_hal_subghz.async_rx_callback = callback;
     furi_hal_subghz.async_rx_context = context;
     furi_hal_subghz.async_rx_last_level = furi_hal_gpio_read(&gpio_cc1101_g0);
@@ -763,6 +790,10 @@ void furi_hal_subghz_start_async_rx(FuriHalSubGhzCaptureCallback callback, void*
 }
 
 void furi_hal_subghz_stop_async_rx(void) {
+    if(!furi_hal_subghz.connected || gpio_cc1101_g0.pin == UINT16_MAX) {
+        furi_hal_subghz.state = FuriHalSubGhzStateIdle;
+        return;
+    }
     furi_hal_gpio_remove_int_callback(&gpio_cc1101_g0);
     furi_hal_gpio_init(&gpio_cc1101_g0, GpioModeInput, GpioPullNo, GpioSpeedLow);
     furi_hal_subghz.async_rx_callback = NULL;
@@ -777,6 +808,7 @@ bool furi_hal_subghz_start_async_tx(FuriHalSubGhzAsyncTxCallback callback, void*
     furi_check(furi_hal_subghz.state == FuriHalSubGhzStateIdle);
     furi_check(callback);
 
+    if(!furi_hal_subghz.connected || gpio_cc1101_g0.pin == UINT16_MAX) return false;
     if(furi_hal_subghz.regulation != FuriHalSubGhzRegulationTxRx) return false;
 
     FuriHalSubGhzAsyncTx* async_tx = &furi_hal_subghz.async_tx;

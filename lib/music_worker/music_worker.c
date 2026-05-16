@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include "music_worker.h"
 
 #include <furi_hal.h>

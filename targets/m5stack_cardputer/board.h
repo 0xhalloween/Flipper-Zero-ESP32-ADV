@@ -1,11 +1,11 @@
 #pragma once
 
 /* =========================================================================
- * board.h — M5Stack Cardputer (Stamp-S3 / ESP32-S3FN8)
+ * board.h — M5Stack Cardputer v1.0 / v1.1 (Stamp-S3 / Stamp-S3A)
  *
  * Hardware:
  *   MCU   : ESP32-S3FN8 (Xtensa LX7 dual-core, 240 MHz)
- *   Flash : 8 MB (no PSRAM on base Cardputer)
+ *   Flash : 8 MB (v1.0 has no PSRAM; v1.1 uses Stamp-S3A with PSRAM)
  *   Display: ST7789V2  240×135  (landscape)
  *   Input : 7-col × 3-row GPIO keyboard matrix (≈21 physical keys)
  *   SD    : SPI (separate bus from LCD)
@@ -65,22 +65,26 @@
 #define BOARD_SD_PIN_CS         12
 
 /* ---- Infrared ------------------------------------------------------------ */
-#define BOARD_IR_TX_PIN         44
-#define BOARD_IR_RX_PIN         (-1)   /* no IR RX on Cardputer */
+#define BOARD_HAS_IR            1
+#define BOARD_HAS_IR_TX         1
+#define BOARD_HAS_IR_RX         1      /* Dummy RX to enable Infrared App */
+#define BOARD_PIN_IR_TX         44
+#define BOARD_PIN_IR_RX         1       /* Dummy pin (Grove port SCL) */
+
+/* ---- I2C (Grove Port) ---------------------------------------------------- */
+#define BOARD_I2C_SDA_PIN       2
+#define BOARD_I2C_SCL_PIN       1
 
 /* ---- Keyboard matrix ----------------------------------------------------- *
  *
- * Physical layout (7 columns × 3 rows = 21 key positions):
+ * Physical layout (7 columns × 8 rows = 56 key positions):
  *
- *   Cols (driven LOW one at a time — outputs):
+ *   Rows are selected via 74HC138 decoder:
+ *     A0=GPIO8  A1=GPIO9  A2=GPIO11
+ *
+ *   Cols (pulled-up inputs — read while one row is driven LOW by decoder):
  *     COL0=GPIO13  COL1=GPIO15  COL2=GPIO3  COL3=GPIO4
  *     COL4=GPIO5   COL5=GPIO6   COL6=GPIO7
- *
- *   Rows (pulled-up inputs — read while one col is driven LOW):
- *     ROW0=GPIO8   ROW1=GPIO9   ROW2=GPIO11
- *
- * Key-code matrix [row][col] — values match ASCII where possible.
- * 0x00 = unused/no-key.
  *
  * Navigation mapping to Flipper InputKey:
  *   Enter       → InputKeyOk
@@ -89,17 +93,13 @@
  *   `.`         → InputKeyDown
  *   `,`         → InputKeyLeft
  *   `/`         → InputKeyRight
- *
- * (These mirror the bottom-right cluster of keys, which sits like a D-pad.)
  * -------------------------------------------------------------------------  */
 #define KB_COL_COUNT    7
-#define KB_ROW_COUNT    3
+#define KB_ROW_COUNT    8
 
-#define KB_COL_PINS     { 13, 15, 3, 4, 5, 6, 7 }
-#define KB_ROW_PINS     { 8, 9, 11 }
-
-/* Scan period (ms) — 10 ms gives responsive 100 Hz polling */
-#define KB_SCAN_PERIOD_MS   10
+#define BOARD_KB_PIN_A0 8
+#define BOARD_KB_PIN_A1 9
+#define BOARD_KB_PIN_A2 11
 
 /* Navigation key ASCII codes used in input.c */
 #define KB_NAV_UP       ';'
@@ -109,9 +109,11 @@
 #define KB_NAV_OK       '\r'    /* Enter */
 #define KB_NAV_BACK     '\b'    /* Backspace / del */
 
+
 /* ---- Capability flags ---------------------------------------------------- */
 #define BOARD_HAS_KEYBOARD      1
 #define BOARD_HAS_SD            1
+#define BOARD_HAS_IR            1
 #define BOARD_HAS_IR_TX         1
 #define BOARD_HAS_IR_RX         0
 #define BOARD_HAS_BT            1

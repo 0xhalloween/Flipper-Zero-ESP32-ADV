@@ -17,6 +17,7 @@
 #include <driver/rmt_encoder.h>
 #include <driver/gptimer.h>
 #include <driver/gpio.h>
+#include <esp_log.h>
 
 #include BOARD_INCLUDE
 
@@ -415,7 +416,7 @@ void furi_hal_infrared_async_tx_start(uint32_t freq, float duty_cycle) {
     ir_state = InfraredStateAsyncTx;
 
     /* Start TX task */
-    xTaskCreate(ir_tx_task, "ir_tx", 4096, NULL, 15, NULL);
+    xTaskCreate(ir_tx_task, "ir_tx", 2048, NULL, 15, NULL);
 }
 
 void furi_hal_infrared_async_tx_wait_termination(void) {

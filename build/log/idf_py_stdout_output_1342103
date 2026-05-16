@@ -1,0 +1,251 @@
+ec9:0x3fceb380 0x403c8975:0x3fceb4b0 0x40045c01:0x3fceb570 0x400ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40056f66
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcc4
+load:0x403cb700,len:0x2eb0
+entry 0x403c890c
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time May 16 2026 00:50:13[0m
+[0;33mW (27) boot: Unicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (30) boot: efuse block revision: v1.3[0m
+[0;32mI (34) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (37) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (45) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (65) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (78) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3c210020 size=80fd0h (528336) map[0m
+[0;32mI (182) esp_image: segment 1: paddr=00090ff8 vaddr=3fca5200 size=05838h ( 22584) load[0m
+[0;32mI (187) esp_image: segment 2: paddr=00096838 vaddr=40374000 size=097e0h ( 38880) load[0m
+[0;32mI (196) esp_image: segment 3: paddr=000a0020 vaddr=42000020 size=200b28h (2100008) map[0m
+[0;32mI (566) esp_image: segment 4: paddr=002a0b50 vaddr=4037d7e0 size=17954h ( 96596) load[0m
+[0;32mI (587) esp_image: segment 5: paddr=002b84ac vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (600) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (600) boot: Disabling RNG early entropy source...[0m
+[1;31mE (610) quad_psram: PSRAM ID read error: 0x00ffffff, PSRAM chip not found or not supported, or wrong PSRAM line mode[0m
+E cpu_start: Failed to init external RAM, needed for external .bss segment
+
+abort() was called at PC 0x403759cc on core 0
+
+
+Backtrace: 0x40375ff5:0x3fceb230 0x40385b0d:0x3fceb250 0x4038fab9:0x3fceb270 0x403759cc:0x3fceb2e0 0x403ccba2:0x3fceb340 0x403ccec9:0x3fceb380 0x403c8975:0x3fceb4b0 0x40045c01:0x3fceb570 0x40043ab6:0x3fceb6f0 0x40034c45:0x3fceb710
+
+
+
+
+ELF file SHA256: 
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375fa8
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcc4
+load:0x403cb700,len:0x2eb0
+entry 0x403c890c
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time May 16 2026 00:50:13[0m
+[0;33mW (26) boot: Unicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (29) boot: efuse block revision: v1.3[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (37) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3c210020 size=80fd0h (528336) map[0m
+[0;32mI (181) esp_image: segment 1: paddr=00090ff8 vaddr=3fca5200 size=05838h ( 22584) load[0m
+[0;32mI (186) esp_image: segment 2: paddr=00096838 vaddr=40374000 size=097e0h ( 38880) load[0m
+[0;32mI (195) esp_image: segment 3: paddr=000a0020 vaddr=42000020 size=200b28h (2100008) map[0m
+[0;32mI (565) esp_image: segment 4: paddr=002a0b50 vaddr=4037d7e0 size=17954h ( 96596) load[0m
+[0;32mI (587) esp_image: segment 5: paddr=002b84ac vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (600) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (600) boot: Disabling RNG early entropy source...[0m
+[1;31mE (610) quad_psram: PSRAM ID read error: 0x00ffffff, PSRAM chip not found or not supported, or wrong PSRAM line mode[0m
+E cpu_start: Failed to init external RAM, needed for external .bss segment
+
+abort() was called at PC 0x403759cc on core 0
+
+
+Backtrace: 0x40375ff5:0x3fceb230 0x40385b0d:0x3fceb250 0x4038fab9:0x3fceb270 0x403759cc:0x3fceb2e0 0x403ccba2:0x3fceb340 0x403ccec9:0x3fceb380 0x403c8975:0x3fceb4b0 0x40045c01:0x3fceb570 0x40043ab6:0x3fceb6f0 0x40034c45:0x3fceb710
+
+
+
+
+ELF file SHA256: 
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375fa8
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcc4
+load:0x403cb700,len:0x2eb0
+entry 0x403c890c
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time May 16 2026 00:50:13[0m
+[0;33mW (26) boot: Unicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (29) boot: efuse block revision: v1.3[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (37) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3c210020 size=80fd0h (528336) map[0m
+[0;32mI (181) esp_image: segment 1: paddr=00090ff8 vaddr=3fca5200 size=05838h ( 22584) load[0m
+[0;32mI (186) esp_image: segment 2: paddr=00096838 vaddr=40374000 size=097e0h ( 38880) load[0m
+[0;32mI (195) esp_image: segment 3: paddr=000a0020 vaddr=42000020 size=200b28h (2100008) map[0m
+[0;32mI (565) esp_image: segment 4: paddr=002a0b50 vaddr=4037d7e0 size=17954h ( 96596) load[0m
+[0;32mI (587) esp_image: segment 5: paddr=002b84ac vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (600) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (600) boot: Disabling RNG early entropy source...[0m
+[1;31mE (610) quad_psram: PSRAM ID read error: 0x00ffffff, PSRAM chip not found or not supported, or wrong PSRAM line mode[0m
+E cpu_start: Failed to init external RAM, needed for external .bss segment
+
+abort() was called at PC 0x403759cc on core 0
+
+
+Backtrace: 0x40375ff5:0x3fceb230 0x40385b0d:0x3fceb250 0x4038fab9:0x3fceb270 0x403759cc:0x3fceb2e0 0x403ccba2:0x3fceb340 0x403ccec9:0x3fceb380 0x403c8975:0x3fceb4b0 0x40045c01:0x3fceb570 0x40043ab6:0x3fceb6f0 0x40034c45:0x3fceb710
+
+
+
+
+ELF file SHA256: 
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375fa8
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcc4
+load:0x403cb700,len:0x2eb0
+entry 0x403c890c
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time May 16 2026 00:50:13[0m
+[0;33mW (26) boot: Unicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (29) boot: efuse block revision: v1.3[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (37) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3c210020 size=80fd0h (528336) map[0m
+[0;32mI (181) esp_image: segment 1: paddr=00090ff8 vaddr=3fca5200 size=05838h ( 22584) load[0m
+[0;32mI (186) esp_image: segment 2: paddr=00096838 vaddr=40374000 size=097e0h ( 38880) load[0m
+[0;32mI (195) esp_image: segment 3: paddr=000a0020 vaddr=42000020 size=200b28h (2100008) map[0m
+[0;32mI (565) esp_image: segment 4: paddr=002a0b50 vaddr=4037d7e0 size=17954h ( 96596) load[0m
+[0;32mI (587) esp_image: segment 5: paddr=002b84ac vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (600) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (600) boot: Disabling RNG early entropy source...[0m
+[1;31mE (610) quad_psram: PSRAM ID read error: 0x00ffffff, PSRAM chip not found or not supported, or wrong PSRAM line mode[0m
+E cpu_start: Failed to init external RAM, needed for external .bss segment
+
+abort() was called at PC 0x403759cc on core 0
+
+
+Backtrace: 0x40375ff5:0x3fceb230 0x40385b0d:0x3fceb250 0x4038fab9:0x3fceb270 0x403759cc:0x3fceb2e0 0x403ccba2:0x3fceb340 0x403ccec9:0x3fceb380 0x403c8975:0x3fceb4b0 0x40045c01:0x3fceb570 0x40043ab6:0x3fceb6f0 0x40034c45:0x3fceb710
+
+
+
+
+ELF file SHA256: 
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375fa8
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcc4
+load:0x403cb700,len:0x2eb0
+entry 0x403c890c
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time May 16 2026 00:50:13[0m
+[0;33mW (26) boot: Unicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (29) boot: efuse block revision: v1.3[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (37) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (41) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (49) boot: Partition Table:[0m
+[0;32mI (52) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (58) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (71) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (81) esp_image: segment 0: paddr=00010020 vaddr=3c210020 size=80fd0h (528336) map[0m
+[0;32mI (181) esp_image: segment 1: paddr=00090ff8 vaddr=3fca5200 size=05838h ( 22584) load[0m
+[0;32mI (186) esp_image: segment 2: paddr=00096838 vaddr=40374000 size=097e0h ( 38880) load[0m
+[0;32mI (195) esp_image: segment 3: paddr=000a0020 vaddr=42000020 size=200b28h (2100008) map[0m
+[0;32mI (565) esp_image: segment 4: paddr=002a0b50 vaddr=4037d7e0 size=17954h ( 96596) load[0m
+[0;32mI (587) esp_image: segment 5: paddr=002b84ac vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (600) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (600) boot: Disabling RNG early entropy source...[0m
+[1;31mE (610) quad_psram: PSRAM ID read error: 0x00ffffff, PSRAM chip not found or not supported, or wrong PSRAM line mode[0m
+E cpu_start: Failed to init external RAM, needed for external .bss segment
+
+abort() was called at PC 0x403759cc on core 0
+
+
+Backtrace: 0x40375ff5:0x3fceb230 0x40385b0d:0x3fceb250 0x4038fab9:0x3fceb270 0x403759cc:0x3fceb2e0 0x403ccba2:0x3fceb340 0x403ccec9:0x3fceb380 0x403c8975:0x3fceb4b0 0x40045c01:0x3fceb570 0x40043ab6:0x3fceb6f0 0x40034c45:0x3fceb710
+
+
+
+
+ELF file SHA256: 
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375fa8
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcc4
+load:0x403cb700,len:0x2eb0
+entry 0x403c890c

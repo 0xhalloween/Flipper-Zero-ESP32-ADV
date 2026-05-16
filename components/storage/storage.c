@@ -22,10 +22,11 @@
 #include <furi_hal_spi_bus.h>
 
 #include <esp_log.h>
+#include "sd_cardputer.h"
 
 static const char* TAG = "Storage";
 
-#define SD_MOUNT_POINT "/sdcard"
+#define STORAGE_SD_ROOT SD_CONTENT_ROOT
 #define COPY_BUF_SIZE  512
 
 static inline void storage_sd_bus_lock(void);
@@ -104,16 +105,16 @@ static bool storage_map_path(const char* path, char* out, size_t out_size) {
     if(!path || !out) return false;
 
     if(strncmp(path, STORAGE_EXT_PATH_PREFIX, 4) == 0) {
-        snprintf(out, out_size, "%s%s", SD_MOUNT_POINT, path + 4);
+        snprintf(out, out_size, "%s%s", STORAGE_SD_ROOT, path + 4);
         return true;
     }
     if(strncmp(path, STORAGE_ANY_PATH_PREFIX, 4) == 0) {
-        snprintf(out, out_size, "%s%s", SD_MOUNT_POINT, path + 4);
+        snprintf(out, out_size, "%s%s", STORAGE_SD_ROOT, path + 4);
         return true;
     }
     if(strncmp(path, STORAGE_INT_PATH_PREFIX, 4) == 0) {
         /* Internal storage — map to /sdcard/.int for now */
-        snprintf(out, out_size, "%s/.int%s", SD_MOUNT_POINT, path + 4);
+        snprintf(out, out_size, "%s/.int%s", STORAGE_SD_ROOT, path + 4);
         return true;
     }
     if(storage_build_app_alias_path(
@@ -1060,9 +1061,12 @@ int32_t storage_srv(void* p) {
         storage->sd_mounted = true;
         ESP_LOGI(TAG, "SD card mounted successfully");
 
+        /* Cardputer Fix: ensure /sdcard and /sdcard/databases exist */
+        sd_check_content_root();
+
         /* Ensure the internal-storage shadow dir exists (for /int paths) */
-        if(mkdir(SD_MOUNT_POINT "/.int", 0755) != 0 && errno != EEXIST) {
-            ESP_LOGW(TAG, "mkdir %s/.int failed: %s", SD_MOUNT_POINT, strerror(errno));
+        if(mkdir(STORAGE_SD_ROOT "/.int", 0755) != 0 && errno != EEXIST) {
+            ESP_LOGW(TAG, "mkdir %s/.int failed: %s", STORAGE_SD_ROOT, strerror(errno));
         }
 
         StorageEvent event = {.type = StorageEventTypeCardMount};

@@ -1,4 +1,34 @@
-# Target-specific overrides for M5Stack Cardputer
+# =============================================================================
+# M5Stack Cardputer (Standard) Optimized Configuration
+# =============================================================================
+
+# Flash Configuration
 CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
 CONFIG_ESPTOOLPY_FLASHSIZE="8MB"
+
+# PSRAM is not present on standard Cardputer
 CONFIG_SPIRAM=n
+
+# =============================================================================
+# Logging & Console Configuration (FREE GPIO 43/44)
+# =============================================================================
+CONFIG_ESP_CONSOLE_UART_DEFAULT=n
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+CONFIG_ESP_CONSOLE_UART_CUSTOM=n
+CONFIG_ESP_CONSOLE_UART_NONE=y
+
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+CONFIG_LOG_MAXIMUM_LEVEL_INFO=y
+CONFIG_LOG_DEFAULT_LEVEL=3
+
+# Specific component log levels
+CONFIG_LOG_WIFI_LEVEL_WARNING=y
+CONFIG_LOG_BT_LEVEL_WARNING=y
+
+# =============================================================================
+# TinyUSB Configuration (Disable CDC to favor Serial JTAG)
+# =============================================================================
+CONFIG_TINYUSB_HID_COUNT=1
+CONFIG_TINYUSB_DESC_BOS_ENABLED=y
+CONFIG_TINYUSB_HID_BUFSIZE=16
+CONFIG_TINYUSB_CDC_ENABLED=n

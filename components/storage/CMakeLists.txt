@@ -1,4 +1,5 @@
 idf_component_register(
-    INCLUDE_DIRS "."
+    SRCS "storage.c"
+    INCLUDE_DIRS "." "../../main"
     REQUIRES furi furi_hal toolbox
 )

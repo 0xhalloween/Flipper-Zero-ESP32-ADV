@@ -21,6 +21,7 @@
 #include <esp_log.h>
 #include <esp_heap_caps.h>
 #include <esp_memory_utils.h>
+#include <esp_system.h>
 #include <sdmmc_cmd.h>
 #include <driver/sdspi_host.h>
 #include <driver/gpio.h>
@@ -574,17 +575,6 @@ static bool sd_prepare_card(void) {
      * during spi_bus_initialize the SD card enters an unexpected SPI cycle
      * and its state machine gets stuck — it will never reply to CMD0. */
     {
-#if defined(BOARD_M5STACK_CARDPUTER)
-        /* Standard Cardputer: keyboard rows share some pins and can interfere 
-         * with SD pins if a key is pressed during init.  Force rows to tri-state. */
-        const uint8_t kb_rows[] = {8, 9, 11, 13, 15, 17, 18};
-        for(size_t i = 0; i < sizeof(kb_rows); i++) {
-            gpio_reset_pin(kb_rows[i]);
-            gpio_set_direction(kb_rows[i], GPIO_MODE_INPUT);
-            gpio_set_pull_mode(kb_rows[i], GPIO_PULLUP_ONLY);
-        }
-#endif
-
         /* Pre-condition: deassert CS (active-low, so drive HIGH) */
         gpio_reset_pin((gpio_num_t)BOARD_PIN_SD_CS);
         gpio_set_direction((gpio_num_t)BOARD_PIN_SD_CS, GPIO_MODE_OUTPUT);
@@ -724,8 +714,8 @@ FuriStatus furi_hal_sd_info(FuriHalSdInfo* info) {
     strncpy(info->product_name, sd_card->cid.name, sizeof(info->product_name) - 1);
     info->product_name[sizeof(info->product_name) - 1] = '\0';
 
-    info->product_revision_major = (sd_card->cid.revision >> 4) & 0x0F;
-    info->product_revision_minor = sd_card->cid.revision & 0x0F;
+    info->product_revision_major = (sd_card->cid.oem_id >> 4) & 0x0F;
+    info->product_revision_minor = sd_card->cid.oem_id & 0x0F;
     info->product_serial_number = sd_card->cid.serial;
     info->manufacturing_month = sd_card->cid.date % 100;
     info->manufacturing_year = 2000 + sd_card->cid.date / 100;

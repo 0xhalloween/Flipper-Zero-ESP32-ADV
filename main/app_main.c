@@ -5,6 +5,7 @@
 
 #include <esp_log.h>
 #include <esp_rom_uart.h>
+#include "sd_cardputer.h"
 
 static const char* TAG = "Main";
 

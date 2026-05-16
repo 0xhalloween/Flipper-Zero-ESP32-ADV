@@ -11,6 +11,10 @@
 
 #define TAG "FuriHalBt"
 
+/* ---- BLE initialization state ---- */
+static bool bt_initialized = false;
+static SemaphoreHandle_t bt_mutex = NULL;
+
 /* ---- BLE Glue stubs ---- */
 
 static const BleGlueC2Info ble_glue_c2_info = {
@@ -87,7 +91,7 @@ bool furi_hal_bt_is_gatt_gap_supported(void) {
 }
 
 bool furi_hal_bt_is_active(void) {
-    return ble_hid_is_active() || ble_serial_is_active();
+    return bt_initialized && (ble_hid_is_active() || ble_serial_is_active());
 }
 
 /* ---- Profile management ---- */
@@ -108,6 +112,12 @@ FuriHalBleProfileBase* furi_hal_bt_change_app(
     void* context) {
     (void)root_keys;
 
+    if(!bt_mutex) {
+        bt_mutex = xSemaphoreCreateMutex();
+    }
+
+    xSemaphoreTake(bt_mutex, portMAX_DELAY);
+
     /* Stop the old profile if any */
     if(current_profile) {
         furi_hal_bt_stop_advertising();
@@ -125,10 +135,12 @@ FuriHalBleProfileBase* furi_hal_bt_change_app(
         ESP_LOGE(TAG, "Failed to start BLE profile");
         gap_event_cb = NULL;
         gap_event_ctx = NULL;
+        xSemaphoreGive(bt_mutex);
         return NULL;
     }
 
     current_profile = profile;
+    bt_initialized = true;
 
     /* Install the right state callback based on profile type */
     if(furi_hal_bt_check_profile_type(profile, ble_profile_hid)) {
@@ -138,6 +150,7 @@ FuriHalBleProfileBase* furi_hal_bt_change_app(
     }
 
     ESP_LOGI(TAG, "BLE profile started");
+    xSemaphoreGive(bt_mutex);
     return profile;
 }
 

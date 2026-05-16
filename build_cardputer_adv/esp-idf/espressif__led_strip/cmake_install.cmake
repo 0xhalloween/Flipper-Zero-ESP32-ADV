@@ -1,4 +1,4 @@
-# Install script for directory: /home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/managed_components/espressif__led_strip
+# Install script for directory: /home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/managed_components/espressif__led_strip
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,6 +40,6 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/esp-idf/espressif__led_strip/install_local_manifest.txt"
+  file(WRITE "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/esp-idf/espressif__led_strip/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

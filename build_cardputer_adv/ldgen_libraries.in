@@ -95,6 +95,7 @@ $<TARGET_FILE:__idf_espressif__tinyusb>
 $<TARGET_FILE:__idf_espressif__esp_tinyusb>
 $<TARGET_FILE:__idf_espressif__led_strip>
 $<TARGET_FILE:__idf_furi_hal>
+$<TARGET_FILE:__idf_storage>
 $<TARGET_FILE:__idf_u8g2>
 $<TARGET_FILE:__idf_notification>
 $<TARGET_FILE:__idf_assets>

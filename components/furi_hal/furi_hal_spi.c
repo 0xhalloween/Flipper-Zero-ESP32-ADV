@@ -55,12 +55,18 @@ FuriHalSpiBus furi_hal_spi_bus_subghz = {
     .sck_pin = FURI_HAL_SPI_PIN_UNMAPPED,
 };
 
+/* Pin resources for SubGhz and External SPI */
+static const GpioPin gpio_cc1101_miso = {.port = NULL, .pin = BOARD_PIN_CC1101_MISO};
+static const GpioPin gpio_cc1101_mosi = {.port = NULL, .pin = BOARD_PIN_CC1101_MOSI};
+static const GpioPin gpio_cc1101_sck  = {.port = NULL, .pin = BOARD_PIN_CC1101_SCK};
+static const GpioPin gpio_cc1101_cs   = {.port = NULL, .pin = BOARD_PIN_CC1101_CSN};
+
 FuriHalSpiBusHandle furi_hal_spi_bus_handle_external = {
     .bus = &furi_hal_spi_bus_external,
-    .miso = &gpio_ext_pa6,
-    .mosi = &gpio_ext_pa7,
-    .sck = &gpio_ext_pb3,
-    .cs = &gpio_ext_pa4,
+    .miso = &gpio_cc1101_miso,
+    .mosi = &gpio_cc1101_mosi,
+    .sck = &gpio_cc1101_sck,
+    .cs = &gpio_cc1101_cs,
     .device = NULL,
     .initialized = false,
     .frequency_hz = 2 * 1000 * 1000,
@@ -69,10 +75,10 @@ FuriHalSpiBusHandle furi_hal_spi_bus_handle_external = {
 
 FuriHalSpiBusHandle furi_hal_spi_bus_handle_subghz = {
     .bus = &furi_hal_spi_bus_subghz,
-    .miso = &gpio_ext_pa6,
-    .mosi = &gpio_ext_pa7,
-    .sck = &gpio_ext_pb3,
-    .cs = &gpio_ext_pa4,
+    .miso = &gpio_cc1101_miso,
+    .mosi = &gpio_cc1101_mosi,
+    .sck = &gpio_cc1101_sck,
+    .cs = &gpio_cc1101_cs,
     .device = NULL,
     .initialized = false,
     .frequency_hz = 100 * 1000,
@@ -81,12 +87,14 @@ FuriHalSpiBusHandle furi_hal_spi_bus_handle_subghz = {
 
 /* NRF24 sits on the same SPI bus as the SubGhz / CC1101 (T-Embed) but uses its
  * own CS pin -- both devices can be parallel-attached and CS-muxed on the bus. */
+static const GpioPin gpio_nrf24_cs_pin = {.port = NULL, .pin = BOARD_PIN_NRF24_CSN};
+
 FuriHalSpiBusHandle furi_hal_spi_bus_handle_nrf24 = {
     .bus = &furi_hal_spi_bus_subghz,
-    .miso = &gpio_ext_pa6,
-    .mosi = &gpio_ext_pa7,
-    .sck = &gpio_ext_pb3,
-    .cs = &gpio_nrf24_cs,
+    .miso = &gpio_cc1101_miso,
+    .mosi = &gpio_cc1101_mosi,
+    .sck = &gpio_cc1101_sck,
+    .cs = &gpio_nrf24_cs_pin,
     .device = NULL,
     .initialized = false,
     .frequency_hz = 4 * 1000 * 1000,

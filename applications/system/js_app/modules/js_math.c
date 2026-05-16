@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include "../js_modules.h"
 #include "furi_hal_random.h"
 #include <math.h>

@@ -56,15 +56,15 @@
 
 /* ---- SD Card (SPI3 / VSPI) — identical to standard Cardputer ------------ */
 #define BOARD_SD_HOST           SPI3_HOST
-#define BOARD_SD_CLK_HZ         (20 * 1000 * 1000)
+#define BOARD_SD_CLK_HZ         (15 * 1000 * 1000)
 #define BOARD_SD_PIN_MOSI       14
 #define BOARD_SD_PIN_MISO       39
 #define BOARD_SD_PIN_CLK        40
 #define BOARD_SD_PIN_CS         12
 
-/* ---- Infrared ------------------------------------------------------------ */
-#define BOARD_IR_TX_PIN         44
-#define BOARD_IR_RX_PIN         (-1)
+/* ---- Infrared ---- */
+#define BOARD_PIN_IR_TX         44
+#define BOARD_PIN_IR_RX         UINT16_MAX
 
 /* ---- TCA8418 I²C keyboard controller ------------------------------------- */
 #define KB_I2C_HOST             I2C_NUM_0
@@ -124,19 +124,20 @@
  * Fill in exact key_id values after probing the hardware with the
  * diagnostic sketch in tools/cardputer_key_probe/ (see README-cardputer.md).
  */
-#define KB_ADV_KEY_OK           0x2F   /* row 4, col 6 -> (4*10)+6+1 = 47 */
-#define KB_ADV_KEY_BACK         0x01   /* row 0, col 0 -> (0*10)+0+1 = 1  */
-#define KB_ADV_KEY_UP           0x41   /* row 6, col 4 -> (6*10)+4+1 = 65 */
-#define KB_ADV_KEY_DOWN         0x40   /* row 6, col 3 -> (6*10)+3+1 = 64 */
-#define KB_ADV_KEY_LEFT         0x42   /* row 6, col 5 -> (6*10)+5+1 = 66 */
-#define KB_ADV_KEY_RIGHT        0x43   /* row 6, col 6 -> (6*10)+6+1 = 67 */
+#define KB_ADV_KEY_OK           67   /* Enter */
+#define KB_ADV_KEY_BACK         65   /* Del (next to Enter) */
+#define KB_ADV_KEY_UP           57   /* Fn + ; cluster */
+#define KB_ADV_KEY_DOWN         58   /* Fn + . cluster */
+#define KB_ADV_KEY_LEFT         54   /* Fn + , cluster */
+#define KB_ADV_KEY_RIGHT        64   /* Fn + / cluster */
 
 /* ---- Capability flags ---------------------------------------------------- */
 #define BOARD_HAS_KEYBOARD      1
 #define BOARD_HAS_SD            1
+#define BOARD_HAS_BT            1
+#define BOARD_HAS_IR            1
 #define BOARD_HAS_IR_TX         1
 #define BOARD_HAS_IR_RX         0
-#define BOARD_HAS_BT            1
 #define BOARD_HAS_WIFI          1
 #define BOARD_HAS_SUBGHZ        0
 #define BOARD_HAS_NFC           0

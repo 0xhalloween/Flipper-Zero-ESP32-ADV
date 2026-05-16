@@ -17,7 +17,7 @@ idf_component_register(
     SRCS
         "input.c"
         "${TARGET_INPUT_DIR}/target_input.c"
-    INCLUDE_DIRS "." "${CMAKE_CURRENT_LIST_DIR}/../../targets"
+    INCLUDE_DIRS "." "${CMAKE_CURRENT_LIST_DIR}/../../targets" "../../main"
     REQUIRES furi
     PRIV_REQUIRES furi_hal
 )

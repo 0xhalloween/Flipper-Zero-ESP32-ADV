@@ -43,6 +43,21 @@
 /* ---- Timing ---- */
 #define INPUT_LONG_PRESS_MS     500U
 #define INPUT_REPEAT_MS         200U
+#define KEY_DEBOUNCE_MS         50U
+
+static uint32_t last_key_time[88] = {0};  /* Track last press time for each key */
+
+static bool should_process_key(uint8_t key_id) {
+    uint32_t now = furi_get_tick();
+    uint32_t* last_time = &last_key_time[key_id % 88];
+    
+    if(now - *last_time < furi_ms_to_ticks(KEY_DEBOUNCE_MS)) {
+        return false;  /* Debounce */
+    }
+    
+    *last_time = now;
+    return true;
+}
 
 /* =========================================================================
  * TCA8418 register addresses
@@ -245,12 +260,12 @@ typedef struct {
 } NavKeyState;
 
 static NavKeyState nav_states[6] = {
-    { InputKeyBack,  TCA_KEY_ESC,    false, 0, false, 0 },
-    { InputKeyOk,    TCA_KEY_ENTER,  false, 0, false, 0 },
-    { InputKeyUp,    TCA_KEY_UARROW, false, 0, false, 0 },
-    { InputKeyDown,  TCA_KEY_DARROW, false, 0, false, 0 },
-    { InputKeyLeft,  TCA_KEY_LARROW, false, 0, false, 0 },
-    { InputKeyRight, TCA_KEY_RARROW, false, 0, false, 0 },
+    { InputKeyBack,  KB_ADV_KEY_BACK,  false, 0, false, 0 },
+    { InputKeyOk,    KB_ADV_KEY_OK,    false, 0, false, 0 },
+    { InputKeyUp,    KB_ADV_KEY_UP,    false, 0, false, 0 },
+    { InputKeyDown,  KB_ADV_KEY_DOWN,  false, 0, false, 0 },
+    { InputKeyLeft,  KB_ADV_KEY_LEFT,  false, 0, false, 0 },
+    { InputKeyRight, KB_ADV_KEY_RIGHT, false, 0, false, 0 },
 };
 
 /* Modifier state — tracked for text resolution */
@@ -472,6 +487,9 @@ void target_input_poll(
             continue;
         }
 
+        /* Debounce check */
+        if(!should_process_key(key_id)) continue;
+
         ESP_LOGD(TAG, "TCA8418 key_id=%u (%s) %s",
                  key_id, tca_key_table[key_id].base ? (char[]){tca_key_table[key_id].base, 0} : "mod",
                  pressed ? "PRESS" : "RELEASE");
@@ -487,6 +505,13 @@ void target_input_poll(
         NavKeyState* nav = NULL;
         for (int j = 0; j < 6; j++) {
             if (nav_states[j].tca_id == key_id) { nav = &nav_states[j]; break; }
+        }
+
+        /* Special case: Both Esc (1) and Del (65) can act as Back */
+        if (!nav && key_id == 1) {
+             for (int j = 0; j < 6; j++) {
+                if (nav_states[j].furi_key == InputKeyBack) { nav = &nav_states[j]; break; }
+            }
         }
 
         if (nav) {

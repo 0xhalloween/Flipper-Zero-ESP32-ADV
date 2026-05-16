@@ -1,46 +1,29 @@
 /**
  * @file board_m5stack_cardputer.h
- * Board definition: M5Stack Cardputer (standard GPIO-matrix keyboard)
+ * Board definition: M5Stack Cardputer (Standard v1.0 / v1.1)
  *
  * MCU:      ESP32-S3FN8 (dual-core Xtensa LX7, 8 MB Flash, NO PSRAM)
  * Display:  ST7789V2 240×135 RGB565 via SPI2
- * Input:    7×7 GPIO matrix keyboard (49 physical keys)
- * SD Card:  SPI3 (separate bus from LCD — MOSI/MISO/SCLK differ from LCD)
+ * Input:    8×7 matrix keyboard via 74HC138 decoder (56 physical keys)
+ * SD Card:  SPI3 (separate bus from LCD — CS=12, MOSI=14, MISO=39, SCLK=40)
  * IR:       TX (GPIO44), no RX
- * Speaker:  GPIO2 (buzzer/DAC, no I2S amp on standard Cardputer)
- * Mic:      PDM SPM1423 — DATA=GPIO43, CLK=GPIO46 (via internal PDM)
- * Grove:    SDA=GPIO2, SCL=GPIO1  (also Grove UART)
+ * Speaker:  NS4168 I2S Amp — BCLK=41, LRCK=43, SDATA=42
+ * Mic:      PDM SPM1423 — DATA=46, CLK=43 (shares LRCK pin)
+ * Grove:    SDA=2, SCL=1
  * USB:      CDC on GPIO19/GPIO20 (native USB-OTG)
  *
  * NOTE — No PSRAM:
  *   The standard Cardputer has NO PSRAM. SubGHz/NFC/NRF24 and wolf3d/doom
  *   are excluded via fam_config.py.  BOARD_HAS_SUBGHZ / BOARD_HAS_NFC = 0.
  *
- * NOTE — SD / keyboard GPIO overlap:
- *   KB cols GPIO39 and GPIO40 are physically shared with SD MOSI/MISO.
- *   The input driver tri-states these GPIOs during SD operations by releasing
- *   them (INPUT_ONLY, no pull) before SD init and reconfiguring after.
- *   For a simple port this is handled transparently: SD is initialised once
- *   at boot before the input driver starts.
- *
  * NOTE — Display scaling:
  *   The Flipper 128×64 canvas is aspect-fit scaled to 240×120 and centred
  *   vertically on the 240×135 display (7 px margin top/bottom).
  *   This is handled automatically by furi_hal_display.c — no code change
  *   needed here.
- *
- * Navigation key mapping (6 Flipper keys out of 49 physical keys):
- *   Key positions given as (row_index, col_index).  Row 0 = GPIO8 driven
- *   low; Col 0 = GPIO5 read. See target_input.c for the full matrix.
- *   VERIFY ON HARDWARE — adjust NAV_KEY_* defines in target_input.c if
- *   your unit's layout differs from the default M5Cardputer Keyboard.cpp.
  */
 
 #pragma once
-
-/* Keyboard uses GPIO matrix scan — no I2C keyboard controller */
-/* KB_I2C_PIN_SDA intentionally not defined */
-#define BOARD_KB_TYPE_GPIO_MATRIX
 
 /* ---- Board metadata ---- */
 #define BOARD_NAME        "M5Stack Cardputer"
@@ -82,8 +65,8 @@
 #define BOARD_HAS_SD            1
 #define BOARD_PIN_SD_CS         12
 #define BOARD_PIN_SD_MOSI       14      
-#define BOARD_PIN_SD_MISO       39      /* NOTE: also KB col GPIO39 — see file header */
-#define BOARD_PIN_SD_SCLK       40      /* NOTE: also KB col GPIO40 */
+#define BOARD_PIN_SD_MISO       39      
+#define BOARD_PIN_SD_SCLK       40      
 
 /* Tell furi_hal_sd.c to use SPI3 instead of SPI2.
  * The SD driver will initialise its own bus on these pins. */
@@ -92,23 +75,14 @@
 /* ---- 74HC138 Keyboard Decoder (Original/v1.1) ---- */
 #define BOARD_KB_TYPE_74HC138
 
-/* Decoder Address Pins (outputs) */
+/* 74HC138 Address Pins (Outputs) */
 #define BOARD_KB_PIN_A0         8
 #define BOARD_KB_PIN_A1         9
 #define BOARD_KB_PIN_A2         11
 
-/* Column Input Pins (internal pullup) */
-#define BOARD_KB_COL_COUNT      7
-#define BOARD_KB_PIN_COL0       13
-#define BOARD_KB_PIN_COL1       15
-#define BOARD_KB_PIN_COL2       3
-#define BOARD_KB_PIN_COL3       4
-#define BOARD_KB_PIN_COL4       5
-#define BOARD_KB_PIN_COL5       6
-#define BOARD_KB_PIN_COL6       7
-
-/* Legacy compatibility macros (will be replaced in target_input.c) */
-#define BOARD_KB_ROW_COUNT      8
+/* Matrix Row Pins (Inputs) */
+#define BOARD_KB_ROW_COUNT      7
+#define BOARD_KB_COL_COUNT      8  /* From 74HC138 */
 
 /* ---- Encoder / Rotary input — NOT PRESENT ---- */
 #define BOARD_PIN_ENCODER_A     UINT16_MAX
@@ -150,7 +124,7 @@
 /* ---- Power Enable — NOT PRESENT ---- */
 #define BOARD_PIN_PWR_EN        UINT16_MAX
 
-/* ---- IR (TX only — no RX on Cardputer) ---- */
+/* ---- IR (TX only) ---- */
 #define BOARD_PIN_IR_TX         44
 #define BOARD_PIN_IR_RX         UINT16_MAX
 
@@ -161,15 +135,15 @@
 #define BOARD_PIN_NFC_RST       UINT16_MAX
 #define BOARD_NFC_I2C_PORT      I2C_NUM_0
 
-/* ---- Speaker (buzzer via GPIO2) ---- */
-#define BOARD_PIN_SPEAKER_BCLK  UINT16_MAX
-#define BOARD_PIN_SPEAKER_WCLK  UINT16_MAX
-#define BOARD_PIN_SPEAKER_DOUT  2   /* Buzzer is on GPIO2 */
-#define FURI_HAL_SPEAKER_GPIO   BOARD_PIN_SPEAKER_WCLK
+/* ---- Speaker (NS4168 via I2S) ---- */
+#define BOARD_PIN_SPEAKER_BCLK  41
+#define BOARD_PIN_SPEAKER_WCLK  43
+#define BOARD_PIN_SPEAKER_DOUT  42
+#define FURI_HAL_SPEAKER_GPIO   BOARD_PIN_SPEAKER_DOUT
 
 /* ---- Microphone (PDM) ---- */
-#define BOARD_PIN_MIC_DATA      43
-#define BOARD_PIN_MIC_CLK       46
+#define BOARD_PIN_MIC_DATA      46
+#define BOARD_PIN_MIC_CLK       43
 
 /* ---- WS2812 RGB LED — NOT PRESENT ---- */
 #define BOARD_PIN_WS2812_DATA   UINT16_MAX
@@ -181,7 +155,7 @@
 #define BOARD_RFID_UART_NUM     1
 
 /* ---- Grove / Qwiic I2C ---- */
-#define BOARD_PIN_QWIIC_SDA     UINT16_MAX /* Moved to Speaker (GPIO2) */
+#define BOARD_PIN_QWIIC_SDA     2
 #define BOARD_PIN_QWIIC_SCL     1
 #define I2C_SDA_GPIO            BOARD_PIN_QWIIC_SDA
 #define I2C_SCL_GPIO            BOARD_PIN_QWIIC_SCL
@@ -193,7 +167,7 @@
 #define BOARD_HAS_BLE           1
 #define BOARD_HAS_RGB_LED       0
 #define BOARD_HAS_VIBRO         0
-#define BOARD_HAS_SPEAKER       1   /* Buzzer enabled */
+#define BOARD_HAS_SPEAKER       1
 #define BOARD_HAS_IR            1
 #define BOARD_HAS_IBUTTON       0
 #define BOARD_HAS_RFID          0
@@ -209,3 +183,4 @@
 #define HIGH_DRAIN_CURRENT_THRESHOLD (-200)
 #define FURI_HAL_POWER_VIRTUAL_CAPACITY_MAH     (1520U)  /* 120 mAh internal + 1400 mAh base */
 #define BQ25896_CHARGE_LIMIT    1280
+#define FURI_HAL_POWER_ADC_DIVIDER_RATIO        (2.0f)

@@ -91,13 +91,13 @@
 #define TCA8418_KEY_ID_MASK     0x7F
 #define TCA8418_FIFO_EMPTY      0x00
 
-/* Key IDs (Navigation & Dummy) */
-#define KB_ADV_KEY_OK           0x43   /* Enter */
+/* Key IDs (Navigation) — aligned with hardware manual */
+#define KB_ADV_KEY_OK           0x43   /* Enter (67) */
 #define KB_ADV_KEY_BACK         0x41   /* Del */
-#define KB_ADV_KEY_UP           0x39   /* ; */
-#define KB_ADV_KEY_DOWN         0x3A   /* . */
-#define KB_ADV_KEY_LEFT         0x36   /* , */
-#define KB_ADV_KEY_RIGHT        0x40   /* / */
+#define KB_ADV_KEY_UP           0x39   /* Fn+; (57) */
+#define KB_ADV_KEY_DOWN         0x3A   /* Fn+. (58) */
+#define KB_ADV_KEY_LEFT         0x36   /* Fn+, (54) */
+#define KB_ADV_KEY_RIGHT        0x40   /* Fn+/ (64) */
 
 /* Unmapped Dummy Keys from log to prevent warnings */
 #define KB_ADV_KEY_DUMMY_1      0x01
@@ -127,8 +127,8 @@
 #define BOARD_PIN_CC1101_SCK    40
 #define BOARD_PIN_CC1101_MISO   39
 #define BOARD_PIN_CC1101_MOSI   14
-#define BOARD_PIN_CC1101_CSN    5
-#define BOARD_PIN_CC1101_GDO0   UINT16_MAX
+#define BOARD_PIN_CC1101_CSN    13
+#define BOARD_PIN_CC1101_GDO0   5
 #define BOARD_PIN_CC1101_GDO2   UINT16_MAX
 #define BOARD_PIN_CC1101_SW1    UINT16_MAX
 #define BOARD_PIN_CC1101_SW0    UINT16_MAX
@@ -140,7 +140,7 @@
 #define BOARD_PIN_NRF24_MISO    39
 #define BOARD_PIN_NRF24_MOSI    14
 #define BOARD_PIN_NRF24_CSN     6
-#define BOARD_PIN_NRF24_CE      UINT16_MAX
+#define BOARD_PIN_NRF24_CE      4
 
 /* ---- RFID2 Unit (WS1850S via Grove HY2.0-4P) ---- */
 #define BOARD_NFC_I2C_ADDR      0x28
@@ -200,17 +200,18 @@
 /* ---- Feature flags ---- */
 #define BOARD_HAS_TOUCH         0
 #define BOARD_HAS_ENCODER       0
-#define BOARD_HAS_SD_CARD       1
 #define BOARD_HAS_BLE           1
-#define BOARD_HAS_RGB_LED       0
 #define BOARD_HAS_VIBRO         0
 #define BOARD_HAS_SPEAKER       1
+#define BOARD_HAS_IR            1
+#define BOARD_HAS_IR_TX         1
+#define BOARD_HAS_IR_RX         0
 #define FURI_HAL_SPEAKER_GPIO   BOARD_PIN_SPEAKER_DOUT
 
 #define BOARD_HAS_IBUTTON       0
 #define BOARD_HAS_RFID          0
 #define BOARD_HAS_NFC           0
-#define BOARD_HAS_SUBGHZ        0
+#define BOARD_HAS_SUBGHZ        1
 #define BOARD_HAS_MIC           1
 #define BOARD_HAS_IMU           1
 
@@ -222,4 +223,4 @@
 #define HIGH_DRAIN_CURRENT_THRESHOLD (-200)
 #define FURI_HAL_POWER_VIRTUAL_CAPACITY_MAH     (1520U)
 #define BQ25896_CHARGE_LIMIT    1280
-#define BOARD_HAS_SD_CARD       1
+#define FURI_HAL_POWER_ADC_DIVIDER_RATIO        (2.0f)
