@@ -3,7 +3,7 @@
 #include "../blocks/decoder.h"
 #include "../blocks/encoder.h"
 #include "../blocks/generic.h"
-#include "../blocks/math.h"
+#include "subghz_blocks_math.h"
 
 #define TAG "SubGhzProtocolFeron"
 

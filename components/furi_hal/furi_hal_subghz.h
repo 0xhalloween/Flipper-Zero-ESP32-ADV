@@ -32,6 +32,8 @@ void furi_hal_subghz_set_async_mirror_pin(const GpioPin* pin);
 const GpioPin* furi_hal_subghz_get_data_gpio(void);
 void furi_hal_subghz_init(void);
 void furi_hal_subghz_sleep(void);
+void furi_hal_subghz_wakeup(void);
+bool furi_hal_subghz_is_connected(void);
 void furi_hal_subghz_dump_state(void);
 void furi_hal_subghz_load_custom_preset(const uint8_t* preset_data);
 void furi_hal_subghz_load_registers(const uint8_t* data);

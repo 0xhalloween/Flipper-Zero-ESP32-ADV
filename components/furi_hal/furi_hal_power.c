@@ -1,9 +1,10 @@
+#include <math.h>
 #include "furi_hal_power.h"
 #include "furi_hal_bq27220.h"
 #include "furi_hal_bq25896.h"
+#include "furi_hal_i2c_bus.h"
 #include "boards/board.h"
 
-#include <math.h>
 #include <stdio.h>
 
 #include <esp_adc/adc_cali.h>
@@ -24,7 +25,6 @@
 #include <furi.h>
 
 #include "furi_hal_resources.h"
-#include <math.h>
 
 #define TAG "FuriHalPower"
 
@@ -32,7 +32,9 @@
 #define FURI_HAL_POWER_LOW_BATTERY_THRESHOLD_V  (3.35f)
 #define FURI_HAL_POWER_EMPTY_BATTERY_VOLTAGE_V  (3.27f)
 #define FURI_HAL_POWER_FULL_BATTERY_VOLTAGE_V   (4.20f)
+#ifndef FURI_HAL_POWER_ADC_DIVIDER_RATIO
 #define FURI_HAL_POWER_ADC_DIVIDER_RATIO        (3.0f)
+#endif
 #define FURI_HAL_POWER_SAMPLE_REFRESH_US        (250000LL)
 #define FURI_HAL_POWER_CHARGE_LIMIT_MIN_V       (3.840f)
 #define FURI_HAL_POWER_CHARGE_LIMIT_MAX_V       (4.208f)
@@ -281,26 +283,9 @@ static float furi_hal_power_get_estimated_battery_voltage(void) {
 void furi_hal_power_init(void) {
     furi_hal_power_ensure_initialized();
 
-    /* Initialize shared I2C bus for power ICs (BQ27220 + BQ25896) */
-#if defined(BOARD_PIN_QWIIC_SDA) && defined(BOARD_PIN_QWIIC_SCL)
-    if(GPIO_IS_VALID_GPIO(I2C_SDA_GPIO) && GPIO_IS_VALID_GPIO(I2C_SCL_GPIO)) {
-        i2c_config_t conf = {
-            .mode = I2C_MODE_MASTER,
-            .sda_io_num = BOARD_PIN_QWIIC_SDA,
-            .scl_io_num = BOARD_PIN_QWIIC_SCL,
-            .sda_pullup_en = GPIO_PULLUP_ENABLE,
-            .scl_pullup_en = GPIO_PULLUP_ENABLE,
-            .master.clk_speed = 100000,
-        };
-        i2c_param_config(I2C_NUM_0, &conf);
-        esp_err_t i2c_err = i2c_driver_install(I2C_NUM_0, I2C_MODE_MASTER, 0, 0, 0);
-        if(i2c_err != ESP_OK && i2c_err != ESP_ERR_INVALID_STATE) {
-            ESP_LOGW(TAG, "Power I2C bus init failed: %s", esp_err_to_name(i2c_err));
-        }
-    } else {
-        ESP_LOGW(TAG, "I2C pins not configured for this board, skipping");
-    }
-#endif
+    /* Initialize shared I2C bus for power ICs (BQ27220 + BQ25896)
+     * This uses the helper which respects board-specific pin definitions. */
+    furi_hal_i2c_get_bus_node();
 
     /* Allow power ICs to stabilize after PWR_EN and I2C bus init */
     vTaskDelay(pdMS_TO_TICKS(50));

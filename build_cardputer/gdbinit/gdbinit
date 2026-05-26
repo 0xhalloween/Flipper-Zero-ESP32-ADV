@@ -1,0 +1,2 @@
+source /home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer/gdbinit/symbols
+source /home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer/gdbinit/connect

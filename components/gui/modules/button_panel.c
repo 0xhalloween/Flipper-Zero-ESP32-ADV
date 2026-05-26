@@ -1,4 +1,5 @@
 #include "button_panel.h"
+#include <boards/board.h>
 
 #include "../canvas.h"
 #include "../elements.h"
@@ -398,15 +399,25 @@ static bool button_panel_view_input_callback(InputEvent* event, void* context) {
             button_panel_process_down(button_panel);
             break;
         case InputKeyLeft:
+#if BOARD_HAS_ENCODER
             /* Swapped with Right: rotary encoder CW (clockwise) feels like
              * "forward / next button" to users; the orientation mapping
              * otherwise turns CW into Left, which felt backwards. */
             consumed = true;
             button_panel_process_right(button_panel);
-            break;
-        case InputKeyRight:
+#else
             consumed = true;
             button_panel_process_left(button_panel);
+#endif
+            break;
+        case InputKeyRight:
+#if BOARD_HAS_ENCODER
+            consumed = true;
+            button_panel_process_left(button_panel);
+#else
+            consumed = true;
+            button_panel_process_right(button_panel);
+#endif
             break;
         default:
             break;

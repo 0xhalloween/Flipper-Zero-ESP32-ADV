@@ -1,5 +1,5 @@
 #include "encoder.h"
-#include "math.h"
+#include "subghz_blocks_math.h"
 #include <core/check.h>
 
 #define TAG "SubGhzBlockEncoder"

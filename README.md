@@ -15,6 +15,8 @@ Join the [Flipper Zero meets ESP32 - Discord](https://discord.gg/5DnAqFXaBC) for
 | Board | MCU | Display | Input | SubGHz | NFC | IR | SD Card |
 |---|---|---|---|---|---|---|---|
 | **LilyGo T-Embed CC1101** | ESP32-S3 (Xtensa LX7) | ST7789 320×170 | Rotary encoder + button | CC1101 | PN532 (I2C) | RMT TX + RX | SPI |
+| **M5Stack Cardputer** | ESP32-S3 (Xtensa LX7) | ST7789V2 240×135 | 56-key keyboard (74HC138) | — | — | RMT TX | SPI3 |
+| **M5Stack Cardputer-ADV** | ESP32-S3 (Xtensa LX7) | ST7789V2 240×135 | 56-key keyboard (TCA8418) | — | — | RMT TX | SPI3 |
 | **Waveshare ESP32-C6-LCD-1.9** | ESP32-C6 (RISC-V) | ST7789V2 320×172 | CST816S touch | — | — | — | SPI |
 
 ![img](pic2.jpg)

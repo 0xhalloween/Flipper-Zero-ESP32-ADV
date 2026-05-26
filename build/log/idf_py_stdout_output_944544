@@ -1,0 +1,557 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038138a
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xc24
+load:0x403cb700,len:0x2ebc
+entry 0x403c88f8
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time May 18 2026 06:18:18[0m
+[0;33mW (27) boot: Unicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (27) boot: efuse block revision: v1.3[0m
+[0;32mI (27) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (27) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (28) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (28) boot: Enabling RNG early entropy source...[0m
+[0;32mI (28) boot: Partition Table:[0m
+[0;32mI (28) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (29) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (29) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (29) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (30) boot: End of partition table[0m
+[0;32mI (30) esp_image: segment 0: paddr=00010020 vaddr=3c160020 size=6892ch (428332) map[0m
+[0;32mI (106) esp_image: segment 1: paddr=00078954 vaddr=3fca1e00 size=054c0h ( 21696) load[0m
+[0;32mI (111) esp_image: segment 2: paddr=0007de1c vaddr=40374000 size=021fch (  8700) load[0m
+[0;32mI (113) esp_image: segment 3: paddr=00080020 vaddr=42000020 size=15f970h (1440112) map[0m
+[0;32mI (367) esp_image: segment 4: paddr=001df998 vaddr=403761fc size=1bb4ch (113484) load[0m
+[0;32mI (392) esp_image: segment 5: paddr=001fb4ec vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (404) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (404) boot: Disabling RNG early entropy source...[0m
+[0;32mI (405) cpu_start: Unicore app[0m
+[0;32mI (405) cpu_start: Single core mode[0m
+[0;32mI (414) cpu_start: Pro cpu start user code[0m
+[0;32mI (414) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (414) app_init: Application information:[0m
+[0;32mI (414) app_init: Project name:     furi_esp32[0m
+[0;32mI (414) app_init: App version:      1[0m
+[0;32mI (414) app_init: Compile time:     May 18 2026 06:17:31[0m
+[0;32mI (414) app_init: ELF file SHA256:  e7a2dc798...[0m
+[0;32mI (415) app_init: ESP-IDF:          v5.4.1-dirty[0m
+[0;32mI (415) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (415) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (415) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (415) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (416) heap_init: At 3FCB4968 len 00034DA8 (211 KiB): RAM[0m
+[0;32mI (416) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (416) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (416) heap_init: At 600FE120 len 00001EC8 (7 KiB): RTCRAM[0m
+[0;32mI (417) spi_flash: detected chip: gd[0m
+[0;32mI (417) spi_flash: flash io: dio[0m
+[0;33mW (418) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (418) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (419) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (419) coexist: coex firmware version: e727207[0m
+[0;32mI (419) coexist: coexist rom version e7ae62f[0m
+[0;32mI (420) main_task: Started on CPU0[0m
+[0;32mI (420) main_task: Calling app_main()[0m
+[0;32mI (420) Main: Starting Furi Core on ESP32...[0m
+[0;32mI (421) FuriHalI2cBus: Shared I2C bus (LEGACY) created on GPIO8/GPIO9[0m
+[0;32mI (421) gpio: GPIO[38]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (421) FuriHal: PWR_EN GPIO65535 set HIGH[0m
+[0;32mI (422) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (422) FuriHal: CC1101_CSN GPIO13 set HIGH (deselect)[0m
+[0;32mI (422) gpio: GPIO[6]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (422) FuriHal: NRF24_CSN GPIO6 set HIGH (deselect)[0m
+[0;32mI (423) gpio: GPIO[4]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (423) FuriHal: NRF24_CE GPIO4 set LOW (standby)[0m
+[0;32mI (423) FuriHal: Early init complete[0m
+[0;33mW (487) BQ27220: BQ27220 not found at 0x00 (no ACK)[0m
+[0;33mW (487) BQ25896: BQ25896 not found at 0x6B[0m
+[0;32mI (488) FuriHalSpi: Initialized HW SPI host=2 on MOSI=14 MISO=39 SCK=40[0m
+[0;32mI (490) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (490) FuriHalLight: Backlight PWM initialized on GPIO38[0m
+[0;32mI (491) FuriHalLight: WS2812 ring (1 LEDs) on GPIO21 initialized[0m
+[0;32mI (492) FuriHalDisplay: Initializing display for M5Stack Cardputer-ADV[0m
+[0;32mI (493) gpio: GPIO[34]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (494) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (634) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (889) FuriHalDisplay: Display initialized (128x64, scaled 240x120, stripe=8 lines, buf=3840 bytes)[0m
+[0;32mI (889) gpio: GPIO[43]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (891) ES8311: ES8311 initialized[0m
+472 [0;32m[I][FuriHalSpeaker] [0mInit OK (I2S, BCLK=41 WS=43 DOUT=42)
+472 [0;32m[I][FuriHalNfc] [0mNFC HAL: no NFC hardware on this board
+[0;32mI (893) FuriHal: Init complete[0m
+473 [0;32m[I][Flipper] [0m
+	Firmware version:	1.4.3
+	Build date:		May 18 2026
+	Git Commit:		esp32-dev (0) (dirty)
+	Git Branch:		esp32-port
+474 [0;32m[I][Flipper] [0mBoot mode 0, ESP32 port
+474 [0;32m[I][Flipper] [0mStartup complete
+[0;32mI (894) Main: Registry counts: services=11 startup=6 apps=1 settings=3 extsettings=3 external=6 internal_external=2 system=11 debug=0[0m
+[0;32mI (895) Main: service[0]: appid=input name=InputSrv stack=4096[0m
+[0;32mI (895) Main: service[1]: appid=cli_vcp name=CliVcpSrv stack=4096[0m
+[0;32mI (895) Main: service[2]: appid=notification name=NotificationSrv stack=4096[0m
+[0;32mI (895) Main: service[3]: appid=gui name=GuiSrv stack=8192[0m
+[0;32mI (895) Main: service[4]: appid=dialogs name=DialogsSrv stack=4096[0m
+[0;32mI (896) Main: service[5]: appid=bt name=BtSrv stack=4096[0m
+[0;32mI (896) Main: service[6]: appid=dolphin name=DolphinSrv stack=4096[0m
+[0;32mI (896) Main: service[7]: appid=loader name=LoaderSrv stack=4096[0m
+[0;32mI (896) Main: service[8]: appid=power name=PowerSrv stack=4096[0m
+[0;32mI (896) Main: service[9]: appid=storage name=StorageSrv stack=4096[0m
+[0;32mI (897) Main: service[10]: appid=desktop name=DesktopSrv stack=4096[0m
+[0;32mI (897) Main: settings[0]: appid=power_settings name=Power stack=4096[0m
+[0;32mI (897) Main: settings[1]: appid=storage_settings name=Storage stack=4096[0m
+[0;32mI (897) Main: settings[2]: appid=notification_settings name=Sound & Display stack=4096[0m
+[0;32mI (898) Main: extsettings[0]: name=About launch=about[0m
+[0;32mI (898) Main: extsettings[1]: name=Bluetooth launch=bt_settings[0m
+[0;32mI (898) Main: extsettings[2]: name=Passport launch=passport[0m
+[0;32mI (900) InputCardputerAdv: TCA8418 CFG readback=0x07 (expect 0x07)[0m
+[0;32mI (900) InputCardputerAdv: Cardputer-ADV TCA8418 input initialised (back=id1 ok=id67 up=id57 down=id58 left=id54 right=id64)[0m
+481 [0;32m[I][Input] [0mInput service started
+501 [0;32m[I][SavedStruct] [0mLoading "/int/.notification.settings" -> NVS key "notification_se"
+501 [0;33m[W][SavedStruct] [0mKey "notification_se" not found in NVS
+502 [0;33m[W][NotificationSrv] [0mLOAD failed — using defaults
+550 [0;32m[I][RpcSrv] [0mRPC service initialized
+550 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+571 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+581 [0;32m[I][Loader] [0mLoader service started
+586 [0;32m[I][StorageExt] [0mcard detected
+[0;32mI (1007) FuriHalSd: Initializing SD card on SPI3_HOST, CS=GPIO12[0m
+[0;32mI (1007) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[1;31mE (1009) spi: spi_bus_initialize(802): SPI bus already initialized.[0m
+[0;32mI (1009) FuriHalSd: SD SPI bus already initialized, sharing host=2[0m
+[0;32mI (1009) FuriHalSd: SDSPI config: host=2 cs=12 target_probe_freq_khz=20000[0m
+[0;32mI (1019) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1020) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1062) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+Name: SD8GB
+Type: SDHC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: luMB
+CSD: ver=2, sector_size=512, capacity=15122432 read_bl_len=9
+SSR: bus_width=1
+675 [0;32m[I][StorageExt] [0mcard mounted
+679 [0;32m[I][SavedStruct] [0mLoading "/int/.dolphin.state" -> NVS key "dolphin_state"
+680 [0;32m[I][BtSrv] [0mKeys unchanged
+680 [0;32m[I][BtSrv] [0mbt_start_application: current_profile=0
+680 [0;32m[I][BtSrv] [0mStarting ble_profile_serial...
+[0;32mI (1104) BLE_INIT: BT controller compile version [d74042a][0m
+683 [0;32m[I][SavedStruct] [0mLoading "/int/.power.settings" -> NVS key "power_settings"
+[0;32mI (1107) BLE_INIT: Bluetooth MAC: 3c:0f:02:e9:6b:02[0m
+[0;32mI (1109) phy_init: phy_version 700,8582a7fd,Feb 10 2025,20:13:11[0m
+[0;32mI (1173) ble_serial: alloc name=Flipper Edge bonding=1 pairing=0[0m
+[0;32mI (1173) ble_serial: alloc: registering GAP callback[0m
+[0;32mI (1173) ble_serial: alloc: registering GATTS callback[0m
+[0;32mI (1173) ble_serial: alloc: applying security config[0m
+[0;32mI (1176) ble_serial: alloc: configuring advertising, has_custom_mac=0[0m
+[0;32mI (1176) ble_serial: adv_config name_len=12 adv_name_len=12 raw_len=21[0m
+[0;32mI (1178) ble_serial: gap: adv data set complete[0m
+[0;32mI (1178) ble_serial: try_start_adv: requested=0 adv_pending=0 rand_pending=0 advertising=0 active=0x3fcdd72c connected=0 svc_started=0[0m
+[0;33mW (1178) ble_serial:   blocked: not requested[0m
+[0;32mI (1179) ble_serial: alloc: adv configured, adv_data_pending=0[0m
+[0;32mI (1179) ble_serial: alloc: registering GATTS app (async)[0m
+[0;32mI (1179) ble_serial: gatts: app registered, gatts_if=3[0m
+[0;32mI (1181) ble_serial: gatts: serial attr table created, starting service[0m
+[0;32mI (1181) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1181) ble_serial: gatts: creating DIS attribute table...[0m
+[0;32mI (1182) ble_serial: gatts: DIS attr table created, starting service[0m
+[0;32mI (1183) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1183) ble_serial: gatts: creating BAS attribute table...[0m
+[0;32mI (1184) ble_serial: gatts: BAS attr table created, starting service[0m
+[0;32mI (1184) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1184) ble_serial: gatts: BAS started, all services ready[0m
+[0;32mI (1186) ble_serial: alloc: waiting for GATT service start...[0m
+[0;32mI (1186) ble_serial: Serial service ready, adv_data_pending=0 rand_addr_pending=0[0m
+[0;32mI (1188) FuriHalBt: BLE profile started[0m
+768 [0;32m[I][BtSrv] [0mBLE App started OK, profile=0x3fcd0514
+768 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+769 [0;32m[I][BtSrv] [0mbt_apply_settings: enabled=1
+[0;32mI (1191) FuriHalBt: furi_hal_bt_start_advertising: profile=0x3fcd0514[0m
+[0;32mI (1191) FuriHalBt:   is_hid=0 is_serial=1[0m
+[0;32mI (1191) ble_serial: ble_serial_start_advertising called, active=0x3fcdd72c[0m
+[0;32mI (1191) ble_serial: try_start_adv: requested=1 adv_pending=0 rand_pending=0 advertising=0 active=0x3fcdd72c connected=0 svc_started=1[0m
+[0;32mI (1192) ble_serial:   -> calling esp_ble_gap_start_advertising[0m
+[0;32mI (1194) ble_serial: gap: advertising started[0m
+[0;32mI (1196) ble_serial:   -> advertising started OK[0m
+[0;32mI (1196) ble_serial: ble_serial_start_advertising returning 1[0m
+[0;32mI (1196) FuriHalBt:   started=1[0m
+776 [0;32m[I][BtSrv] [0mBtSrv ready (enabled=1)
+1346 [0;32m[I][AnimationManager] [0mSelect 'L1_Laptop_128x51' animation
+1354 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+[0;32mI (1873) Main: All services started, entering background...[0m
+
+[BANIM] key=4 type=0
+
+[DMAIN] key=4 type=0 dummy=0
+
+[BANIM] key=4 type=2
+
+[DMAIN] key=4 type=2 dummy=0
+
+
+[LM] thread_start free=3580
+
+[LM] settings_counts internal=3 external=3
+[BANIM] key=4 type=1
+
+[DMAIN] key=4 type=1 dummy=0
+
+[LM] settings_internal[0] appid=power_settings name=Power
+
+[LM] settings_internal[1] appid=storage_settings name=Storage
+
+[LM] settings_internal[2] appid=notification_settings name=Sound & Display
+
+[LM] settings_external[0] launch=about name=About
+
+[LM] settings_external[1] launch=bt_settings name=Bluetooth
+
+[LM] settings_external[2] launch=passport name=Passport
+
+[LM] app_alloc free=3084
+
+[LM] attached free=3052
+
+[LDR] start_by_name name='Sub-GHz'
+6629 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Laptop_128x51'
+[LDR] find_app('Sub-GHz')=0x3c19c6b8
+[LDR] found name='Sub-GHz' appid='subghz' stack=12288
+6631 [0;32m[I][Loader] [0mStarting Sub-GHz
+6685 [0;32m[I][SubGhzSetting] [0mKeeping standard frequencies
+6688 [0;32m[I][SubGhzSetting] [0mFrequency loaded 466000000
+6735 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM95
+6842 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM15k
+6866 [0;32m[I][SubGhzSetting] [0mCustom preset loaded Pagers
+6944 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_1
+6967 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_2
+7011 [0;32m[I][SubGhzReceiver] [0mRegistry has 11 protocols
+7012 [0;32m[I][SubGhzReceiver] [0mLoaded 11 decoders
+7012 [0;32m[I][SubGhzDeviceRegistry] [0mLoaded zu radio device
+[0;32mI (7455) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (7459) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (8454) FuriHalSubGhz: set_frequency: requested=434775000 real=434774780[0m
+[0;32mI (8454) FuriHalSubGhz: start_async_rx: GDO0=GPIO5 freq=434774780 connected=1[0m
+[0;32mI (8455) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:3 [0m
+[0;32mI (8457) FuriHalSubGhz: start_async_rx: CC1101 status=0x1F state=1 gdo0_level=1 irq_count=1[0m
+[0;32mI (11928) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (12650) FuriHalSubGhz: set_frequency: requested=434775000 real=434774780[0m
+[0;32mI (12650) FuriHalSubGhz: start_async_rx: GDO0=GPIO5 freq=434774780 connected=1[0m
+[0;32mI (12651) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:3 [0m
+[0;32mI (12652) FuriHalSubGhz: start_async_rx: CC1101 status=0x1F state=1 gdo0_level=1 irq_count=1[0m
+[0;32mI (23270) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (23300) FuriHalSubGhz: set_frequency: requested=433920000 real=433919830[0m
+[0;32mI (23301) FuriHalSubGhz: start_async_rx: GDO0=GPIO5 freq=433919830 connected=1[0m
+[0;32mI (23301) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:3 [0m
+[0;32mI (23303) FuriHalSubGhz: start_async_rx: CC1101 status=0x1F state=1 gdo0_level=1 irq_count=37[0m
+[0;32mI (24780) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+29646 [0;32m[I][SubGhzReceiver] [0mRegistry has 11 protocols
+29648 [0;32m[I][SubGhzReceiver] [0mLoaded 11 decoders
+[0;32mI (31244) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (31459) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (31478) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (31664) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (31681) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (31866) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (31906) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (32091) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (32109) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (32293) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (32316) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (32501) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (32518) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (32704) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (32722) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (32906) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (32957) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (33172) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (33189) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (33374) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (33391) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (33576) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (33623) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (33808) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (33826) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (34010) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (34027) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (34218) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (34238) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (34453) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (34482) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (34666) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (34683) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (34867) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (34913) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (35098) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (35116) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[0;32mI (35300) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+
+assert failed: block_next tlsf_block_functions.h:161 (!block_is_last(block))
+
+
+Backtrace: 0x40375b89:0x3fce56b0 0x40383d81:0x3fce56d0 0x4038cd89:0x3fce56f0 0x4038ad07:0x3fce5810 0x4038abc2:0x3fce5830 0x40376153:0x3fce5850 0x4038cdb9:0x3fce5870 0x42022ad7:0x3fce5890 0x4200bf12:0x3fce58b0 0x4200c069:0x3fce58d0 0x4206b536:0x3fce5900
+
+
+
+
+ELF file SHA256: e7a2dc798
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375b54
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xc24
+load:0x403cb700,len:0x2ebc
+entry 0x403c88f8
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time May 18 2026 06:18:18[0m
+[0;33mW (26) boot: Unicore bootloader[0m
+[0;32mI (26) boot: chip revision: v0.2[0m
+[0;32mI (27) boot: efuse block revision: v1.3[0m
+[0;32mI (27) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (27) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (27) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (27) boot: Enabling RNG early entropy source...[0m
+[0;32mI (28) boot: Partition Table:[0m
+[0;32mI (28) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (28) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (28) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (29) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (29) boot: End of partition table[0m
+[0;32mI (29) esp_image: segment 0: paddr=00010020 vaddr=3c160020 size=6892ch (428332) map[0m
+[0;32mI (105) esp_image: segment 1: paddr=00078954 vaddr=3fca1e00 size=054c0h ( 21696) load[0m
+[0;32mI (110) esp_image: segment 2: paddr=0007de1c vaddr=40374000 size=021fch (  8700) load[0m
+[0;32mI (112) esp_image: segment 3: paddr=00080020 vaddr=42000020 size=15f970h (1440112) map[0m
+[0;32mI (367) esp_image: segment 4: paddr=001df998 vaddr=403761fc size=1bb4ch (113484) load[0m
+[0;32mI (391) esp_image: segment 5: paddr=001fb4ec vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (403) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (403) boot: Disabling RNG early entropy source...[0m
+[0;32mI (404) cpu_start: Unicore app[0m
+[0;32mI (404) cpu_start: Single core mode[0m
+[0;32mI (413) cpu_start: Pro cpu start user code[0m
+[0;32mI (413) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (413) app_init: Application information:[0m
+[0;32mI (413) app_init: Project name:     furi_esp32[0m
+[0;32mI (413) app_init: App version:      1[0m
+[0;32mI (414) app_init: Compile time:     May 18 2026 06:17:31[0m
+[0;32mI (414) app_init: ELF file SHA256:  e7a2dc798...[0m
+[0;32mI (414) app_init: ESP-IDF:          v5.4.1-dirty[0m
+[0;32mI (414) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (414) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (414) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (415) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (415) heap_init: At 3FCB4968 len 00034DA8 (211 KiB): RAM[0m
+[0;32mI (415) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (415) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (415) heap_init: At 600FE120 len 00001EC8 (7 KiB): RTCRAM[0m
+[0;32mI (416) spi_flash: detected chip: gd[0m
+[0;32mI (417) spi_flash: flash io: dio[0m
+[0;33mW (417) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (417) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (418) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (418) coexist: coex firmware version: e727207[0m
+[0;32mI (419) coexist: coexist rom version e7ae62f[0m
+[0;32mI (419) main_task: Started on CPU0[0m
+[0;32mI (419) main_task: Calling app_main()[0m
+[0;32mI (419) Main: Starting Furi Core on ESP32...[0m
+[0;32mI (420) FuriHalI2cBus: Shared I2C bus (LEGACY) created on GPIO8/GPIO9[0m
+[0;32mI (420) gpio: GPIO[38]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (420) FuriHal: PWR_EN GPIO65535 set HIGH[0m
+[0;32mI (421) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (421) FuriHal: CC1101_CSN GPIO13 set HIGH (deselect)[0m
+[0;32mI (421) gpio: GPIO[6]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (421) FuriHal: NRF24_CSN GPIO6 set HIGH (deselect)[0m
+[0;32mI (422) gpio: GPIO[4]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (422) FuriHal: NRF24_CE GPIO4 set LOW (standby)[0m
+[0;32mI (422) FuriHal: Early init complete[0m
+[0;33mW (486) BQ27220: BQ27220 not found at 0x00 (no ACK)[0m
+[0;33mW (486) BQ25896: BQ25896 not found at 0x6B[0m
+[0;32mI (487) FuriHalSpi: Initialized HW SPI host=2 on MOSI=14 MISO=39 SCK=40[0m
+[0;32mI (489) FuriHalSubGhz: CC1101 probe OK: part=0xE1 version=0x14 status=0xFF reset_status=0xFF[0m
+[0;32mI (489) FuriHalLight: Backlight PWM initialized on GPIO38[0m
+[0;32mI (490) FuriHalLight: WS2812 ring (1 LEDs) on GPIO21 initialized[0m
+[0;32mI (491) FuriHalDisplay: Initializing display for M5Stack Cardputer-ADV[0m
+[0;32mI (492) gpio: GPIO[34]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (493) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (633) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (888) FuriHalDisplay: Display initialized (128x64, scaled 240x120, stripe=8 lines, buf=3840 bytes)[0m
+[0;32mI (888) gpio: GPIO[43]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (890) ES8311: ES8311 initialized[0m
+472 [0;32m[I][FuriHalSpeaker] [0mInit OK (I2S, BCLK=41 WS=43 DOUT=42)
+472 [0;32m[I][FuriHalNfc] [0mNFC HAL: no NFC hardware on this board
+[0;32mI (892) FuriHal: Init complete[0m
+473 [0;32m[I][Flipper] [0m
+	Firmware version:	1.4.3
+	Build date:		May 18 2026
+	Git Commit:		esp32-dev (0) (dirty)
+	Git Branch:		esp32-port
+474 [0;32m[I][Flipper] [0mBoot mode 0, ESP32 port
+474 [0;32m[I][Flipper] [0mStartup complete
+[0;32mI (893) Main: Registry counts: services=11 startup=6 apps=1 settings=3 extsettings=3 external=6 internal_external=2 system=11 debug=0[0m
+[0;32mI (894) Main: service[0]: appid=input name=InputSrv stack=4096[0m
+[0;32mI (894) Main: service[1]: appid=cli_vcp name=CliVcpSrv stack=4096[0m
+[0;32mI (894) Main: service[2]: appid=notification name=NotificationSrv stack=4096[0m
+[0;32mI (894) Main: service[3]: appid=gui name=GuiSrv stack=8192[0m
+[0;32mI (894) Main: service[4]: appid=dialogs name=DialogsSrv stack=4096[0m
+[0;32mI (895) Main: service[5]: appid=bt name=BtSrv stack=4096[0m
+[0;32mI (895) Main: service[6]: appid=dolphin name=DolphinSrv stack=4096[0m
+[0;32mI (895) Main: service[7]: appid=loader name=LoaderSrv stack=4096[0m
+[0;32mI (895) Main: service[8]: appid=power name=PowerSrv stack=4096[0m
+[0;32mI (895) Main: service[9]: appid=storage name=StorageSrv stack=4096[0m
+[0;32mI (896) Main: service[10]: appid=desktop name=DesktopSrv stack=4096[0m
+[0;32mI (896) Main: settings[0]: appid=power_settings name=Power stack=4096[0m
+[0;32mI (896) Main: settings[1]: appid=storage_settings name=Storage stack=4096[0m
+[0;32mI (896) Main: settings[2]: appid=notification_settings name=Sound & Display stack=4096[0m
+[0;32mI (897) Main: extsettings[0]: name=About launch=about[0m
+[0;32mI (897) Main: extsettings[1]: name=Bluetooth launch=bt_settings[0m
+[0;32mI (897) Main: extsettings[2]: name=Passport launch=passport[0m
+[0;32mI (899) InputCardputerAdv: TCA8418 CFG readback=0x07 (expect 0x07)[0m
+[0;32mI (899) InputCardputerAdv: Cardputer-ADV TCA8418 input initialised (back=id1 ok=id67 up=id57 down=id58 left=id54 right=id64)[0m
+481 [0;32m[I][Input] [0mInput service started
+501 [0;32m[I][SavedStruct] [0mLoading "/int/.notification.settings" -> NVS key "notification_se"
+501 [0;33m[W][SavedStruct] [0mKey "notification_se" not found in NVS
+502 [0;33m[W][NotificationSrv] [0mLOAD failed — using defaults
+550 [0;32m[I][RpcSrv] [0mRPC service initialized
+550 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+571 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+581 [0;32m[I][Loader] [0mLoader service started
+586 [0;32m[I][StorageExt] [0mcard detected
+[0;32mI (1006) FuriHalSd: Initializing SD card on SPI3_HOST, CS=GPIO12[0m
+[0;32mI (1006) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[1;31mE (1008) spi: spi_bus_initialize(802): SPI bus already initialized.[0m
+[0;32mI (1008) FuriHalSd: SD SPI bus already initialized, sharing host=2[0m
+[0;32mI (1008) FuriHalSd: SDSPI config: host=2 cs=12 target_probe_freq_khz=20000[0m
+[0;32mI (1018) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1019) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1061) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+Name: SD8GB
+Type: SDHC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: luMB
+CSD: ver=2, sector_size=512, capacity=15122432 read_bl_len=9
+SSR: bus_width=1
+675 [0;32m[I][StorageExt] [0mcard mounted
+679 [0;32m[I][SavedStruct] [0mLoading "/int/.dolphin.state" -> NVS key "dolphin_state"
+680 [0;32m[I][BtSrv] [0mKeys unchanged
+680 [0;32m[I][BtSrv] [0mbt_start_application: current_profile=0
+680 [0;32m[I][BtSrv] [0mStarting ble_profile_serial...
+[0;32mI (1103) BLE_INIT: BT controller compile version [d74042a][0m
+683 [0;32m[I][SavedStruct] [0mLoading "/int/.power.settings" -> NVS key "power_settings"
+[0;32mI (1106) BLE_INIT: Bluetooth MAC: 3c:0f:02:e9:6b:02[0m
+[0;32mI (1108) phy_init: phy_version 700,8582a7fd,Feb 10 2025,20:13:11[0m
+[0;32mI (1173) ble_serial: alloc name=Flipper Edge bonding=1 pairing=0[0m
+[0;32mI (1174) ble_serial: alloc: registering GAP callback[0m
+[0;32mI (1174) ble_serial: alloc: registering GATTS callback[0m
+[0;32mI (1174) ble_serial: alloc: applying security config[0m
+[0;32mI (1176) ble_serial: alloc: configuring advertising, has_custom_mac=0[0m
+[0;32mI (1176) ble_serial: adv_config name_len=12 adv_name_len=12 raw_len=21[0m
+[0;32mI (1178) ble_serial: gap: adv data set complete[0m
+[0;32mI (1178) ble_serial: try_start_adv: requested=0 adv_pending=0 rand_pending=0 advertising=0 active=0x3fcd05ac connected=0 svc_started=0[0m
+[0;33mW (1178) ble_serial:   blocked: not requested[0m
+[0;32mI (1179) ble_serial: alloc: adv configured, adv_data_pending=0[0m
+[0;32mI (1179) ble_serial: alloc: registering GATTS app (async)[0m
+[0;32mI (1179) ble_serial: gatts: app registered, gatts_if=3[0m
+[0;32mI (1181) ble_serial: gatts: serial attr table created, starting service[0m
+[0;32mI (1181) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1181) ble_serial: gatts: creating DIS attribute table...[0m
+[0;32mI (1182) ble_serial: gatts: DIS attr table created, starting service[0m
+[0;32mI (1183) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1183) ble_serial: gatts: creating BAS attribute table...[0m
+[0;32mI (1184) ble_serial: gatts: BAS attr table created, starting service[0m
+[0;32mI (1184) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1184) ble_serial: gatts: BAS started, all services ready[0m
+[0;32mI (1186) ble_serial: alloc: waiting for GATT service start...[0m
+[0;32mI (1186) ble_serial: Serial service ready, adv_data_pending=0 rand_addr_pending=0[0m
+[0;32mI (1186) FuriHalBt: BLE profile started[0m
+769 [0;32m[I][BtSrv] [0mBLE App started OK, profile=0x3fcd0514
+769 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+770 [0;32m[I][BtSrv] [0mbt_apply_settings: enabled=1
+[0;32mI (1191) FuriHalBt: furi_hal_bt_start_advertising: profile=0x3fcd0514[0m
+[0;32mI (1191) FuriHalBt:   is_hid=0 is_serial=1[0m
+[0;32mI (1191) ble_serial: ble_serial_start_advertising called, active=0x3fcd05ac[0m
+[0;32mI (1191) ble_serial: try_start_adv: requested=1 adv_pending=0 rand_pending=0 advertising=0 active=0x3fcd05ac connected=0 svc_started=1[0m
+[0;32mI (1192) ble_serial:   -> calling esp_ble_gap_start_advertising[0m
+[0;32mI (1194) ble_serial: gap: advertising started[0m
+[0;32mI (1196) ble_serial:   -> advertising started OK[0m
+[0;32mI (1196) ble_serial: ble_serial_start_advertising returning 1[0m
+[0;32mI (1196) FuriHalBt:   started=1[0m
+777 [0;32m[I][BtSrv] [0mBtSrv ready (enabled=1)
+2708 [0;32m[I][AnimationManager] [0mSelect 'L1_Akira_128x64' animation
+[0;32mI (3139) Main: All services started, entering background...[0m
+2744 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+
+[BANIM] key=4 type=0
+
+[DMAIN] key=4 type=0 dummy=0
+
+[BANIM] key=4 type=2
+
+[DMAIN] key=4 type=2 dummy=0
+
+[BANIM] key=4 type=1
+
+[LM] thread_start free=3568
+
+[LM] settings_counts internal=3 external=3
+
+[DMAIN] key=4 type=1 dummy=0
+
+[LM] settings_internal[0] appid=power_settings name=Power
+
+[LM] settings_internal[1] appid=storage_settings name=Storage
+
+[LM] settings_internal[2] appid=notification_settings name=Sound & Display
+
+[LM] settings_external[0] launch=about name=About
+
+[LM] settings_external[1] launch=bt_settings name=Bluetooth
+
+[LM] settings_external[2] launch=passport name=Passport
+
+[LM] app_alloc free=3072
+
+[LM] attached free=3072
+
+[LDR] start_by_name name='nrf24'
+6533 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Akira_128x64'
+[LDR] find_app('nrf24')=0x3c19c608
+[LDR] found name='NRF 2.4GHz' appid='nrf24' stack=4096
+6534 [0;32m[I][Loader] [0mStarting NRF 2.4GHz
+7486 [0;32m[I][Loader] [0mApp returned: 0
+7487 [0;32m[I][Loader] [0mApplication stopped. Free heap: zu
+9505 [0;32m[I][AnimationManager] [0mSelect 'L1_Akira_128x64' animation
+9505 [0;32m[I][AnimationManager] [0mLoad animation 'L1_Akira_128x64'
+
+[LDR] start_by_name name='ble_spam'
+10761 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Akira_128x64'
+[LDR] find_app('ble_spam')=0x3c19c620
+[LDR] found name='Bluetooth' appid='ble_spam' stack=8192
+10762 [0;32m[I][Loader] [0mStarting Bluetooth
+[0;32mI (11347) BleUuidDb: loaded uuid db: services=151 chars=0 desc=18 members=256[0m
+11592 [0;32m[I][Loader] [0mApp returned: 0
+11593 [0;32m[I][Loader] [0mApplication stopped. Free heap: zu
+
+[LDR] start_by_name name='wlan'
+13638 [0;32m[I][AnimationManager] [0mSelect 'L1_Akira_128x64' animation
+13640 [0;32m[I][AnimationManager] [0mLoad animation 'L1_Akira_128x64'
+13640 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Akira_128x64'
+[LDR] find_app('wlan')=0x3c19c638
+[LDR] found name='WiFi' appid='wlan' stack=8192
+13643 [0;32m[I][Loader] [0mStarting WiFi
+13744 [0;32m[I][SavedStruct] [0mLoading "/ext/wifi/handshake.cfg" -> NVS key "handshake_cfg"
+13745 [0;33m[W][SavedStruct] [0mKey "handshake_cfg" not found in NVS
+[0;32mI (15059) WlanNetcut: stop_worker: running=0 worker=0[0m
+14707 [0;32m[I][Loader] [0mApp returned: 0
+14708 [0;32m[I][Loader] [0mApplication stopped. Free heap: zu
+16721 [0;32m[I][AnimationManager] [0mSelect 'L1_Akira_128x64' animation
+16721 [0;32m[I][AnimationManager] [0mLoad animation 'L1_Akira_128x64'

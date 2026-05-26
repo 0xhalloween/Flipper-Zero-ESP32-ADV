@@ -477,7 +477,7 @@ static void loader_do_app_closed(Loader* loader) {
     loader->app.thread = NULL;
 
     FURI_LOG_I(
-        TAG, "Application stopped. Free heap: %zu", memmgr_get_free_heap());
+        TAG, "Application stopped. Free heap: %u", (unsigned)memmgr_get_free_heap());
 
     LoaderEvent event;
     event.type = LoaderEventTypeApplicationStopped;

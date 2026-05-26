@@ -27,27 +27,38 @@ static esp_err_t es8311_write_reg(uint8_t reg, uint8_t val) {
 esp_err_t board_es8311_init(void) {
     esp_err_t ret = ESP_OK;
 
-    /* Reset */
-    ret |= es8311_write_reg(ES8311_REG_RESET, 0x1F);
-    ret |= es8311_write_reg(ES8311_REG_RESET, 0x00);
+    /* Reset/power down */
+    ret |= es8311_write_reg(0x00, 0x00);
+    furi_delay_ms(5);
 
-    /* System power up */
-    ret |= es8311_write_reg(ES8311_REG_SYSTEM_CONFIG, 0x01);
+    /* Clock config: MCLK=BCLK */
+    ret |= es8311_write_reg(0x01, 0xB5);
+    ret |= es8311_write_reg(0x02, 0x18);
 
-    /* Clock manager */
-    ret |= es8311_write_reg(ES8311_REG_CLK_MANAGER, 0x00);
+    /* Serial Data Port config (I2S, 16-bit, Philips mode) */
+    ret |= es8311_write_reg(0x03, 0x0C);
 
-    /* Serial Data Port (I2S, 16-bit, Philips mode) */
-    ret |= es8311_write_reg(ES8311_REG_SDP_CONFIG, 0x0C);
+    /* System power up analog circuitry */
+    ret |= es8311_write_reg(0x0D, 0x01);
 
-    /* DAC config */
-    ret |= es8311_write_reg(ES8311_REG_DAC_CONFIG, 0x00);
+    /* Power up DAC */
+    ret |= es8311_write_reg(0x12, 0x00);
 
-    /* Volume (0-255) */
-    ret |= es8311_write_reg(ES8311_REG_DAC_VOLUME, 0xBF);
+    /* Enable output to HP drive */
+    ret |= es8311_write_reg(0x13, 0x10);
+
+    /* DAC config & volume (0xBF = ±0 dB) */
+    ret |= es8311_write_reg(0x31, 0x00);
+    ret |= es8311_write_reg(0x32, 0xBF);
+
+    /* Bypass DAC equalizer */
+    ret |= es8311_write_reg(0x37, 0x08);
+
+    /* Power on CSM */
+    ret |= es8311_write_reg(0x00, 0x80);
 
     if (ret == ESP_OK) {
-        ESP_LOGI(TAG, "ES8311 initialized");
+        ESP_LOGI(TAG, "ES8311 initialized successfully");
     } else {
         ESP_LOGE(TAG, "ES8311 initialization failed");
     }

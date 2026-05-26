@@ -29,6 +29,11 @@ static volatile bool s_verify_failed = false;
 static volatile uint8_t s_verify_disconnect_reason = 0;
 static bool s_bt_was_on = false;
 static bool s_event_handlers_registered = false;
+// Set when esp_wifi_deinit() fails after an OOM esp_wifi_init().
+// The WiFi driver is stuck in a partially-init'd state and cannot be
+// recovered without a reboot — block all further Evil Portal attempts
+// to prevent compounding memory corruption / BLE OOM crashes.
+static bool s_wifi_poisoned = false;
 
 static void evil_ap_event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data) {
     (void)arg;
@@ -635,10 +640,25 @@ static void evil_portal_start_worker(void* arg) {
     }
 
     ESP_LOGI(TAG, "[worker] esp_wifi_init");
+    // Use lean buffer settings — WIFI_INIT_CONFIG_DEFAULT() asks for 32
+    // dynamic RX buffers which needs ~200 KB; after WiFi deauth that RAM
+    // is no longer available and wifi_init fails mid-way, then wifi_deinit
+    // also fails (ESP_ERR_NO_MEM / 0x3001), permanently leaking the driver.
     wifi_init_config_t wcfg = WIFI_INIT_CONFIG_DEFAULT();
+    wcfg.static_rx_buf_num  = 2;
+    wcfg.dynamic_rx_buf_num = 4;
+    wcfg.dynamic_tx_buf_num = 8;
     esp_err_t err = esp_wifi_init(&wcfg);
     if(err != ESP_OK) {
         ESP_LOGE(TAG, "  wifi_init: %s", esp_err_to_name(err));
+        // If deinit also fails the driver is stuck. Mark it poisoned so we
+        // don't attempt again (would only make the OOM worse).
+        esp_err_t deinit_err = esp_wifi_deinit();
+        if(deinit_err != ESP_OK) {
+            ESP_LOGE(TAG, "  wifi_deinit also failed (%s) — marking poisoned, reboot required",
+                     esp_err_to_name(deinit_err));
+            s_wifi_poisoned = true;
+        }
         return;
     }
     esp_wifi_set_storage(WIFI_STORAGE_RAM);
@@ -781,6 +801,10 @@ bool wlan_hal_evil_portal_start(const WlanHalEvilPortalConfig* cfg) {
     }
     if(s_running) {
         ESP_LOGW(TAG, "start: already running");
+        return false;
+    }
+    if(s_wifi_poisoned) {
+        ESP_LOGE(TAG, "start: WiFi driver is poisoned (OOM deinit failure) — reboot required");
         return false;
     }
 

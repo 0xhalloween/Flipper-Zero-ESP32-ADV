@@ -14,7 +14,7 @@ App(
         "subghz_load_dangerous_settings",
     ],
     icon="A_Sub1ghz_14",
-    stack_size=8 * 1024,
+    stack_size=12 * 1024,
     order=1,
     resources="resources",
     fap_libs=["assets", "hwdrivers"],

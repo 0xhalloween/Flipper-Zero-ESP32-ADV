@@ -1,0 +1,628 @@
+[0;32mI (740) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| PESP-ROM:esp32s3-20210327[0m
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x42108472
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xc24
+load:0x403cb700,len:0x2ebc
+entry 0x403c88f8
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time May 17 2026 22:20:51[0m
+[0;33mW (27) boot: Unicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (27) boot: efuse block revision: v1.3[0m
+[0;32mI (27) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (28) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (28) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (28) boot: Enabling RNG early entropy source...[0m
+[0;32mI (28) boot: Partition Table:[0m
+[0;32mI (28) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (29) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (29) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (29) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (30) boot: End of partition table[0m
+[0;32mI (30) esp_image: segment 0: paddr=00010020 vaddr=3c1b0020 size=70928h (461096) map[0m
+[0;32mI (112) esp_image: segment 1: paddr=00080950 vaddr=3fca4400 size=05664h ( 22116) load[0m
+[0;32mI (117) esp_image: segment 2: paddr=00085fbc vaddr=40374000 size=0a05ch ( 41052) load[0m
+[0;32mI (126) esp_image: segment 3: paddr=00090020 vaddr=42000020 size=1a2048h (1712200) map[0m
+[0;32mI (428) esp_image: segment 4: paddr=00232070 vaddr=4037e05c size=16354h ( 90964) load[0m
+[0;32mI (448) esp_image: segment 5: paddr=002483cc vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (461) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (461) boot: Disabling RNG early entropy source...[0m
+[0;32mI (462) cpu_start: Unicore app[0m
+[0;32mI (462) cpu_start: Single core mode[0m
+[0;32mI (471) cpu_start: Pro cpu start user code[0m
+[0;32mI (471) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (471) app_init: Application information:[0m
+[0;32mI (471) app_init: Project name:     furi_esp32[0m
+[0;32mI (471) app_init: App version:      1[0m
+[0;32mI (471) app_init: Compile time:     May 17 2026 22:20:14[0m
+[0;32mI (471) app_init: ELF file SHA256:  d53cada6c...[0m
+[0;32mI (472) app_init: ESP-IDF:          v5.4.1-dirty[0m
+[0;32mI (472) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (472) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (472) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (472) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (473) heap_init: At 3FCB7148 len 000325C8 (201 KiB): RAM[0m
+[0;32mI (473) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (473) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (473) heap_init: At 600FE120 len 00001EC8 (7 KiB): RTCRAM[0m
+[0;32mI (474) spi_flash: detected chip: gd[0m
+[0;32mI (474) spi_flash: flash io: dio[0m
+[0;33mW (475) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (475) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (476) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (476) coexist: coex firmware version: e727207[0m
+[0;32mI (477) coexist: coexist rom version e7ae62f[0m
+[0;32mI (477) main_task: Started on CPU0[0m
+[0;32mI (477) main_task: Calling app_main()[0m
+[0;32mI (477) Main: Starting Furi Core on ESP32...[0m
+[0;32mI (478) FuriHalI2cBus: Shared I2C bus (LEGACY) created on GPIO8/GPIO9[0m
+[0;32mI (479) gpio: GPIO[38]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (479) FuriHal: PWR_EN GPIO65535 set HIGH[0m
+[0;32mI (479) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (480) FuriHal: CC1101_CSN GPIO13 set HIGH (deselect)[0m
+[0;32mI (480) gpio: GPIO[6]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (480) FuriHal: NRF24_CSN GPIO6 set HIGH (deselect)[0m
+[0;32mI (480) gpio: GPIO[4]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (481) FuriHal: NRF24_CE GPIO4 set LOW (standby)[0m
+[0;32mI (481) FuriHal: Early init complete[0m
+[0;33mW (545) BQ27220: BQ27220 not found at 0x00 (no ACK)[0m
+[0;33mW (545) BQ25896: BQ25896 not found at 0x6B[0m
+[0;32mI (546) FuriHalSpi: Initialized HW SPI host=2 on MOSI=14 MISO=39 SCK=40[0m
+[0;32mI (548) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (549) FuriHalLight: Backlight PWM initialized on GPIO38[0m
+[0;32mI (551) FuriHalLight: WS2812 ring (1 LEDs) on GPIO21 initialized[0m
+[0;32mI (551) FuriHalDisplay: Initializing display for M5Stack Cardputer-ADV[0m
+[0;32mI (553) gpio: GPIO[34]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (553) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (694) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (949) FuriHalDisplay: Display initialized (128x64, scaled 240x120, stripe=8 lines, buf=3840 bytes)[0m
+[0;32mI (949) gpio: GPIO[43]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (951) ES8311: ES8311 initialized[0m
+476 [0;32m[I][FuriHalSpeaker] [0mInit OK (I2S, BCLK=41 WS=43 DOUT=42)
+476 [0;32m[I][FuriHalNfc] [0mNFC HAL: no NFC hardware on this board
+[0;32mI (954) FuriHal: Init complete[0m
+477 [0;32m[I][Flipper] [0m
+	Firmware version:	1.4.3
+	Build date:		May 17 2026
+	Git Commit:		esp32-dev (0) (dirty)
+	Git Branch:		esp32-port
+478 [0;32m[I][Flipper] [0mBoot mode 0, ESP32 port
+478 [0;32m[I][Flipper] [0mStartup complete
+[0;32mI (955) Main: Registry counts: services=11 startup=6 apps=1 settings=3 extsettings=3 external=6 internal_external=2 system=11 debug=0[0m
+[0;32mI (956) Main: service[0]: appid=cli_vcp name=CliVcpSrv stack=4096[0m
+[0;32mI (956) Main: service[1]: appid=input name=InputSrv stack=4096[0m
+[0;32mI (956) Main: service[2]: appid=notification name=NotificationSrv stack=4096[0m
+[0;32mI (956) Main: service[3]: appid=gui name=GuiSrv stack=8192[0m
+[0;32mI (956) Main: service[4]: appid=dialogs name=DialogsSrv stack=4096[0m
+[0;32mI (957) Main: service[5]: appid=bt name=BtSrv stack=4096[0m
+[0;32mI (957) Main: service[6]: appid=dolphin name=DolphinSrv stack=4096[0m
+[0;32mI (957) Main: service[7]: appid=loader name=LoaderSrv stack=4096[0m
+[0;32mI (957) Main: service[8]: appid=power name=PowerSrv stack=4096[0m
+[0;32mI (957) Main: service[9]: appid=storage name=StorageSrv stack=4096[0m
+[0;32mI (958) Main: service[10]: appid=desktop name=DesktopSrv stack=4096[0m
+[0;32mI (958) Main: settings[0]: appid=power_settings name=Power stack=4096[0m
+[0;32mI (958) Main: settings[1]: appid=storage_settings name=Storage stack=4096[0m
+[0;32mI (959) Main: settings[2]: appid=notification_settings name=Sound & Display stack=4096[0m
+[0;32mI (959) Main: extsettings[0]: name=About launch=about[0m
+[0;32mI (959) Main: extsettings[1]: name=Bluetooth launch=bt_settings[0m
+[0;32mI (959) Main: extsettings[2]: name=Passport launch=passport[0m
+[0;32mI (972) InputCardputerAdv: TCA8418 CFG readback=0x07 (expect 0x07)[0m
+[0;32mI (973) InputCardputerAdv: Cardputer-ADV TCA8418 input initialised (back=id1 ok=id67 up=id57 down=id58 left=id54 right=id64)[0m
+496 [0;32m[I][Input] [0mInput service started
+505 [0;32m[I][SavedStruct] [0mLoading "/int/.notification.settings" -> NVS key "notification_se"
+505 [0;33m[W][SavedStruct] [0mKey "notification_se" not found in NVS
+506 [0;33m[W][NotificationSrv] [0mLOAD failed — using defaults
+555 [0;32m[I][RpcSrv] [0mRPC service initialized
+555 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+577 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+591 [0;32m[I][Loader] [0mLoader service started
+594 [0;32m[I][StorageExt] [0mcard detected
+[0;32mI (1072) FuriHalSd: Initializing SD card on SPI3_HOST, CS=GPIO12[0m
+[0;32mI (1073) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[1;31mE (1074) spi: spi_bus_initialize(802): SPI bus already initialized.[0m
+[0;32mI (1074) FuriHalSd: SD SPI bus already initialized, sharing host=2[0m
+[0;32mI (1074) FuriHalSd: SDSPI config: host=2 cs=12 target_probe_freq_khz=20000[0m
+[0;32mI (1084) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1086) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1129) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+Name: SD8GB
+Type: SDHC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: 7384MB
+CSD: ver=2, sector_size=512, capacity=15122432 read_bl_len=9
+SSR: bus_width=1
+687 [0;32m[I][StorageExt] [0mcard mounted
+691 [0;32m[I][SavedStruct] [0mLoading "/int/.dolphin.state" -> NVS key "dolphin_state"
+692 [0;32m[I][BtSrv] [0mKeys unchanged
+692 [0;32m[I][BtSrv] [0mbt_start_application: current_profile=0x0
+692 [0;32m[I][BtSrv] [0mStarting ble_profile_serial...
+[0;32mI (1174) BLE_INIT: BT controller compile ve696 [0;32m[I][SavedStruct] [0mLoading "/int/.power.settingrsion [d74042a][0m
+s" -> NVS key "power_settings"
+[0;32mI (1178) BLE_INIT: Bluetooth MAC: 3c:0f:02:e9:6b:02[0m
+[0;32mI (1180) phy_init: phy_version 700,8582a7fd,Feb 10 2025,20:13:11[0m
+[0;32mI (1232) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1310) ble_serial: alloc name=Flipper Edge bonding=1 pairing=0[0m
+[0;32mI (1310) ble_serial: alloc: registering GAP callback[0m
+[0;32mI (1312) ble_serial: alloc: registering GATTS callback[0m
+[0;32mI (1312) ble_serial: alloc: applying security config[0m
+[0;32mI (1314) ble_serial: alloc: configuring advertising, has_custom_mac=0[0m
+[0;32mI (1316) ble_serial: adv_config name_len=12 adv_name_len=12 raw_len=21[0m
+[0;32mI (1318) ble_serial: gap: adv data set complete[0m
+[0;32mI (1318) ble_serial: try_start_adv: requested=0 adv_pending=0 rand_pending=0 advertising=0 active=0x3fcdbb44 connected=0 svc_started=0[0m
+[0;33mW (1318) ble_serial:   blocked: not requested[0m
+[0;32mI (1320) ble_serial: alloc: adv configured, adv_data_pending=0[0m
+[0;32mI (1320) ble_serial: alloc: registering GATTS app (async)[0m
+[0;32mI (1320) ble_serial: gatts: app registered, gatts_if=3[0m
+[0;32mI (1322) ble_serial: gatts: serial attr table created, starting service[0m
+[0;32mI (1323) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1323) ble_serial: gatts: creating DIS attribute table...[0m
+[0;32mI (1324) ble_serial: gatts: DIS attr table created, starting service[0m
+[0;32mI (1325) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1325) ble_serial: gatts: creating BAS attribute table...[0m
+[0;32mI (1326) ble_serial: gatts: BAS attr table created, starting service[0m
+[0;32mI (1327) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1327) ble_serial: gatts: BAS started, all services ready[0m
+[0;32mI (1328) ble_serial: alloc: waiting for GATT service start...[0m
+[0;32mI (1328) ble_serial: Serial service ready, adv_data_pending=0 rand_addr_pending=0[0m
+[0;32mI (1328) FuriHalBt: BLE profile started[0m
+853 [0;32m[I][BtSrv] [0mBLE App started OK, profile=0x3fcd2f84
+853 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+854 [0;32m[I][BtSrv] [0mbt_apply_settings: enabled=1
+[0;32mI (1333) FuriHalBt: furi_hal_bt_start_advertising: profile=0x3fcd2f84[0m
+[0;32mI (1333) FuriHalBt:   is_hid=0 is_serial=1[0m
+[0;32mI (1333) ble_serial: ble_serial_start_advertising called, active=0x3fcdbb44[0m
+[0;32mI (1333) ble_serial: try_start_adv: requested=1 adv_pending=0 rand_pending=0 advertising=0 active=0x3fcdbb44 connected=0 svc_started=1[0m
+[0;32mI (1334) ble_serial:   -> calling esp_ble_gap_start_advertising[0m
+[0;32mI (1338) ble_serial: gap: advertising started[0m
+[0;32mI (1339) ble_serial:   -> advertising started OK[0m
+[0;32mI (1339) ble_serial: ble_serial_start_advertising returning 1[0m
+[0;32mI (1339) FuriHalBt:   started=1[0m
+864 [0;32m[I][BtSrv] [0mBtSrv ready (enabled=1)
+3338 [0;32m[I][AnimationManager] [0mSelect 'L1_Senpai_128x64' animation
+3348 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+[0;32mI (3933) Main: All services started, entering background...[0m
+
+[BANIM] key=4 type=0
+
+[DMAIN] key=4 type=0 dummy=0
+
+[BANIM] key=4 type=2
+
+[DMAIN] key=4 type=2 dummy=0
+
+
+[LM] thread_start free=3580
+
+[BANIM] key=4 type=1
+
+[DMAIN] key=4 type=1 dummy=0
+[LM] settings_counts internal=3 external=3
+
+[LM] settings_internal[0] appid=power_settings name=Power
+
+[LM] settings_internal[1] appid=storage_settings name=Storage
+
+[LM] settings_internal[2] appid=notification_settings name=Sound & Display
+
+[LM] settings_external[0] launch=about name=About
+
+[LM] settings_external[1] launch=bt_settings name=Bluetooth
+
+[LM] settings_external[2] launch=passport name=Passport
+
+[LM] app_alloc free=2972
+
+[LM] attached free=2972
+
+[LDR] start_by_name name='Sub-GHz'
+8749 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Senpai_128x64'
+[LDR] find_app('Sub-GHz')=0x3c1ef6dc
+[LDR] found name='Sub-GHz' appid='subghz' stack=12288
+8751 [0;32m[I][Loader] [0mStarting Sub-GHz
+8842 [0;32m[I][SubGhzSetting] [0mKeeping standard frequencies
+8846 [0;32m[I][SubGhzSetting] [0mFrequency loaded 466000000
+8897 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM95
+8979 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM15k
+9006 [0;32m[I][SubGhzSetting] [0mCustom preset loaded Pagers
+9091 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_1
+9116 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_2
+9198 [0;32m[I][SubGhzReceiver] [0mRegistry has 11 protocols
+9199 [0;32m[I][SubGhzReceiver] [0mLoaded 11 decoders
+9199 [0;32m[I][SubGhzDeviceRegistry] [0mLoaded 2 radio device
+[0;32mI (9699) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (9704) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (11217) FuriHalSubGhz: set_frequency: requested=315000000 real=314999664[0m
+[0;32mI (11218) FuriHalSubGhz: start_async_rx: GDO0=GPIO5 freq=314999664 connected=1[0m
+[0;32mI (11219) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:3 [0m
+[0;32mI (11221) FuriHalSubGhz: start_async_rx: CC1101 status=0x1F state=1 gdo0_level=1 irq_count=0[0m
+[0;32mI (12935) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+12855 [0;32m[I][SubGhzJammer] [0mJammer stopped
+12898 [0;32m[I][Loader] [0mApp returned: 0
+12898 [0;32m[I][Loader] [0mApplication stopped. Free heap: 78004
+
+[LM] dispatcher_return free=2860
+
+[LM] thread_end free=2860
+15259 [0;32m[I][AnimationManager] [0mSelect 'L1_Senpai_128x64' animation
+15259 [0;32m[I][AnimationManager] [0mLoad animation 'L1_Senpai_128x64'
+
+[BANIM] key=5 type=0
+
+[DMAIN] key=5 type=0 dummy=0
+
+[BANIM] key=5 type=2
+
+[DMAIN] key=5 type=2 dummy=0
+
+[BANIM] key=5 type=1
+
+[DMAIN] key=5 type=1 dummy=0
+
+[BANIM] key=4 type=0
+
+[DMAIN] key=4 type=0 dummy=0
+
+[BANIM] key=4 type=2
+
+[DMAIN] key=4 type=2 dummy=0
+
+[BANIM] key=4 type=1
+
+[DMAIN] key=4 type=1 dummy=0
+
+[LM] thread_start free=3340
+
+[LM] settings_counts internal=3 external=3
+
+[LM] settings_internal[0] appid=power_settings name=Power
+
+[LM] settings_internal[1] appid=storage_settings name=Storage
+
+[LM] settings_internal[2] appid=notification_settings name=Sound & Display
+
+[LM] settings_external[0] launch=about name=About
+
+[LM] settings_external[1] launch=bt_settings name=Bluetooth
+
+[LM] settings_external[2] launch=passport name=Passport
+
+[LM] app_alloc free=2972
+
+[LM] attached free=2972
+
+[LDR] start_by_name name='Sub-GHz'
+16740 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Senpai_128x64'
+[LDR] find_app('Sub-GHz')=0x3c1ef6dc
+[LDR] found name='Sub-GHz' appid='subghz' stack=12288
+16743 [0;32m[I][Loader] [0mStarting Sub-GHz
+16798 [0;32m[I][SubGhzSetting] [0mKeeping standard frequencies
+16801 [0;32m[I][SubGhzSetting] [0mFrequency loaded 466000000
+16886 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM95
+16967 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM15k
+16993 [0;32m[I][SubGhzSetting] [0mCustom preset loaded Pagers
+17080 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_1
+17105 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_2
+17152 [0;32m[I][SubGhzReceiver] [0mRegistry has 11 protocols
+17153 [0;32m[I][SubGhzReceiver] [0mLoaded 11 decoders
+17153 [0;32m[I][SubGhzDeviceRegistry] [0mLoaded 2 radio device
+[0;32mI (17682) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (17687) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+18237 [0;32m[I][SubGhzJammer] [0mJammer stopped
+18279 [0;32m[I][Loader] [0mApp returned: 0
+18280 [0;32m[I][Loader] [0mApplication stopped. Free heap: 77984
+
+[LDR] start_by_name name='Sub-GHz'
+20921 [0;32m[I][AnimationManager] [0mSelect 'L1_Senpai_128x64' animation
+20923 [0;32m[I][AnimationManager] [0mLoad animation 'L1_Senpai_128x64'
+20925 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Senpai_128x64'
+[LDR] find_app('Sub-GHz')=0x3c1ef6dc
+[LDR] found name='Sub-GHz' appid='subghz' stack=12288
+20926 [0;32m[I][Loader] [0mStarting Sub-GHz
+21016 [0;32m[I][SubGhzSetting] [0mKeeping standard frequencies
+21020 [0;32m[I][SubGhzSetting] [0mFrequency loaded 466000000
+21071 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM95
+21152 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM15k
+21178 [0;32m[I][SubGhzSetting] [0mCustom preset loaded Pagers
+21298 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_1
+21323 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_2
+21371 [0;32m[I][SubGhzReceiver] [0mRegistry has 11 protocols
+21372 [0;32m[I][SubGhzReceiver] [0mLoaded 11 decoders
+21372 [0;32m[I][SubGhzDeviceRegistry] [0mLoaded 2 radio device
+[0;32mI (21872) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (21876) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+22715 [0;32m[I][SubGhzJammer] [0mJammer stopped
+22758 [0;32m[I][Loader] [0mApp returned: 0
+22759 [0;32m[I][Loader] [0mApplication stopped. Free heap: 77980
+
+[LDR] start_by_name name='Sub-GHz'
+25377 [0;32m[I][AnimationManager] [0mSelect 'L1_Senpai_128x64' animation
+25377 [0;32m[I][AnimationManager] [0mLoad animation 'L1_Senpai_128x64'
+25378 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Senpai_128x64'
+[LDR] find_app('Sub-GHz')=0x3c1ef6dc
+[LDR] found name='Sub-GHz' appid='subghz' stack=12288
+25379 [0;32m[I][Loader] [0mStarting Sub-GHz
+25437 [0;32m[I][SubGhzSetting] [0mKeeping standard frequencies
+25440 [0;32m[I][SubGhzSetting] [0mFrequency loaded 466000000
+25492 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM95
+25609 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM15k
+25635 [0;32m[I][SubGhzSetting] [0mCustom preset loaded Pagers
+25756 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_1
+25782 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_2
+25829 [0;32m[I][SubGhzReceiver] [0mRegistry has 11 protocols
+25830 [0;32m[I][SubGhzReceiver] [0mLoaded 11 decoders
+25830 [0;32m[I][SubGhzDeviceRegistry] [0mLoaded 2 radio device
+[0;32mI (26357) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (26362) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+26544 [0;32m[I][SubGhzJammer] [0mJammer stopped
+26587 [0;32m[I][Loader] [0mApp returned: 0
+26588 [0;32m[I][Loader] [0mApplication stopped. Free heap: 77972
+
+[LM] dispatcher_return free=2828
+
+[LM] thread_end free=2828
+28976 [0;32m[I][AnimationManager] [0mSelect 'L1_Senpai_128x64' animation
+28976 [0;32m[I][AnimationManager] [0mLoad animation 'L1_Senpai_128x64'
+
+[BANIM] key=4 type=0
+
+[DMAIN] key=4 type=0 dummy=0
+
+[BANIM] key=4 type=2
+
+[DMAIN] key=4 type=2 dummy=0
+
+[BANIM] key=4 type=1
+
+[DMAIN] key=4 type=1 dummy=0
+
+[LM] thread_start free=3580
+
+[LM] settings_counts internal=3 external=3
+
+[LM] settings_internal[0] appid=power_settings name=Power
+
+[LM] settings_internal[1] appid=storage_settings name=Storage
+
+[LM] settings_internal[2] appid=notification_settings name=Sound & Display
+
+[LM] settings_external[0] launch=about name=About
+
+[LM] settings_external[1] launch=bt_settings name=Bluetooth
+
+[LM] settings_external[2] launch=passport name=Passport
+
+[LM] app_alloc free=2956
+
+[LM] attached free=2956
+
+[LM] apps_callback free=2956
+
+[LDR] start_by_name name='Apps'
+
+[LA] thread_start free=3576
+
+[LA] app_alloc free=3224
+
+[LA] select_begin free=3224
+
+[DFB] start free=2992
+
+[DFB] browser_alloc free=2992
+
+[FB] start free=2992
+
+[FBW] thread_start free=5624
+
+[FBW] config free=5368
+
+[FBW] start stack=6144
+
+[FB] worker_ready free=2896
+
+[DFB] browser_started free=2896
+
+[FBW] enter free=5304
+
+[FBW] load free=4888
+29853 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/weather_station.fap (full=0)
+29853 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/weather_station.fap
+29900 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+29901 [0;32m[I][Elf] [0mELF: entry=0x1934 shoff=0x33FD8 shnum=18 shstrndx=17
+29901 [0;32m[I][Elf] [0mReading section string table header at offset 0x34280
+29905 [0;32m[I][Elf] [0mSection string table: offset=0x33F58 size=125
+29906 [0;32m[I][Elf] [0mELF file opened OK: 18 sections
+29906 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+29906 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 18 sections
+30054 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 14, offset=0x12608 size=85
+30057 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+30058 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=16384 name='Weather Station'
+30061 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/tetris.fap (full=0)
+30062 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/tetris.fap
+30077 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+30077 [0;32m[I][Elf] [0mELF: entry=0x464 shoff=0x3518 shnum=16 shstrndx=15
+30078 [0;32m[I][Elf] [0mReading section string table header at offset 0x3770
+30080 [0;32m[I][Elf] [0mSection string table: offset=0x34A4 size=115
+30080 [0;32m[I][Elf] [0mELF file opened OK: 16 sections
+30080 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+30080 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 16 sections
+30108 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 12, offset=0x11E4 size=85
+30111 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+30111 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=16384 name='Tetris'
+30113 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/tagtinker.fap (full=0)
+30114 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/tagtinker.fap
+30129 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+30130 [0;32m[I][Elf] [0mELF: entry=0x5E30 shoff=0x223E0 shnum=17 shstrndx=16
+30130 [0;32m[I][Elf] [0mReading section string table header at offset 0x22660
+30133 [0;32m[I][Elf] [0mSection string table: offset=0x22368 size=120
+30134 [0;32m[I][Elf] [0mELF file opened OK: 17 sections
+30134 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+30134 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 17 sections
+30211 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 13, offset=0xC3A8 size=85
+30214 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+30214 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=16384 name='TagTinker'
+30218 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/proto_pirate.fap (full=0)
+30218 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/proto_pirate.fap
+30233 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+30234 [0;32m[I][Elf] [0mELF: entry=0x7B08 shoff=0x848AC shnum=18 shstrndx=17
+30234 [0;32m[I][Elf] [0mReading section string table header at offset 0x84B54
+30238 [0;32m[I][Elf] [0mSection string table: offset=0x8482C size=125
+30238 [0;32m[I][Elf] [0mELF file opened OK: 18 sections
+30238 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+30238 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 18 sections
+30267 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 14, offset=0x2F080 size=85
+30272 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+30272 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=16384 name='ProtoPirate'
+30308 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/findmy.fap (full=0)
+30309 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/findmy.fap
+30324 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+30324 [0;32m[I][Elf] [0mELF: entry=0x12C4 shoff=0xB290 shnum=17 shstrndx=16
+30325 [0;32m[I][Elf] [0mReading section string table header at offset 0xB510
+30328 [0;32m[I][Elf] [0mSection string table: offset=0xB218 size=120
+30328 [0;32m[I][Elf] [0mELF file opened OK: 17 sections
+30328 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+30328 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 17 sections
+30418 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 13, offset=0x36F1 size=85
+30420 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+30421 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=16384 name='FindMy Flipper'
+30424 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/wolf3d.fap (full=0)
+30424 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/wolf3d.fap
+30440 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+30440 [0;32m[I][Elf] [0mELF: entry=0x1208 shoff=0x9CAA4 shnum=62 shstrndx=61
+30441 [0;32m[I][Elf] [0mReading section string table header at offset 0x9D42C
+30444 [0;32m[I][Elf] [0mSection string table: offset=0x9C7A0 size=772
+30444 [0;32m[I][Elf] [0mELF file opened OK: 62 sections
+30444 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+30444 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 62 sections
+30855 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 58, offset=0x45BA8 size=85
+30857 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+30858 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=24576 name='Wolf3D'
+30862 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/spectrum_analyzer.fap (full=0)
+30862 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/spectrum_analyzer.fap
+30879 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+30880 [0;32m[I][Elf] [0mELF: entry=0x8C8 shoff=0x5584 shnum=16 shstrndx=15
+30880 [0;32m[I][Elf] [0mReading section string table header at offset 0x57DC
+30884 [0;32m[I][Elf] [0mSection string table: offset=0x5510 size=115
+30884 [0;32m[I][Elf] [0mELF file opened OK: 16 sections
+30885 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+30885 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 16 sections
+30921 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 12, offset=0x1BDB size=85
+30924 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+30925 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=16384 name='Spectrum Analyzer'
+30927 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/pocsag_pager.fap (full=0)
+30927 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/pocsag_pager.fap
+30980 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+30980 [0;32m[I][Elf] [0mELF: entry=0x2F64 shoff=0x154EC shnum=18 shstrndx=17
+30981 [0;32m[I][Elf] [0mReading section string table header at offset 0x15794
+31017 [0;32m[I][Elf] [0mSection string table: offset=0x1546C size=125
+31017 [0;32m[I][Elf] [0mELF file opened OK: 18 sections
+31018 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+31018 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 18 sections
+31082 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 14, offset=0x6740 size=85
+31085 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+31085 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=16384 name='POCSAG Pager'
+31089 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/mp3_player.fap (full=0)
+31089 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/mp3_player.fap
+31106 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+31107 [0;32m[I][Elf] [0mELF: entry=0xD0C shoff=0x1F4E0 shnum=16 shstrndx=15
+31107 [0;32m[I][Elf] [0mReading section string table header at offset 0x1F738
+31110 [0;32m[I][Elf] [0mSection string table: offset=0x1F46C size=115
+31110 [0;32m[I][Elf] [0mELF file opened OK: 16 sections
+31111 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+31111 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 16 sections
+31134 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 12, offset=0x12D20 size=85
+31137 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+31137 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=16384 name='MP3 Player'
+31141 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/doom.fap (full=0)
+31141 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/doom.fap
+31158 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+31159 [0;32m[I][Elf] [0mELF: entry=0x1FD0 shoff=0xFAE4C shnum=18 shstrndx=17
+31159 [0;32m[I][Elf] [0mReading section string table header at offset 0xFB0F4
+31162 [0;32m[I][Elf] [0mSection string table: offset=0xFADCC size=125
+31162 [0;32m[I][Elf] [0mELF file opened OK: 18 sections
+31163 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+31163 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 18 sections
+31233 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 14, offset=0x7FF44 size=85
+31235 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+31235 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=32768 name='Doom'
+31239 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/nfc_rfid_detector.fap (full=0)
+31240 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/nfc_rfid_detector.fap
+31256 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+31257 [0;32m[I][Elf] [0mELF: entry=0x374 shoff=0x3444 shnum=17 shstrndx=16
+31257 [0;32m[I][Elf] [0mReading section string table header at offset 0x36C4
+31259 [0;32m[I][Elf] [0mSection string table: offset=0x33CC size=120
+31259 [0;32m[I][Elf] [0mELF file opened OK: 17 sections
+31260 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+31260 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 17 sections
+31325 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 13, offset=0xEAD size=85
+31327 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+31327 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=16384 name='RFID detector'
+31331 [0;32m[I][Fap] [0mLoading FAP: /ext/apps/sub_analyzer.fap (full=0)
+31332 [0;32m[I][Elf] [0mOpening ELF file: /ext/apps/sub_analyzer.fap
+31384 [0;32m[I][Elf] [0mELF header: magic=7FELF class=1 data=1 type=1 machine=94
+31384 [0;32m[I][Elf] [0mELF: entry=0x1074 shoff=0x63A8 shnum=17 shstrndx=16
+31385 [0;32m[I][Elf] [0mReading section string table header at offset 0x6628
+31418 [0;32m[I][Elf] [0mSection string table: offset=0x6330 size=120
+31418 [0;32m[I][Elf] [0mELF file opened OK: 17 sections
+31418 [0;32m[I][Fap] [0mLooking for .fapmeta section...
+31419 [0;32m[I][Elf] [0mLooking for section '.fapmeta' in 17 sections
+31460 [0;32m[I][Elf] [0mFound section '.fapmeta' at idx 13, offset=0x2172 size=85
+31462 [0;32m[I][Elf] [0mSection '.fapmeta' processed OK
+31462 [0;32m[I][Fap] [0mManifest: magic=0x52474448 ver=1 api=1.0 target=32 stack=16384 name='Sub Analyzer'
+
+[DFB] wait_done free=2896
+
+[FB] stop free=2896
+
+[FBW] thread_end free=3496
+
+[DFB] end free=2896
+
+[LA] select_done_false free=3080
+
+[LA] app_free free=3080
+
+[LA] thread_end free=3080
+
+[LDR] start_by_name name='Sub-GHz'
+34321 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Senpai_128x64'
+[LDR] find_app('Sub-GHz')=0x3c1ef6dc
+[LDR] found name='Sub-GHz' appid='subghz' stack=12288
+34323 [0;32m[I][Loader] [0mStarting Sub-GHz
+34375 [0;32m[I][SubGhzSetting] [0mKeeping standard frequencies
+34378 [0;32m[I][SubGhzSetting] [0mFrequency loaded 466000000
+34430 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM95
+34546 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM15k
+34571 [0;32m[I][SubGhzSetting] [0mCustom preset loaded Pagers
+34658 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_1
+34683 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_2
+34732 [0;32m[I][SubGhzReceiver] [0mRegistry has 11 protocols
+34732 [0;32m[I][SubGhzReceiver] [0mLoaded 11 decoders
+34732 [0;32m[I][SubGhzDeviceRegistry] [0mLoaded 2 radio device
+[0;32mI (35233) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (35237) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+36407 [0;32m[I][SubGhzJammer] [0mJammer stopped
+36482 [0;32m[I][Loader] [0mApp returned: 0
+36482 [0;32m[I][Loader] [0mApplication stopped. Free heap: 77972
+
+[LM] dispatcher_return free=2620
+
+[LM] thread_end free=2620
+38886 [0;32m[I][AnimationManager] [0mSelect 'L1_Senpai_128x64' animation
+38888 [0;32m[I][AnimationManager] [0mLoad animation 'L1_Senpai_128x64'
+
+[BANIM] key=5 type=0
+
+[DMAIN] key=5 type=0 dummy=0
+
+[BANIM] key=5 type=2
+
+[DMAIN] key=5 type=2 dummy=0
+
+[BANIM] key=5 type=1
+
+[DMAIN] key=5 type=1 dummy=0

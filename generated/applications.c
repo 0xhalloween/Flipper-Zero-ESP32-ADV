@@ -57,7 +57,7 @@ const FlipperInternalApplication FLIPPER_SERVICES[] = {
 const size_t FLIPPER_SERVICES_COUNT = COUNT_OF(FLIPPER_SERVICES);
 
 const FlipperInternalApplication FLIPPER_APPS[] = {
-    {.app = subghz_app, .name = "Sub-GHz", .appid = "subghz", .stack_size = 8192, .icon = &A_Sub1ghz_14, .flags = FlipperInternalApplicationFlagDefault},
+    {.app = subghz_app, .name = "Sub-GHz", .appid = "subghz", .stack_size = 12288, .icon = &A_Sub1ghz_14, .flags = FlipperInternalApplicationFlagDefault},
 };
 const size_t FLIPPER_APPS_COUNT = COUNT_OF(FLIPPER_APPS);
 

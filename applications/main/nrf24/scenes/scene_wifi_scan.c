@@ -17,7 +17,10 @@ static void wifi_scan_submenu_callback(void* context, uint32_t index) {
         memcpy(app->selected_wifi_ssid, ap->ssid, len);
         app->selected_wifi_ssid[len] = '\0';
         if(app->selected_wifi_ssid[0] == '\0') {
-            strncpy(app->selected_wifi_ssid, "<hidden>", sizeof(app->selected_wifi_ssid) - 1);
+            snprintf(app->selected_wifi_ssid, sizeof(app->selected_wifi_ssid),
+                     "%02X:%02X:%02X:%02X:%02X:%02X",
+                     ap->bssid[0], ap->bssid[1], ap->bssid[2],
+                     ap->bssid[3], ap->bssid[4], ap->bssid[5]);
         }
         app->selected_wifi_channel = ap->primary;
         view_dispatcher_send_custom_event(app->view_dispatcher, SCAN_EVENT_PICK + index);
@@ -43,8 +46,14 @@ static void show_results(Nrf24App* app) {
     char buf[40];
     for(uint16_t i = 0; i < app->wifi_ap_count; i++) {
         wifi_ap_record_t* ap = &app->wifi_aps[i];
+        char bssid_str[20];
         const char* ssid = (const char*)ap->ssid;
-        if(ssid[0] == '\0') ssid = "<hidden>";
+        if(ssid[0] == '\0') {
+            snprintf(bssid_str, sizeof(bssid_str), "%02X:%02X:%02X:%02X:%02X:%02X",
+                     ap->bssid[0], ap->bssid[1], ap->bssid[2],
+                     ap->bssid[3], ap->bssid[4], ap->bssid[5]);
+            ssid = bssid_str;
+        }
         snprintf(buf, sizeof(buf), "CH%2u  %s", ap->primary, ssid);
         submenu_add_item(app->submenu, buf, i, wifi_scan_submenu_callback, app);
     }

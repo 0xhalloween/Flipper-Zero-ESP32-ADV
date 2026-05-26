@@ -122,16 +122,6 @@ static bool loader_applications_select_app(LoaderApplicationsApp* loader_applica
     return result;
 }
 
-static void loader_applications_show_js_not_supported(LoaderApplicationsApp* app) {
-    DialogMessage* message = dialog_message_alloc();
-    dialog_message_set_header(message, "JS not supported", 64, 3, AlignCenter, AlignTop);
-    dialog_message_set_text(
-        message, "JS apps are visible,\nbut cannot run yet.", 64, 32, AlignCenter, AlignCenter);
-    dialog_message_set_buttons(message, "Back", NULL, NULL);
-    dialog_message_show(app->dialogs, message);
-    dialog_message_free(message);
-}
-
 #define APPLICATION_STOP_EVENT 1
 
 static void loader_pubsub_callback(const void* message, void* context) {

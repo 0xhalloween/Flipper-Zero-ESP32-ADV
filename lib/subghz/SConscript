@@ -21,7 +21,7 @@ env.Append(
         File("blocks/decoder.h"),
         File("blocks/encoder.h"),
         File("blocks/generic.h"),
-        File("blocks/math.h"),
+        File("blocks/subghz_blocks_math.h"),
         File("blocks/custom_btn.h"),
         File("subghz_setting.h"),
         File("subghz_protocol_registry.h"),

@@ -5,10 +5,15 @@
 #include <esp_log.h>
 #include <nvs_flash.h>
 
+#include "furi_hal_i2c_bus.h"
+
 static const char* TAG = "FuriHal";
 
 void furi_hal_init_early(void) {
     furi_hal_cortex_init_early();
+
+    /* Ensure I2C bus is available for early board components */
+    furi_hal_i2c_get_bus_node();
 
     /* Force backlight ON as early as possible */
     gpio_config_t bl_cfg = {

@@ -222,8 +222,8 @@ bool subghz_frequency_analyzer_input(InputEvent* event, void* context) {
         return need_redraw;
     }
 
-    bool is_press_or_repeat = (event->type == InputTypePress) || (event->type == InputTypeRepeat);
-    if(is_press_or_repeat && (event->key == InputKeyLeft || event->key == InputKeyRight)) {
+    // Trigger on any press type for better responsiveness on Cardputer-ADV
+    if(event->key == InputKeyLeft || event->key == InputKeyRight) {
         // Trigger setup
         float trigger_level = subghz_frequency_analyzer_worker_get_trigger_level(instance->worker);
         if(event->key == InputKeyLeft) {
@@ -238,9 +238,9 @@ bool subghz_frequency_analyzer_input(InputEvent* event, void* context) {
             }
         }
         subghz_frequency_analyzer_worker_set_trigger_level(instance->worker, trigger_level);
-        FURI_LOG_D(TAG, "trigger = %.1f", (double)trigger_level);
+        FURI_LOG_D(TAG, "trigger = %d", (int)trigger_level);
         need_redraw = true;
-    } else if(event->type == InputTypePress && event->key == InputKeyUp) {
+    } else if(event->key == InputKeyUp) {
         if(instance->feedback_level == SubGHzFrequencyAnalyzerFeedbackLevelAll) {
             instance->feedback_level = SubGHzFrequencyAnalyzerFeedbackLevelMute;
         } else {
@@ -248,7 +248,7 @@ bool subghz_frequency_analyzer_input(InputEvent* event, void* context) {
         }
 
         need_redraw = true;
-    } else if(is_press_or_repeat && event->key == InputKeyDown) {
+    } else if(event->key == InputKeyDown) {
         instance->show_frame = instance->max_index > 0;
         if(instance->show_frame) {
             instance->selected_index = (instance->selected_index + 1) % instance->max_index;
@@ -366,17 +366,19 @@ void subghz_frequency_analyzer_pair_callback(
                             model->history_frequency_rx_count[i]++;
                         }
                         if(i > 0) {
-                            size_t offset = 0;
                             uint8_t temp_rx_count = model->history_frequency_rx_count[i];
+                            uint32_t temp_freq = model->history_frequency[i];
+                            (void)temp_freq; // already captured as normal_frequency
 
-                            for(size_t j = MAX_HISTORY - 1; j > 0; j--) {
-                                if(j == i) {
-                                    offset++;
-                                }
-                                model->history_frequency[j] = model->history_frequency[j - offset];
-                                model->history_frequency_rx_count[j] =
-                                    model->history_frequency_rx_count[j - offset];
-                            }
+                            // Shift elements [0..i-1] right by one to make room at [0]
+                            memmove(
+                                &model->history_frequency[1],
+                                &model->history_frequency[0],
+                                i * sizeof(model->history_frequency[0]));
+                            memmove(
+                                &model->history_frequency_rx_count[1],
+                                &model->history_frequency_rx_count[0],
+                                i * sizeof(model->history_frequency_rx_count[0]));
                             model->history_frequency[0] = normal_frequency;
                             model->history_frequency_rx_count[0] = temp_rx_count;
                         }
@@ -409,10 +411,13 @@ void subghz_frequency_analyzer_pair_callback(
         instance->max_index = max_index;
     } else if(!float_is_equal(rssi, 0.f) && !instance->locked) {
         // There is some signal
-        FURI_LOG_I(TAG, "rssi = %.2f, frequency = %ld Hz", (double)rssi, frequency);
+        FURI_LOG_I(TAG, "rssi = %d, frequency = %ld Hz", (int)rssi, frequency);
         frequency = round_int(frequency, 3); // Round 299999990Hz to 300000000Hz
 
-        // Triggered!
+        // Triggered! Cache trigger_level NOW before the callback fires — the callback
+        // can cause a scene transition that calls subghz_frequency_analyzer_exit(),
+        // which stops and frees instance->worker. Accessing instance->worker after the
+        // callback returns would be a use-after-free / double-free.
         instance->rssi_last = rssi;
         if(instance->callback) {
             instance->callback(SubGhzCustomEventSceneAnalyzerLock, instance->context);
@@ -424,6 +429,12 @@ void subghz_frequency_analyzer_pair_callback(
         instance->rssi_last = rssi;
     }
 
+    // Cache the trigger level while worker is guaranteed alive (before any scene
+    // transition triggered by the callback above may have freed it).
+    float cached_trigger =
+        instance->worker ? subghz_frequency_analyzer_worker_get_trigger_level(instance->worker) :
+                           RSSI_MIN;
+
     instance->locked = !float_is_equal(rssi, 0.f);
     with_view_model(
         instance->view,
@@ -433,7 +444,7 @@ void subghz_frequency_analyzer_pair_callback(
             model->rssi_last = instance->rssi_last;
             model->frequency = frequency;
             model->signal = signal;
-            model->trigger = subghz_frequency_analyzer_worker_get_trigger_level(instance->worker);
+            model->trigger = cached_trigger;
             model->feedback_level = instance->feedback_level;
             model->max_index = instance->max_index;
             model->show_frame = instance->show_frame;

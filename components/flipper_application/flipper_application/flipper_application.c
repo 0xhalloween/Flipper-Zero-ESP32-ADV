@@ -118,21 +118,7 @@ static FlipperApplicationPreloadStatus
         return FlipperApplicationPreloadStatusInvalidFile;
     }
 
-    // if we are loading full file
-    if(load_full) {
-        FURI_LOG_I(TAG, "Loading section table...");
-        ElfLoadSectionTableResult load_result = elf_file_load_section_table(app->elf);
-        if(load_result == ElfLoadSectionTableResultError) {
-            FURI_LOG_E(TAG, "Section table load failed");
-            return FlipperApplicationPreloadStatusInvalidFile;
-        } else if(load_result == ElfLoadSectionTableResultNoMemory) {
-            FURI_LOG_E(TAG, "Not enough memory for section table");
-            return FlipperApplicationPreloadStatusNotEnoughMemory;
-        }
-        FURI_LOG_I(TAG, "Section table loaded OK");
-    }
-
-    // load manifest section
+    // load manifest section first
     FURI_LOG_I(TAG, "Looking for .fapmeta section...");
     ElfProcessSectionResult meta_result = elf_process_section(
         app->elf, ".fapmeta", flipper_application_process_manifest_section, &app->manifest);
@@ -152,7 +138,27 @@ static FlipperApplicationPreloadStatus
         app->manifest.stack_size,
         app->manifest.name);
 
-    return flipper_application_validate_manifest(app);
+    // Validate manifest before loading sections
+    FlipperApplicationPreloadStatus manifest_status = flipper_application_validate_manifest(app);
+    if(manifest_status != FlipperApplicationPreloadStatusSuccess) {
+        return manifest_status;
+    }
+
+    // if we are loading full file
+    if(load_full) {
+        FURI_LOG_I(TAG, "Loading section table...");
+        ElfLoadSectionTableResult load_result = elf_file_load_section_table(app->elf);
+        if(load_result == ElfLoadSectionTableResultError) {
+            FURI_LOG_E(TAG, "Section table load failed");
+            return FlipperApplicationPreloadStatusInvalidFile;
+        } else if(load_result == ElfLoadSectionTableResultNoMemory) {
+            FURI_LOG_E(TAG, "Not enough memory for section table");
+            return FlipperApplicationPreloadStatusNotEnoughMemory;
+        }
+        FURI_LOG_I(TAG, "Section table loaded OK");
+    }
+
+    return FlipperApplicationPreloadStatusSuccess;
 }
 
 FlipperApplicationPreloadStatus
@@ -225,7 +231,6 @@ static int32_t flipper_application_thread(void* context) {
     /* The literal pool is at the START of .text, before the entry point */
     /* Find .text base by going back from entry point */
     /* For now, just dump what's around the entry point's data bus mirror */
-    uint32_t text_data_base = data_base & ~0xFFF; /* align to page for safety */
     /* Actually, we know the text section start from relocation */
     /* Let's just look at the first 64 bytes of the loaded .text */
     FURI_LOG_I(TAG, "=== Literal pool dump (data bus, first 16 words) ===");

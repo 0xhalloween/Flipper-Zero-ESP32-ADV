@@ -382,6 +382,8 @@ bool subghz_setting_load_custom_preset(
         SubGhzSettingCustomPresetItemArray_push_raw(instance->preset->data);
     item->custom_preset_name = furi_string_alloc();
     furi_string_set(item->custom_preset_name, preset_name);
+    item->custom_preset_data = NULL;
+    item->custom_preset_data_size = 0;
     do {
         if(!flipper_format_get_value_count(fff_data_file, "Custom_preset_data", &temp_data32))
             break;
@@ -401,6 +403,13 @@ bool subghz_setting_load_custom_preset(
         }
         return true;
     } while(true);
+    // Failed: remove the orphan entry we push_raw'd to avoid a NULL data
+    // pointer sitting in the array (would crash on index-based access).
+    furi_string_free(item->custom_preset_name);
+    free(item->custom_preset_data); // safe even if NULL
+    // m-lib _pop_back requires a destination to pop into; use a dummy.
+    SubGhzSettingCustomPresetItem _discard;
+    SubGhzSettingCustomPresetItemArray_pop_back(&_discard, instance->preset->data);
     return false;
 }
 

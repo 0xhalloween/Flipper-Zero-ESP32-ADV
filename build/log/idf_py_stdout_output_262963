@@ -1,0 +1,1104 @@
+[0;32mI (461) esp_image: segment 5: paddr=0025dfd0 vaddr=600fe000 sizeESP-ROM:esp32s3-20210327[0m
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038c4dc
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xc24
+load:0x403cb700,len:0x2ebc
+entry 0x403c88f8
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time May 16 2026 14:10:21[0m
+[0;33mW (27) boot: Unicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (27) boot: efuse block revision: v1.3[0m
+[0;32mI (27) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (27) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (28) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (28) boot: Enabling RNG early entropy source...[0m
+[0;32mI (28) boot: Partition Table:[0m
+[0;32mI (28) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (29) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (29) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (29) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (30) boot: End of partition table[0m
+[0;32mI (30) esp_image: segment 0: paddr=00010020 vaddr=3c1c0020 size=72c18h (470040) map[0m
+[0;32mI (113) esp_image: segment 1: paddr=00082c40 vaddr=3fca4400 size=05664h ( 22116) load[0m
+[0;32mI (118) esp_image: segment 2: paddr=000882ac vaddr=40374000 size=07d6ch ( 32108) load[0m
+[0;32mI (125) esp_image: segment 3: paddr=00090020 vaddr=42000020 size=1b595ch (1792348) map[0m
+[0;32mI (442) esp_image: segment 4: paddr=00245984 vaddr=4037bd6c size=18644h ( 99908) load[0m
+[0;32mI (463) esp_image: segment 5: paddr=0025dfd0 vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (476) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (476) boot: Disabling RNG early entropy source...[0m
+[0;32mI (477) cpu_start: Unicore app[0m
+[0;32mI (477) cpu_start: Single core mode[0m
+[0;32mI (486) cpu_start: Pro cpu start user code[0m
+[0;32mI (486) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (486) app_init: Application information:[0m
+[0;32mI (486) app_init: Project name:     furi_esp32[0m
+[0;32mI (487) app_init: App version:      1[0m
+[0;32mI (487) app_init: Compile time:     May 16 2026 14:09:43[0m
+[0;32mI (487) app_init: ELF file SHA256:  5f37ea60d...[0m
+[0;32mI (487) app_init: ESP-IDF:          v5.4.1-dirty[0m
+[0;32mI (487) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (487) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (488) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (488) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (488) heap_init: At 3FCB7D50 len 000319C0 (198 KiB): RAM[0m
+[0;32mI (488) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (488) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (489) heap_init: At 600FE120 len 00001EC8 (7 KiB): RTCRAM[0m
+[0;32mI (490) spi_flash: detected chip: gd[0m
+[0;32mI (490) spi_flash: flash io: dio[0m
+[0;33mW (490) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (491) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (491) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (492) coexist: coex firmware version: e727207[0m
+[0;32mI (492) coexist: coexist rom version e7ae62f[0m
+[0;32mI (493) main_task: Started on CPU0[0m
+[0;32mI (493) main_task: Calling app_main()[0m
+[0;32mI (493) Main: Starting Furi Core on ESP32...[0m
+[0;32mI (494) FuriHalI2cBus: Shared I2C bus (LEGACY) created on GPIO8/GPIO9[0m
+[0;32mI (495) gpio: GPIO[38]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (495) FuriHal: PWR_EN GPIO65535 set HIGH[0m
+[0;32mI (495) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (496) FuriHal: CC1101_CSN GPIO13 set HIGH (deselect)[0m
+[0;32mI (496) gpio: GPIO[6]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (496) FuriHal: NRF24_CSN GPIO6 set HIGH (deselect)[0m
+[0;32mI (496) gpio: GPIO[4]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (496) FuriHal: NRF24_CE GPIO4 set LOW (standby)[0m
+[0;32mI (497) FuriHal: Early init complete[0m
+[0;33mW (561) BQ27220: BQ27220 not found at 0x00 (no ACK)[0m
+[0;33mW (561) BQ25896: BQ25896 not found at 0x6B[0m
+[0;32mI (562) FuriHalSpi: Initialized HW SPI host=2 on MOSI=14 MISO=39 SCK=40[0m
+[0;32mI (564) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (565) FuriHalLight: Backlight PWM initialized on GPIO38[0m
+[0;32mI (567) FuriHalLight: WS2812 ring (1 LEDs) on GPIO21 initialized[0m
+[0;32mI (567) FuriHalDisplay: Initializing display for M5Stack Cardputer-ADV[0m
+[0;32mI (569) gpio: GPIO[34]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (569) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (710) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (965) FuriHalDisplay: Display initialized (128x64, scaled 240x120, stripe=8 lines, buf=3840 bytes)[0m
+[0;32mI (965) gpio: GPIO[43]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (967) ES8311: ES8311 initialized[0m
+476 [0;32m[I][FuriHalSpeaker] [0mInit OK (I2S, BCLK=41 WS=43 DOUT=42)
+476 [0;32m[I][FuriHalNfc] [0mNFC HAL: no NFC hardware on this board
+[0;32mI (969) FuriHal: Init complete[0m
+477 [0;32m[I][Flipper] [0m
+	Firmware version:	1.4.3
+	Build date:		May 16 2026
+	Git Commit:		esp32-dev (0) (dirty)
+	Git Branch:		esp32-port
+478 [0;32m[I][Flipper] [0mBoot mode 0, ESP32 port
+478 [0;32m[I][Flipper] [0mStartup complete
+[0;32mI (971) Main: Registry counts: services=11 startup=6 apps=1 settings=3 extsettings=3 external=6 internal_external=2 system=11 debug=0[0m
+[0;32mI (972) Main: service[0]: appid=cli_vcp name=CliVcpSrv stack=4096[0m
+[0;32mI (972) Main: service[1]: appid=input name=InputSrv stack=4096[0m
+[0;32mI (972) Main: service[2]: appid=notification name=NotificationSrv stack=4096[0m
+[0;32mI (972) Main: service[3]: appid=gui name=GuiSrv stack=8192[0m
+[0;32mI (972) Main: service[4]: appid=dialogs name=DialogsSrv stack=4096[0m
+[0;32mI (973) Main: service[5]: appid=bt name=BtSrv stack=4096[0m
+[0;32mI (973) Main: service[6]: appid=dolphin name=DolphinSrv stack=4096[0m
+[0;32mI (973) Main: service[7]: appid=loader name=LoaderSrv stack=4096[0m
+[0;32mI (973) Main: service[8]: appid=power name=PowerSrv stack=4096[0m
+[0;32mI (973) Main: service[9]: appid=storage name=StorageSrv stack=4096[0m
+[0;32mI (974) Main: service[10]: appid=desktop name=DesktopSrv stack=4096[0m
+[0;32mI (974) Main: settings[0]: appid=power_settings name=Power stack=4096[0m
+[0;32mI (974) Main: settings[1]: appid=storage_settings name=Storage stack=4096[0m
+[0;32mI (974) Main: settings[2]: appid=notification_settings name=Sound & Display stack=4096[0m
+[0;32mI (975) Main: extsettings[0]: name=About launch=about[0m
+[0;32mI (975) Main: extsettings[1]: name=Bluetooth launch=bt_settings[0m
+[0;32mI (975) Main: extsettings[2]: name=Passport launch=passport[0m
+[0;32mI (988) InputCardputerAdv: TCA8418 CFG readback=0x07 (expect 0x07)[0m
+[0;32mI (989) InputCardputerAdv: Cardputer-ADV TCA8418 input initialised (back=id1 ok=id67 up=id57 down=id58 left=id54 right=id64)[0m
+496 [0;32m[I][Input] [0mInput service started
+505 [0;32m[I][SavedStruct] [0mLoading "/int/.notification.settings" -> NVS key "notification_se"
+505 [0;33m[W][SavedStruct] [0mKey "notification_se" not found in NVS
+506 [0;33m[W][NotificationSrv] [0mLOAD failed — using defaults
+555 [0;32m[I][RpcSrv] [0mRPC service initialized
+555 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+578 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+590 [0;32m[I][Loader] [0mLoader service started
+594 [0;32m[I][StorageExt] [0mcard detected
+[0;32mI (1088) FuriHalSd: Initializing SD card on SPI3_HOST, CS=GPIO12[0m
+[0;32mI (1088) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[1;31mE (1090) spi: spi_bus_initialize(802): SPI bus already initialized.[0m
+[0;32mI (1090) FuriHalSd: SD SPI bus already initialized, sharing host=2[0m
+[0;32mI (1090) FuriHalSd: SDSPI config: host=2 cs=12 target_probe_freq_khz=20000[0m
+[0;32mI (1100) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1102) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1144) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+Name: SD8GB
+Type: SDHC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: 7384MB
+CSD: ver=2, sector_size=512, capacity=15122432 read_bl_len=9
+SSR: bus_width=1
+686 [0;32m[I][StorageExt] [0mcard mounted
+690 [0;32m[I][SavedStruct] [0mLoading "/int/.dolphin.state" -> NVS key "dolphin_state"
+691 [0;32m[I][BtSrv] [0mKeys unchanged
+691 [0;32m[I][BtSrv] [0mbt_start_application: current_profile=0x0
+691 [0;32m[I][BtSrv] [0mStarting ble_profile_serial...
+[0;32mI (1188) BLE_INIT: BT controller compile version [d74042a][0m
+696 [0;32m[I][SavedStruct] [0mLoading "/int/.power.settings" -> NVS key "power_settings"
+[0;32mI (1194) BLE_INIT: Bluetooth MAC: 3c:0f:02:e9:6b:02[0m
+[0;32mI (1197) phy_init: phy_version 700,8582a7fd,Feb 10 2025,20:13:11[0m
+[0;32mI (1272) ble_serial: alloc name=Flipper Edge bonding=1 pairing=0[0m
+[0;32mI (1272) ble_serial: alloc: registering GAP callback[0m
+[0;32mI (1272) ble_serial: alloc: registering GATTS callback[0m
+[0;32mI (1274) ble_serial: alloc: applying security config[0m
+[0;32mI (1276) ble_serial: alloc: configuring advertising, has_custom_mac=0[0m
+[0;32mI (1276) ble_serial: adv_config name_len=12 adv_name_len=12 raw_len=21[0m
+[0;32mI (1279) ble_serial: gap: adv data set complete[0m
+[0;32mI (1280) ble_serial: try_start_adv: requested=0 adv_pending=0 rand_pending=0 advertising=0 active=0x3fce373c connected=0 svc_started=0[0m
+[0;33mW (1280) ble_serial:   blocked: not requested[0m
+[0;32mI (1281) ble_serial: alloc: adv configured, adv_data_pending=0[0m
+[0;32mI (1281) ble_serial: alloc: registering GATTS app (async)[0m
+[0;32mI (1281) ble_serial: gatts: app registered, gatts_if=3[0m
+[0;32mI (1283) ble_serial: gatts: serial attr table created, starting service[0m
+[0;32mI (1284) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1284) ble_serial: gatts: creating DIS attribute table...[0m
+[0;32mI (1285) ble_serial: gatts: DIS attr table created, starting service[0m
+[0;32mI (1286) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1286) ble_serial: gatts: creating BAS attribute table...[0m
+[0;32mI (1287) ble_serial: gatts: BAS attr table created, starting service[0m
+[0;32mI (1288) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1288) ble_serial: gatts: BAS started, all services ready[0m
+[0;32mI (1290) ble_serial: alloc: waiting for GATT service start...[0m
+[0;32mI (1290) ble_serial: Serial service ready, adv_data_pending=0 rand_addr_pending=0[0m
+[0;32mI (1290) FuriHalBt: BLE profile started[0m
+797 [0;32m[I][BtSrv] [0mBLE App started OK, profile=0x3fcd4444
+798 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+800 [0;32m[I][BtSrv] [0mbt_apply_settings: enabled=1
+[0;32mI (1294) FuriHalBt: furi_hal_bt_start_advertising: profile=0x3fcd4444[0m
+[0;32mI (1296) FuriHalBt:   is_hid=0 is_serial=1[0m
+[0;32mI (1296) ble_serial: ble_serial_start_advertising called, active=0x3fce373c[0m
+[0;32mI (1296) ble_serial: try_start_adv: requested=1 adv_pending=0 rand_pending=0 advertising=0 active=0x3fce373c connected=0 svc_started=1[0m
+[0;32mI (1297) ble_serial:   -> calling esp_ble_gap_start_advertising[0m
+[0;32mI (1300) ble_serial: gap: advertising started[0m
+[0;32mI (1302) ble_serial:   -> advertising started OK[0m
+[0;32mI (1302) ble_serial: ble_serial_start_advertising returning 1[0m
+[0;32mI (1302) FuriHalBt:   started=1[0m
+809 [0;32m[I][BtSrv] [0mBtSrv ready (enabled=1)
+1098 [0;32m[I][AnimationManager] [0mSelect 'L1_Tv_128x47' animation
+[0;32mI (1622) Main: All services started, entering background...[0m
+1169 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+
+[BANIM] key=4 type=0
+
+[DMAIN] key=4 type=0 dummy=0
+
+[BANIM] key=4 type=2
+
+[DMAIN] key=4 type=2 dummy=0
+
+
+[LM] thread_start free=3580
+
+[BANIM] key=4 type=1
+
+[DMAIN] key=4 type=1 dummy=0
+[LM] settings_counts internal=3 external=3
+
+[LM] settings_internal[0] appid=power_settings name=Power
+
+[LM] settings_internal[1] appid=storage_settings name=Storage
+
+[LM] settings_internal[2] appid=notification_settings name=Sound & Display
+
+[LM] settings_external[0] launch=about name=About
+
+[LM] settings_external[1] launch=bt_settings name=Bluetooth
+
+[LM] settings_external[2] launch=passport name=Passport
+
+[LM] app_alloc free=2972
+
+[LM] attached free=2972
+
+[LDR] start_by_name name='Sub-GHz'
+7080 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Tv_128x47'
+[LDR] find_app('Sub-GHz')=0x3c2008e8
+[LDR] found name='Sub-GHz' appid='subghz' stack=8192
+7082 [0;32m[I][Loader] [0mStarting Sub-GHz
+7138 [0;32m[I][SubGhzSetting] [0mKeeping standard frequencies
+7142 [0;32m[I][SubGhzSetting] [0mFrequency loaded 466000000
+7225 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM95
+7303 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM15k
+7329 [0;32m[I][SubGhzSetting] [0mCustom preset loaded Pagers
+7412 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_1
+7437 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_2
+7484 [0;32m[I][SubGhzReceiver] [0mRegistry has 56 protocols
+7486 [0;32m[I][SubGhzProtocoAlutech_at_4n] [0mLoading rainbow table from /ext/subghz/assets/alutech_at_4n
+7487 [0;32m[I][SubGhzReceiver] [0mLoaded 56 decoders
+7487 [0;32m[I][SubGhzDeviceRegistry] [0mLoaded 2 radio device
+[0;32mI (8032) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (8037) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (10074) FuriHalSubGhz: set_frequency: requested=433920000 real=433919830[0m
+[0;32mI (10075) FuriHalSubGhz: start_async_rx: GDO0=GPIO5 freq=433919830 connected=1[0m
+[0;32mI (10076) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:3 [0m
+[0;32mI (10078) FuriHalSubGhz: start_async_rx: CC1101 status=0x1F state=1 gdo0_level=1 irq_count=1[0m
+[0;32mI (12258) gpio: GPIO[5]| InputEn: 1| OutputEn: 0| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+22059 [0;32m[I][frequency_analyzer] [0mrssi = -73.00, frequency = 434914428 Hz
+51482 [0;32m[I][Dolphin] [0mFlush stats
+51483 [0;32m[I][SavedStruct] [0mSaving "/int/.dolphin.state" -> NVS key "dolphin_state" (32 bytes)
+51490 [0;32m[I][DolphinState] [0mState saved
+65644 [0;31m[E][SubGhzLastSettings] [0mError save file /ext/subghz/assets/last_subghz.settings
+85011 [0;31m[E][SubGhzLastSettings] [0mError save file /ext/subghz/assets/last_subghz.settings
+104163 [0;32m[I][SubGhzReceiver] [0mRegistry has 56 protocols
+104169 [0;32m[I][SubGhzReceiver] [0mLoaded 56 decoders
+[0;32mI (106984) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107019) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107019) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106528 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107065) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107067) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107068) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106576 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107087) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107090) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107090) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106598 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107109) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107112) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107112) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106620 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107162) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107165) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107165) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106673 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107184) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107187) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107187) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106695 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107207) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107209) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107210) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106718 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107267) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107300) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107300) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106808 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107321) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107324) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107325) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106865 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107404) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107407) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107407) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106915 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107430) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107464) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107464) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106972 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107484) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107486) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107486) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+106994 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107505) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107508) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107508) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107016 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107531) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107568) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107568) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107079 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107626) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107662) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107662) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107171 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107708) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107711) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107711) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107219 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107764) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107766) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107767) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107275 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107786) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107789) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107789) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107297 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107808) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107811) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107811) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107319 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107864) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107867) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107867) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107375 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107886) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107889) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107889) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107397 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107912) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (107948) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (107948) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107457 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (107999) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108036) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108036) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107545 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108089) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108092) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108092) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107600 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108111) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108114) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108114) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107622 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108162) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108164) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108165) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107672 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108184) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108187) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108187) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107695 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108207) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108209) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108209) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107717 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108231) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108265) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108265) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107773 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108311) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108313) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108314) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107822 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108365) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108401) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108401) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107909 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108423) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108458) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108458) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107966 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108477) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108480) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108480) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+107988 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108499) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108502) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108502) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108010 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108524) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108559) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108559) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108067 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108609) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108612) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108612) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108120 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108660) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108663) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108663) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108171 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108711) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108713) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108714) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108222 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108763) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108766) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108766) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108274 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108785) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108788) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108788) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108296 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108807) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108809) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108810) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108318 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108831) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108866) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108866) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108374 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108885) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108888) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108888) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108396 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (108947) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (108981) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (108981) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108489 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109031) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109066) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109066) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108574 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109085) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109088) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109088) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108596 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109107) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109110) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109110) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108618 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109131) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109165) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109165) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108673 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109184) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109187) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109187) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108695 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109207) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109209) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109209) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108717 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109231) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109266) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109266) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108775 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109318) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109322) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109322) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108832 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109402) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109404) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109405) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108913 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109459) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109462) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109462) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108970 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109481) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109484) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109484) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+108992 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109504) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109506) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109506) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109014 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109529) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109562) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109562) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109070 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109609) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109611) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109612) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109120 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109666) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109700) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109700) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109208 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109722) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109759) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109759) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109267 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109778) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109781) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109781) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109289 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109800) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109803) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109803) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109311 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109825) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109859) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109859) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109367 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109878) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109881) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109881) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109389 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109900) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109903) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109903) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109411 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (109955) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (109991) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (109991) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109500 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110072) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110075) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110075) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109583 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110094) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110096) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110097) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109605 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110116) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110121) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110121) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109630 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110168) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110171) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110171) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109679 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110190) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110193) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110193) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109701 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110212) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110215) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110216) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109723 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110267) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110301) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110301) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109809 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110323) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110360) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110360) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109870 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110405) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110407) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110408) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109916 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110431) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110466) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110466) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109974 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110485) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110488) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110488) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+109996 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110508) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110510) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110510) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110018 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110531) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110567) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110567) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110076 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110626) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110662) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110662) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110171 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110717) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110720) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110722) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110232 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110773) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110776) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110776) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110284 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110795) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110798) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110798) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110306 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110818) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110821) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110823) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110332 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110869) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110871) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110872) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110380 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110891) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110894) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110894) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110402 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (110945) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (110980) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (110980) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110488 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (111030) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (111064) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (111064) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110572 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (111083) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (111085) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (111086) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110594 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (111105) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (111108) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (111108) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110616 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (111131) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (111166) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (111166) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110674 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (111186) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (111188) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (111188) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110696 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (111208) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (111210) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (111211) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110719 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (111266) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (111300) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (111300) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110808 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (111321) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (111324) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (111325) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110865 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (111406) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (111409) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (111409) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110917 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+[0;32mI (111432) FuriHalSubGhz: set_frequency: requested=300000000 real=299999755[0m
+[1;31mE (111467) rmt: rmt_transmit(554): payload not in internal RAM[0m
+[1;31mE (111469) FuriHalSubGhz: Failed to start RMT transmission: ESP_ERR_INVALID_ARG[0m
+110978 [0;31m[E][SubBruteWorker] [0mstart_async_tx failed (freq=300000000 preset=2)
+118050 [0;32m[I][SubGhzTxRxWorker] [0mWorker start
+118051 [0;32m[I][SubGhzJammer] [0mJammer started on 315000000 Hz
+
+assert failed: xTaskCreateStaticPinnedToCore freertos_tasks_c_additions.h:299 (xPortcheckValidStackMem(puxStackBuffer))
+
+
+Backtrace: 0x40375e19:0x3fce83f0 0x403850bd:0x3fce8410 0x4038f159:0x3fce8430 0x40389a86:0x3fce8550 0x42095a85:0x3fce85a0 0x420117c5:0x3fce85d0 0x42011f65:0x3fce85f0 0x4202ca25:0x3fce8610 0x4205ad53:0x3fce8630 0x42030ad3:0x3fce8650 0x4205acbf:0x3fce8680 0x4200d6f5:0x3fce86b0 0x42059f6f:0x3fce86d0 0x42059f90:0x3fce86f0 0x421a9406:0x3fce8720 0x4209a916:0x3fce8740 0x4209a93a:0x3fce8760 0x4209a9f3:0x3fce8780 0x42059e3c:0x3fce87b0 0x4200dcdd:0x3fce87e0 0x42095f75:0x3fce8810 0x40385f95:0x3fce8840
+
+
+
+
+ELF file SHA256: 5f37ea60d
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375dcc
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xc24
+load:0x403cb700,len:0x2ebc
+entry 0x403c88f8
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time May 16 2026 14:10:21[0m
+[0;33mW (26) boot: Unicore bootloader[0m
+[0;32mI (26) boot: chip revision: v0.2[0m
+[0;32mI (27) boot: efuse block revision: v1.3[0m
+[0;32mI (27) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (27) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (27) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (27) boot: Enabling RNG early entropy source...[0m
+[0;32mI (27) boot: Partition Table:[0m
+[0;32mI (28) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (28) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (28) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (29) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (29) boot: End of partition table[0m
+[0;32mI (29) esp_image: segment 0: paddr=00010020 vaddr=3c1c0020 size=72c18h (470040) map[0m
+[0;32mI (113) esp_image: segment 1: paddr=00082c40 vaddr=3fca4400 size=05664h ( 22116) load[0m
+[0;32mI (117) esp_image: segment 2: paddr=000882ac vaddr=40374000 size=07d6ch ( 32108) load[0m
+[0;32mI (125) esp_image: segment 3: paddr=00090020 vaddr=42000020 size=1b595ch (1792348) map[0m
+[0;32mI (441) esp_image: segment 4: paddr=00245984 vaddr=4037bd6c size=18644h ( 99908) load[0m
+[0;32mI (463) esp_image: segment 5: paddr=0025dfd0 vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (475) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (475) boot: Disabling RNG early entropy source...[0m
+[0;32mI (476) cpu_start: Unicore app[0m
+[0;32mI (477) cpu_start: Single core mode[0m
+[0;32mI (485) cpu_start: Pro cpu start user code[0m
+[0;32mI (485) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (486) app_init: Application information:[0m
+[0;32mI (486) app_init: Project name:     furi_esp32[0m
+[0;32mI (486) app_init: App version:      1[0m
+[0;32mI (486) app_init: Compile time:     May 16 2026 14:09:43[0m
+[0;32mI (486) app_init: ELF file SHA256:  5f37ea60d...[0m
+[0;32mI (486) app_init: ESP-IDF:          v5.4.1-dirty[0m
+[0;32mI (487) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (487) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (487) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (487) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (487) heap_init: At 3FCB7D50 len 000319C0 (198 KiB): RAM[0m
+[0;32mI (487) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (488) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (488) heap_init: At 600FE120 len 00001EC8 (7 KiB): RTCRAM[0m
+[0;32mI (489) spi_flash: detected chip: gd[0m
+[0;32mI (489) spi_flash: flash io: dio[0m
+[0;33mW (490) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (490) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (491) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (491) coexist: coex firmware version: e727207[0m
+[0;32mI (492) coexist: coexist rom version e7ae62f[0m
+[0;32mI (492) main_task: Started on CPU0[0m
+[0;32mI (492) main_task: Calling app_main()[0m
+[0;32mI (492) Main: Starting Furi Core on ESP32...[0m
+[0;32mI (493) FuriHalI2cBus: Shared I2C bus (LEGACY) created on GPIO8/GPIO9[0m
+[0;32mI (494) gpio: GPIO[38]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (494) FuriHal: PWR_EN GPIO65535 set HIGH[0m
+[0;32mI (494) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (495) FuriHal: CC1101_CSN GPIO13 set HIGH (deselect)[0m
+[0;32mI (495) gpio: GPIO[6]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (495) FuriHal: NRF24_CSN GPIO6 set HIGH (deselect)[0m
+[0;32mI (495) gpio: GPIO[4]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (495) FuriHal: NRF24_CE GPIO4 set LOW (standby)[0m
+[0;32mI (496) FuriHal: Early init complete[0m
+[0;33mW (560) BQ27220: BQ27220 not found at 0x00 (no ACK)[0m
+[0;33mW (560) BQ25896: BQ25896 not found at 0x6B[0m
+[0;32mI (561) FuriHalSpi: Initialized HW SPI host=2 on MOSI=14 MISO=39 SCK=40[0m
+[0;32mI (563) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (564) FuriHalLight: Backlight PWM initialized on GPIO38[0m
+[0;32mI (566) FuriHalLight: WS2812 ring (1 LEDs) on GPIO21 initialized[0m
+[0;32mI (566) FuriHalDisplay: Initializing display for M5Stack Cardputer-ADV[0m
+[0;32mI (568) gpio: GPIO[34]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (568) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (709) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (964) FuriHalDisplay: Display initialized (128x64, scaled 240x120, stripe=8 lines, buf=3840 bytes)[0m
+[0;32mI (964) gpio: GPIO[43]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (966) ES8311: ES8311 initialized[0m
+476 [0;32m[I][FuriHalSpeaker] [0mInit OK (I2S, BCLK=41 WS=43 DOUT=42)
+476 [0;32m[I][FuriHalNfc] [0mNFC HAL: no NFC hardware on this board
+[0;32mI (968) FuriHal: Init complete[0m
+477 [0;32m[I][Flipper] [0m
+	Firmware version:	1.4.3
+	Build date:		May 16 2026
+	Git Commit:		esp32-dev (0) (dirty)
+	Git Branch:		esp32-port
+478 [0;32m[I][Flipper] [0mBoot mode 0, ESP32 port
+478 [0;32m[I][Flipper] [0mStartup complete
+[0;32mI (970) Main: Registry counts: services=11 startup=6 apps=1 settings=3 extsettings=3 external=6 internal_external=2 system=11 debug=0[0m
+[0;32mI (971) Main: service[0]: appid=cli_vcp name=CliVcpSrv stack=4096[0m
+[0;32mI (971) Main: service[1]: appid=input name=InputSrv stack=4096[0m
+[0;32mI (971) Main: service[2]: appid=notification name=NotificationSrv stack=4096[0m
+[0;32mI (971) Main: service[3]: appid=gui name=GuiSrv stack=8192[0m
+[0;32mI (971) Main: service[4]: appid=dialogs name=DialogsSrv stack=4096[0m
+[0;32mI (972) Main: service[5]: appid=bt name=BtSrv stack=4096[0m
+[0;32mI (972) Main: service[6]: appid=dolphin name=DolphinSrv stack=4096[0m
+[0;32mI (972) Main: service[7]: appid=loader name=LoaderSrv stack=4096[0m
+[0;32mI (972) Main: service[8]: appid=power name=PowerSrv stack=4096[0m
+[0;32mI (972) Main: service[9]: appid=storage name=StorageSrv stack=4096[0m
+[0;32mI (973) Main: service[10]: appid=desktop name=DesktopSrv stack=4096[0m
+[0;32mI (973) Main: settings[0]: appid=power_settings name=Power stack=4096[0m
+[0;32mI (973) Main: settings[1]: appid=storage_settings name=Storage stack=4096[0m
+[0;32mI (973) Main: settings[2]: appid=notification_settings name=Sound & Display stack=4096[0m
+[0;32mI (974) Main: extsettings[0]: name=About launch=about[0m
+[0;32mI (974) Main: extsettings[1]: name=Bluetooth launch=bt_settings[0m
+[0;32mI (974) Main: extsettings[2]: name=Passport launch=passport[0m
+[0;32mI (987) InputCardputerAdv: TCA8418 CFG readback=0x07 (expect 0x07)[0m
+[0;32mI (988) InputCardputerAdv: Cardputer-ADV TCA8418 input initialised (back=id1 ok=id67 up=id57 down=id58 left=id54 right=id64)[0m
+496 [0;32m[I][Input] [0mInput service started
+505 [0;32m[I][SavedStruct] [0mLoading "/int/.notification.settings" -> NVS key "notification_se"
+505 [0;33m[W][SavedStruct] [0mKey "notification_se" not found in NVS
+506 [0;33m[W][NotificationSrv] [0mLOAD failed — using defaults
+555 [0;32m[I][RpcSrv] [0mRPC service initialized
+555 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+578 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+590 [0;32m[I][Loader] [0mLoader service started
+594 [0;32m[I][StorageExt] [0mcard detected
+[0;32mI (1087) FuriHalSd: Initializing SD card on SPI3_HOST, CS=GPIO12[0m
+[0;32mI (1087) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[1;31mE (1089) spi: spi_bus_initialize(802): SPI bus already initialized.[0m
+[0;32mI (1089) FuriHalSd: SD SPI bus already initialized, sharing host=2[0m
+[0;32mI (1089) FuriHalSd: SDSPI config: host=2 cs=12 target_probe_freq_khz=20000[0m
+[0;32mI (1099) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1101) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1143) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+Name: SD8GB
+Type: SDHC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: 7384MB
+CSD: ver=2, sector_size=512, capacity=15122432 read_bl_len=9
+SSR: bus_width=1
+686 [0;32m[I][StorageExt] [0mcard mounted
+690 [0;32m[I][SavedStruct] [0mLoading "/int/.dolphin.state" -> NVS key "dolphin_state"
+691 [0;32m[I][BtSrv] [0mKeys unchanged
+691 [0;32m[I][BtSrv] [0mbt_start_application: current_profile=0x0
+691 [0;32m[I][BtSrv] [0mStarting ble_profile_serial...
+[0;32mI (1187) BLE_INIT: BT controller compile version [d74042a][0m
+696 [0;32m[I][SavedStruct] [0mLoading "/int/.power.settings" -> NVS key "power_settings"
+[0;32mI (1191) BLE_INIT: Bluetooth MAC: 3c:0f:02:e9:6b:02[0m
+[0;32mI (1193) phy_init: phy_version 700,8582a7fd,Feb 10 2025,20:13:11[0m
+[0;32mI (1263) ble_serial: alloc name=Flipper Edge bonding=1 pairing=0[0m
+[0;32mI (1263) ble_serial: alloc: registering GAP callback[0m
+[0;32mI (1264) ble_serial: alloc: registering GATTS callback[0m
+[0;32mI (1264) ble_serial: alloc: applying security config[0m
+[0;32mI (1266) ble_serial: alloc: configuring advertising, has_custom_mac=0[0m
+[0;32mI (1268) ble_serial: adv_config name_len=12 adv_name_len=12 raw_len=21[0m
+[0;32mI (1270) ble_serial: gap: adv data set complete[0m
+[0;32mI (1270) ble_serial: try_start_adv: requested=0 adv_pending=0 rand_pending=0 advertising=0 active=0x3fce2564 connected=0 svc_started=0[0m
+[0;33mW (1271) ble_serial:   blocked: not requested[0m
+[0;32mI (1272) ble_serial: alloc: adv configured, adv_data_pending=0[0m
+[0;32mI (1272) ble_serial: alloc: registering GATTS app (async)[0m
+[0;32mI (1273) ble_serial: gatts: app registered, gatts_if=3[0m
+[0;32mI (1274) ble_serial: gatts: serial attr table created, starting service[0m
+[0;32mI (1275) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1275) ble_serial: gatts: creating DIS attribute table...[0m
+[0;32mI (1277) ble_serial: gatts: DIS attr table created, starting service[0m
+[0;32mI (1277) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1278) ble_serial: gatts: creating BAS attribute table...[0m
+[0;32mI (1278) ble_serial: gatts: BAS attr table created, starting service[0m
+[0;32mI (1279) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1279) ble_serial: gatts: BAS started, all services ready[0m
+[0;32mI (1280) ble_serial: alloc: waiting for GATT service start...[0m
+[0;32mI (1280) ble_serial: Serial service ready, adv_data_pending=0 rand_addr_pending=0[0m
+[0;32mI (1282) FuriHalBt: BLE profile started[0m
+790 [0;32m[I][BtSrv] [0mBLE App started OK, profile=0x3fcd4418
+790 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+793 [0;32m[I][BtSrv] [0mbt_apply_settings: enabled=1
+[0;32mI (1285) FuriHalBt: furi_hal_bt_start_advertising: profile=0x3fcd4418[0m
+[0;32mI (1286) FuriHalBt:   is_hid=0 is_serial=1[0m
+[0;32mI (1286) ble_serial: ble_serial_start_advertising called, active=0x3fce2564[0m
+[0;32mI (1286) ble_serial: try_start_adv: requested=1 adv_pending=0 rand_pending=0 advertising=0 active=0x3fce2564 connected=0 svc_started=1[0m
+[0;32mI (1288) ble_serial:   -> calling esp_ble_gap_start_advertising[0m
+[0;32mI (1291) ble_serial: gap: advertising started[0m
+[0;32mI (1293) ble_serial:   -> advertising started OK[0m
+[0;32mI (1293) ble_serial: ble_serial_start_advertising returning 1[0m
+[0;32mI (1293) FuriHalBt:   started=1[0m
+801 [0;32m[I][BtSrv] [0mBtSrv ready (enabled=1)
+1597 [0;32m[I][AnimationManager] [0mSelect 'L1_Recording_128x51' animation
+[0;32mI (2112) Main: All services started, entering background...[0m
+1633 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+
+[BANIM] key=4 type=0
+
+[DMAIN] key=4 type=0 dummy=0
+
+[BANIM] key=4 type=2
+
+[DMAIN] key=4 type=2 dummy=0
+
+[BANIM] key=4 type=1
+
+[DMAIN] key=4 type=1 dummy=0
+
+[LM] thread_start free=3568
+
+[LM] settings_counts internal=3 external=3
+
+[LM] settings_internal[0] appid=power_settings name=Power
+
+[LM] settings_internal[1] appid=storage_settings name=Storage
+
+[LM] settings_internal[2] appid=notification_settings name=Sound & Display
+
+[LM] settings_external[0] launch=about name=About
+
+[LM] settings_external[1] launch=bt_settings name=Bluetooth
+
+[LM] settings_external[2] launch=passport name=Passport
+
+[LM] app_alloc free=2912
+
+[LM] attached free=2912
+
+[LDR] start_by_name name='Sub-GHz'
+3489 [0;32m[I][AnimationManager] [0mUnload animation 'L1_Recording_128x51'
+[LDR] find_app('Sub-GHz')=0x3c2008e8
+[LDR] found name='Sub-GHz' appid='subghz' stack=8192
+3491 [0;32m[I][Loader] [0mStarting Sub-GHz
+3548 [0;32m[I][SubGhzSetting] [0mKeeping standard frequencies
+3552 [0;32m[I][SubGhzSetting] [0mFrequency loaded 466000000
+3604 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM95
+3682 [0;32m[I][SubGhzSetting] [0mCustom preset loaded FM15k
+3709 [0;32m[I][SubGhzSetting] [0mCustom preset loaded Pagers
+3827 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_1
+3852 [0;32m[I][SubGhzSetting] [0mCustom preset loaded AM_2
+3900 [0;32m[I][SubGhzReceiver] [0mRegistry has 56 protocols
+3901 [0;32m[I][SubGhzProtocoAlutech_at_4n] [0mLoading rainbow table from /ext/subghz/assets/alutech_at_4n
+3902 [0;32m[I][SubGhzReceiver] [0mLoaded 56 decoders
+3903 [0;32m[I][SubGhzDeviceRegistry] [0mLoaded 2 radio device
+[0;32mI (4418) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (4423) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+5695 [0;32m[I][SubGhzTxRxWorker] [0mWorker start
+5695 [0;32m[I][SubGhzJammer] [0mJammer started on 315000000 Hz
+
+assert failed: xTaskCreateStaticPinnedToCore freertos_tasks_c_additions.h:299 (xPortcheckValidStackMem(puxStackBuffer))
+
+
+Backtrace: 0x40375e19:0x3fce8720 0x403850bd:0x3fce8740 0x4038f159:0x3fce8760 0x40389a86:0x3fce8880 0x42095a85:0x3fce88d0 0x420117c5:0x3fce8900 0x42011f65:0x3fce8920 0x4202ca25:0x3fce8940 0x4205ad53:0x3fce8960 0x42030ad3:0x3fce8980 0x4205acbf:0x3fce89b0 0x4200d6f5:0x3fce89e0 0x42059f6f:0x3fce8a00 0x42059f90:0x3fce8a20 0x421a9406:0x3fce8a50 0x4209a916:0x3fce8a70 0x4209a93a:0x3fce8a90 0x4209a9f3:0x3fce8ab0 0x42059e3c:0x3fce8ae0 0x4200dcdd:0x3fce8b10 0x42095f75:0x3fce8b40 0x40385f95:0x3fce8b70
+
+
+
+
+ELF file SHA256: 5f37ea60d
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375dcc
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x159c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xc24
+load:0x403cb700,len:0x2ebc
+entry 0x403c88f8
+[0;32mI (26) boot: ESP-IDF v5.4.1-dirty 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time May 16 2026 14:10:21[0m
+[0;33mW (26) boot: Unicore bootloader[0m
+[0;32mI (26) boot: chip revision: v0.2[0m
+[0;32mI (27) boot: efuse block revision: v1.3[0m
+[0;32mI (27) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (27) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (27) boot.esp32s3: SPI Flash Size : 8MB[0m
+[0;32mI (27) boot: Enabling RNG early entropy source...[0m
+[0;32mI (27) boot: Partition Table:[0m
+[0;32mI (28) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (28) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (28) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (29) boot:  2 factory          factory app      00 00 00010000 00600000[0m
+[0;32mI (29) boot: End of partition table[0m
+[0;32mI (29) esp_image: segment 0: paddr=00010020 vaddr=3c1c0020 size=72c18h (470040) map[0m
+[0;32mI (113) esp_image: segment 1: paddr=00082c40 vaddr=3fca4400 size=05664h ( 22116) load[0m
+[0;32mI (117) esp_image: segment 2: paddr=000882ac vaddr=40374000 size=07d6ch ( 32108) load[0m
+[0;32mI (125) esp_image: segment 3: paddr=00090020 vaddr=42000020 size=1b595ch (1792348) map[0m
+[0;32mI (441) esp_image: segment 4: paddr=00245984 vaddr=4037bd6c size=18644h ( 99908) load[0m
+[0;32mI (463) esp_image: segment 5: paddr=0025dfd0 vaddr=600fe000 size=00120h (   288) load[0m
+[0;32mI (475) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (475) boot: Disabling RNG early entropy source...[0m
+[0;32mI (476) cpu_start: Unicore app[0m
+[0;32mI (477) cpu_start: Single core mode[0m
+[0;32mI (485) cpu_start: Pro cpu start user code[0m
+[0;32mI (485) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (486) app_init: Application information:[0m
+[0;32mI (486) app_init: Project name:     furi_esp32[0m
+[0;32mI (486) app_init: App version:      1[0m
+[0;32mI (486) app_init: Compile time:     May 16 2026 14:09:43[0m
+[0;32mI (486) app_init: ELF file SHA256:  5f37ea60d...[0m
+[0;32mI (486) app_init: ESP-IDF:          v5.4.1-dirty[0m
+[0;32mI (487) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (487) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (487) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (487) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (487) heap_init: At 3FCB7D50 len 000319C0 (198 KiB): RAM[0m
+[0;32mI (487) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (488) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (488) heap_init: At 600FE120 len 00001EC8 (7 KiB): RTCRAM[0m
+[0;32mI (489) spi_flash: detected chip: gd[0m
+[0;32mI (489) spi_flash: flash io: dio[0m
+[0;33mW (490) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (490) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (491) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (491) coexist: coex firmware version: e727207[0m
+[0;32mI (492) coexist: coexist rom version e7ae62f[0m
+[0;32mI (492) main_task: Started on CPU0[0m
+[0;32mI (492) main_task: Calling app_main()[0m
+[0;32mI (492) Main: Starting Furi Core on ESP32...[0m
+[0;32mI (493) FuriHalI2cBus: Shared I2C bus (LEGACY) created on GPIO8/GPIO9[0m
+[0;32mI (494) gpio: GPIO[38]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (494) FuriHal: PWR_EN GPIO65535 set HIGH[0m
+[0;32mI (494) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (495) FuriHal: CC1101_CSN GPIO13 set HIGH (deselect)[0m
+[0;32mI (495) gpio: GPIO[6]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (495) FuriHal: NRF24_CSN GPIO6 set HIGH (deselect)[0m
+[0;32mI (495) gpio: GPIO[4]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (495) FuriHal: NRF24_CE GPIO4 set LOW (standby)[0m
+[0;32mI (496) FuriHal: Early init complete[0m
+[0;33mW (560) BQ27220: BQ27220 not found at 0x00 (no ACK)[0m
+[0;33mW (560) BQ25896: BQ25896 not found at 0x6B[0m
+[0;32mI (561) FuriHalSpi: Initialized HW SPI host=2 on MOSI=14 MISO=39 SCK=40[0m
+[0;32mI (563) FuriHalSubGhz: CC1101 probe OK: part=0x00 version=0x14 status=0x0F reset_status=0x0F[0m
+[0;32mI (564) FuriHalLight: Backlight PWM initialized on GPIO38[0m
+[0;32mI (566) FuriHalLight: WS2812 ring (1 LEDs) on GPIO21 initialized[0m
+[0;32mI (566) FuriHalDisplay: Initializing display for M5Stack Cardputer-ADV[0m
+[0;32mI (568) gpio: GPIO[34]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (568) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (709) gpio: GPIO[33]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (964) FuriHalDisplay: Display initialized (128x64, scaled 240x120, stripe=8 lines, buf=3840 bytes)[0m
+[0;32mI (964) gpio: GPIO[43]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (966) ES8311: ES8311 initialized[0m
+476 [0;32m[I][FuriHalSpeaker] [0mInit OK (I2S, BCLK=41 WS=43 DOUT=42)
+476 [0;32m[I][FuriHalNfc] [0mNFC HAL: no NFC hardware on this board
+[0;32mI (968) FuriHal: Init complete[0m
+477 [0;32m[I][Flipper] [0m
+	Firmware version:	1.4.3
+	Build date:		May 16 2026
+	Git Commit:		esp32-dev (0) (dirty)
+	Git Branch:		esp32-port
+478 [0;32m[I][Flipper] [0mBoot mode 0, ESP32 port
+478 [0;32m[I][Flipper] [0mStartup complete
+[0;32mI (970) Main: Registry counts: services=11 startup=6 apps=1 settings=3 extsettings=3 external=6 internal_external=2 system=11 debug=0[0m
+[0;32mI (970) Main: service[0]: appid=cli_vcp name=CliVcpSrv stack=4096[0m
+[0;32mI (971) Main: service[1]: appid=input name=InputSrv stack=4096[0m
+[0;32mI (971) Main: service[2]: appid=notification name=NotificationSrv stack=4096[0m
+[0;32mI (971) Main: service[3]: appid=gui name=GuiSrv stack=8192[0m
+[0;32mI (971) Main: service[4]: appid=dialogs name=DialogsSrv stack=4096[0m
+[0;32mI (972) Main: service[5]: appid=bt name=BtSrv stack=4096[0m
+[0;32mI (972) Main: service[6]: appid=dolphin name=DolphinSrv stack=4096[0m
+[0;32mI (972) Main: service[7]: appid=loader name=LoaderSrv stack=4096[0m
+[0;32mI (972) Main: service[8]: appid=power name=PowerSrv stack=4096[0m
+[0;32mI (972) Main: service[9]: appid=storage name=StorageSrv stack=4096[0m
+[0;32mI (973) Main: service[10]: appid=desktop name=DesktopSrv stack=4096[0m
+[0;32mI (973) Main: settings[0]: appid=power_settings name=Power stack=4096[0m
+[0;32mI (973) Main: settings[1]: appid=storage_settings name=Storage stack=4096[0m
+[0;32mI (973) Main: settings[2]: appid=notification_settings name=Sound & Display stack=4096[0m
+[0;32mI (974) Main: extsettings[0]: name=About launch=about[0m
+[0;32mI (974) Main: extsettings[1]: name=Bluetooth launch=bt_settings[0m
+[0;32mI (974) Main: extsettings[2]: name=Passport launch=passport[0m
+[0;32mI (987) InputCardputerAdv: TCA8418 CFG readback=0x07 (expect 0x07)[0m
+[0;32mI (988) InputCardputerAdv: Cardputer-ADV TCA8418 input initialised (back=id1 ok=id67 up=id57 down=id58 left=id54 right=id64)[0m
+496 [0;32m[I][Input] [0mInput service started
+505 [0;32m[I][SavedStruct] [0mLoading "/int/.notification.settings" -> NVS key "notification_se"
+505 [0;33m[W][SavedStruct] [0mKey "notification_se" not found in NVS
+506 [0;33m[W][NotificationSrv] [0mLOAD failed — using defaults
+555 [0;32m[I][RpcSrv] [0mRPC service initialized
+555 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+578 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+589 [0;32m[I][Loader] [0mLoader service started
+594 [0;32m[I][StorageExt] [0mcard detected
+[0;32mI (1087) FuriHalSd: Initializing SD card on SPI3_HOST, CS=GPIO12[0m
+[0;32mI (1088) gpio: GPIO[12]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[1;31mE (1090) spi: spi_bus_initialize(802): SPI bus already initialized.[0m
+[0;32mI (1090) FuriHalSd: SD SPI bus already initialized, sharing host=2[0m
+[0;32mI (1091) FuriHalSd: SDSPI config: host=2 cs=12 target_probe_freq_khz=20000[0m
+[0;32mI (1101) gpio: GPIO[12]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 0| Pulldown: 0| Intr:0 [0m
+[0;32mI (1103) sdspi_transaction: cmd=52, R1 response: command not supported[0m
+[0;32mI (1145) sdspi_transaction: cmd=5, R1 response: command not supported[0m
+Name: SD8GB
+Type: SDHC
+Speed: 20.00 MHz (limit: 20.00 MHz)
+Size: 7384MB
+CSD: ver=2, sector_size=512, capacity=15122432 read_bl_len=9
+SSR: bus_width=1
+688 [0;32m[I][StorageExt] [0mcard mounted
+692 [0;32m[I][SavedStruct] [0mLoading "/int/.dolphin.state" -> NVS key "dolphin_state"
+693 [0;32m[I][BtSrv] [0mKeys unchanged
+693 [0;32m[I][BtSrv] [0mbt_start_application: current_profile=0x0
+693 [0;32m[I][BtSrv] [0mStarting ble_profile_serial...
+[0;32mI (1189) BLE_INIT: BT controller compile version [d74042a][0m
+698 [0;32m[I][SavedStruct] [0mLoading "/int/.power.settings" -> NVS key "power_settings"
+[0;32mI (1195) BLE_INIT: Bluetooth MAC: 3c:0f:02:e9:6b:02[0m
+[0;32mI (1198) phy_init: phy_version 700,8582a7fd,Feb 10 2025,20:13:11[0m
+[0;32mI (1268) ble_serial: alloc name=Flipper Edge bonding=1 pairing=0[0m
+[0;32mI (1268) ble_serial: alloc: registering GAP callback[0m
+[0;32mI (1268) ble_serial: alloc: registering GATTS callback[0m
+[0;32mI (1268) ble_serial: alloc: applying security config[0m
+[0;32mI (1272) ble_serial: alloc: configuring advertising, has_custom_mac=0[0m
+[0;32mI (1272) ble_serial: adv_config name_len=12 adv_name_len=12 raw_len=21[0m
+[0;32mI (1274) ble_serial: gap: adv data set complete[0m
+[0;32mI (1274) ble_serial: try_start_adv: requested=0 adv_pending=0 rand_pending=0 advertising=0 active=0x3fcdcf18 connected=0 svc_started=0[0m
+[0;33mW (1274) ble_serial:   blocked: not requested[0m
+[0;32mI (1276) ble_serial: alloc: adv configured, adv_data_pending=0[0m
+[0;32mI (1276) ble_serial: alloc: registering GATTS app (async)[0m
+[0;32mI (1277) ble_serial: gatts: app registered, gatts_if=3[0m
+[0;32mI (1278) ble_serial: gatts: serial attr table created, starting service[0m
+[0;32mI (1279) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1279) ble_serial: gatts: creating DIS attribute table...[0m
+[0;32mI (1281) ble_serial: gatts: DIS attr table created, starting service[0m
+[0;32mI (1281) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1282) ble_serial: gatts: creating BAS attribute table...[0m
+[0;32mI (1282) ble_serial: gatts: BAS attr table created, starting service[0m
+[0;32mI (1283) ble_serial: gatts: service started, status=0[0m
+[0;32mI (1283) ble_serial: gatts: BAS started, all services ready[0m
+[0;32mI (1284) ble_serial: alloc: waiting for GATT service start...[0m
+[0;32mI (1284) ble_serial: Serial service ready, adv_data_pending=0 rand_addr_pending=0[0m
+[0;32mI (1286) FuriHalBt: BLE profile started[0m
+794 [0;32m[I][BtSrv] [0mBLE App started OK, profile=0x3fcd4390
+795 [0;32m[I][SavedStruct] [0mLoading "/int/.bt.settings" -> NVS key "bt_settings"
+797 [0;32m[I][BtSrv] [0mbt_apply_settings: enabled=1
+[0;32mI (1289) FuriHalBt: furi_hal_bt_start_advertising: profile=0x3fcd4390[0m
+[0;32mI (1290) FuriHalBt:   is_hid=0 is_serial=1[0m
+[0;32mI (1290) ble_serial: ble_serial_start_advertising called, active=0x3fcdcf18[0m
+[0;32mI (1292) ble_serial: try_start_adv: requested=1 adv_pending=0 rand_pending=0 advertising=0 active=0x3fcdcf18 connected=0 svc_started=1[0m
+[0;32mI (1292) ble_serial:   -> calling esp_ble_gap_start_advertising[0m
+[0;32mI (1295) ble_serial: gap: advertising started[0m
+[0;32mI (1297) ble_serial:   -> advertising started OK[0m
+[0;32mI (1297) ble_serial: ble_serial_start_advertising returning 1[0m
+[0;32mI (1297) FuriHalBt:   started=1[0m
+805 [0;32m[I][BtSrv] [0mBtSrv ready (enabled=1)
+3265 [0;32m[I][AnimationManager] [0mSelect 'L1_Showtime_128x64' animation
+[0;32mI (3767) Main: All services started, entering background...[0m
+3308 [0;32m[I][SavedStruct] [0mLoading "/int/.desktop.settings" -> NVS key "desktop_setting"
+
+[BANIM] key=5 type=0
+
+[DMAIN] key=5 type=0 dummy=0
+
+[BANIM] key=5 type=2
+
+[DMAIN] key=5 type=2 dummy=0
+
+[BANIM] key=5 type=1
+
+[DMAIN] key=5 type=1 dummy=0

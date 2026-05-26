@@ -501,7 +501,13 @@ void infrared_enable_otg(InfraredApp* infrared, bool enable) {
 }
 
 static void infrared_load_settings(InfraredApp* infrared) {
-    InfraredSettings settings = {0};
+    InfraredSettings settings = {
+        /* Default to "Detect" so the hardware probe runs on first boot.
+         * The probe selects Grove (G2) if the M5Unit IR module is present,
+         * or falls back to the internal LED (G44) if it is not. */
+        .tx_pin      = FuriHalInfraredTxPinMax,
+        .otg_enabled = false,
+    };
 
     if(!saved_struct_load(
            INFRARED_SETTINGS_PATH,
@@ -509,15 +515,16 @@ static void infrared_load_settings(InfraredApp* infrared) {
            sizeof(InfraredSettings),
            INFRARED_SETTINGS_MAGIC,
            INFRARED_SETTINGS_VERSION)) {
-        FURI_LOG_D(TAG, "Failed to load settings, using defaults");
-        infrared_save_settings(infrared);
+        FURI_LOG_D(TAG, "Failed to load settings, running auto-detect");
     }
 
     infrared_set_tx_pin(infrared, settings.tx_pin);
     if(settings.tx_pin < FuriHalInfraredTxPinMax) {
         infrared_enable_otg(infrared, settings.otg_enabled);
     }
+    infrared_save_settings(infrared); /* persist detected result */
 }
+
 
 void infrared_save_settings(InfraredApp* infrared) {
     InfraredSettings settings = {

@@ -131,6 +131,11 @@ struct InfraredApp {
     char text_store[INFRARED_TEXT_STORE_NUM][INFRARED_TEXT_STORE_SIZE + 1];
     InfraredAppState app_state; /**< Application state. */
 
+    /** True if infrared_worker_rx_start() was called in the Learn scene.
+     *  Used in on_exit to guard infrared_worker_rx_stop() when there is no
+     *  IR receiver (BOARD_PIN_IR_RX = UINT16_MAX) and rx_start returned early. */
+    bool is_rx_started;
+
     void* rpc_ctx; /**< Pointer to the RPC context object. */
 };
 

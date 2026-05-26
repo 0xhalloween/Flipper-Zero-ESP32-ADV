@@ -325,6 +325,7 @@ static bool button_menu_view_input_callback(InputEvent* event, void* context) {
          * skipping items. Swap so plain rotation steps single items
          * (Left/Right → up/down) and held-rotation pages (Up/Down → left/right).
          * Direction also flipped so CW = "forward / next item". */
+#if BOARD_HAS_ENCODER
         switch(event->key) {
         case InputKeyUp:
             consumed = true;
@@ -345,6 +346,28 @@ static bool button_menu_view_input_callback(InputEvent* event, void* context) {
         default:
             break;
         }
+#else
+        switch(event->key) {
+        case InputKeyUp:
+            consumed = true;
+            button_menu_process_up(button_menu);
+            break;
+        case InputKeyDown:
+            consumed = true;
+            button_menu_process_down(button_menu);
+            break;
+        case InputKeyRight:
+            consumed = true;
+            button_menu_process_right(button_menu);
+            break;
+        case InputKeyLeft:
+            consumed = true;
+            button_menu_process_left(button_menu);
+            break;
+        default:
+            break;
+        }
+#endif
     }
 
     return consumed;

@@ -575,6 +575,11 @@ void storage_process_message_internal(Storage* app, StorageMessage* message) {
     switch(message->command) {
     // File operations
     case StorageCommandFileOpen:
+        if(message->data->fopen.path == NULL) {
+            FURI_LOG_E("Storage", "FileOpen: path is NULL");
+            message->return_data->bool_value = false;
+            break;
+        }
         path = furi_string_alloc_set(message->data->fopen.path);
         storage_process_alias(app, path, message->data->fopen.thread_id, true);
         message->return_data->bool_value = storage_process_file_open(

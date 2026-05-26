@@ -61,7 +61,7 @@
 #include "generic.h"
 #include "protocol_items.h"
 #include "subghz_protocol_registry.h"
-#include "blocks/math.h"
+#include "blocks/subghz_blocks_math.h"
 #include "blocks/decoder.h"
 
 #include <mjs_core_public.h>

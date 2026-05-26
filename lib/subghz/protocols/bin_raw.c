@@ -4,7 +4,7 @@
 #include "../blocks/decoder.h"
 #include "../blocks/encoder.h"
 #include "../blocks/generic.h"
-#include "../blocks/math.h"
+#include "subghz_blocks_math.h"
 #include <lib/toolbox/float_tools.h>
 #include <lib/toolbox/stream/stream.h>
 #include <lib/flipper_format/flipper_format_i.h>
@@ -386,7 +386,7 @@ void subghz_protocol_decoder_bin_raw_feed(void* context, bool level, uint32_t du
     SubGhzProtocolDecoderBinRAW* instance = context;
 
     if(instance->decoder.parser_step == BinRAWDecoderStepWrite) {
-        if(instance->data_raw_ind == BIN_RAW_BUF_RAW_SIZE) {
+        if(instance->data_raw_ind >= BIN_RAW_BUF_RAW_SIZE) {
             instance->decoder.parser_step = BinRAWDecoderStepBufFull;
         } else {
             instance->data_raw[instance->data_raw_ind++] = (level ? duration : -duration);

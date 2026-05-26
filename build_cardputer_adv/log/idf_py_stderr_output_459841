@@ -1,0 +1,10 @@
+warning: user value 4 on the int symbol LWIP_TCP_RECVMBOX_SIZE (defined at /home/kupito/Downloads/esp-idf-5.4.1/components/lwip/Kconfig:691) ignored due to being outside the active range ([6, 64]) -- falling back on defaults
+CMake Deprecation Warning at /home/kupito/Downloads/esp-idf-5.4.1/components/mbedtls/mbedtls/CMakeLists.txt:21 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+

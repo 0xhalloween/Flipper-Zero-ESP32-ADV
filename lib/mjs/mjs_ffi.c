@@ -253,7 +253,7 @@ MJS_PRIVATE mjs_err_t mjs_parse_ffi_signature(
                 goto clean;
             }
 
-            sig->cb_sig = calloc(sizeof(*sig->cb_sig), 1);
+            sig->cb_sig = calloc(1, sizeof(*sig->cb_sig));
             ret = mjs_parse_ffi_signature(mjs, cur, tmp_e - cur, sig->cb_sig, FFI_SIG_CALLBACK);
             if(ret != MJS_OK) {
                 mjs_ffi_sig_free(sig->cb_sig);
@@ -1059,7 +1059,7 @@ MJS_PRIVATE void mjs_ffi_sig_init(mjs_ffi_sig_t* sig) {
 MJS_PRIVATE void mjs_ffi_sig_copy(mjs_ffi_sig_t* to, const mjs_ffi_sig_t* from) {
     memcpy(to, from, sizeof(*to));
     if(from->cb_sig != NULL) {
-        to->cb_sig = calloc(sizeof(*to->cb_sig), 1);
+        to->cb_sig = calloc(1, sizeof(*to->cb_sig));
         mjs_ffi_sig_copy(to->cb_sig, from->cb_sig);
     }
 }

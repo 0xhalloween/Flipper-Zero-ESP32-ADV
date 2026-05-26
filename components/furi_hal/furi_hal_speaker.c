@@ -13,6 +13,10 @@
  * peripheral; frequency and volume changes regenerate the buffer.
  */
 
+#include <math.h>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 #include "furi_hal_speaker.h"
 #include "boards/board.h"
 #include <furi.h>
@@ -27,12 +31,9 @@
 #if BOARD_HAS_SPEAKER
 
 #include <driver/i2s_std.h>
-#include <driver/gpio.h>
 #include <math.h>
+#include <driver/gpio.h>
 #include <esp_timer.h>
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
 
 /* ---- Configuration ---- */
 #define SPEAKER_SAMPLE_RATE   44100
@@ -232,6 +233,10 @@ void furi_hal_speaker_init(void) {
 
     ESP_ERROR_CHECK(i2s_channel_init_std_mode(i2s_tx_handle, &std_cfg));
 
+    /* Enable I2S channel immediately on boot to prevent audio pop */
+    ESP_ERROR_CHECK(i2s_channel_enable(i2s_tx_handle));
+    i2s_channel_enabled = true;
+
     /* Start the writer thread (it idles until speaker_mode != Idle) */
     speaker_thread = furi_thread_alloc_ex("SpeakerWorker", SPEAKER_THREAD_STACK, speaker_writer_thread, NULL);
     speaker_thread_run = true;
@@ -272,11 +277,6 @@ bool furi_hal_speaker_acquire(uint32_t timeout) {
     furi_check(!FURI_IS_IRQ_MODE());
 
     if(furi_mutex_acquire(speaker_mutex, timeout) == FuriStatusOk) {
-        /* Enable I2S channel on first acquire */
-        if(!i2s_channel_enabled) {
-            ESP_ERROR_CHECK(i2s_channel_enable(i2s_tx_handle));
-            i2s_channel_enabled = true;
-        }
         return true;
     }
     return false;

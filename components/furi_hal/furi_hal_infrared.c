@@ -17,6 +17,7 @@
 #include <driver/rmt_encoder.h>
 #include <driver/gptimer.h>
 #include <driver/gpio.h>
+#include <esp_log.h>
 
 #include BOARD_INCLUDE
 
@@ -30,10 +31,21 @@
 #define IR_RX_GPIO  GPIO_NUM_NC
 #endif
 
+/* Grove / Qwiic connector pins for external IR unit auto-detection */
+#if defined(BOARD_PIN_QWIIC_SDA) && defined(BOARD_PIN_QWIIC_SCL)
+#define IR_GROVE_TX_GPIO  ((gpio_num_t)BOARD_PIN_QWIIC_SDA)  /* M5Unit IR TX line */
+#define IR_GROVE_RX_GPIO  ((gpio_num_t)BOARD_PIN_QWIIC_SCL)  /* M5Unit IR TSOP RX line */
+#else
+#define IR_GROVE_TX_GPIO  GPIO_NUM_NC
+#define IR_GROVE_RX_GPIO  GPIO_NUM_NC
+#endif
+
+static FuriHalInfraredTxPin active_tx_pin = FuriHalInfraredTxPinInternal;
+
 #define IR_RMT_RX_MEM_BLOCK_SYMBOLS 128
 #define IR_RMT_RX_RESOLUTION_HZ     1000000 /* 1 MHz = 1 us per tick */
 #define IR_RMT_TX_RESOLUTION_HZ     1000000 /* 1 MHz = 1 us per tick */
-#define IR_RMT_RX_MAX_SYMBOLS       1024
+#define IR_RMT_RX_MAX_SYMBOLS       256
 
 /* ---- State ---- */
 
@@ -139,17 +151,27 @@ void furi_hal_infrared_async_rx_start(void) {
     return;
 #endif
 
-    if(IR_RX_GPIO == UINT16_MAX || IR_RX_GPIO == (gpio_num_t)UINT16_MAX) {
+    gpio_num_t rx_gpio = IR_RX_GPIO;
+#if defined(IR_GROVE_RX_GPIO)
+    if(active_tx_pin == FuriHalInfraredTxPinExtPA7) {
+        rx_gpio = IR_GROVE_RX_GPIO;
+    }
+#endif
+
+    if(rx_gpio == UINT16_MAX || rx_gpio == (gpio_num_t)UINT16_MAX) {
         FURI_LOG_W("IR", "Board has no IR RX pin defined");
         return;
     }
+
+    /* Enable internal pull-up to prevent floating pin noise on physical vibration */
+    gpio_set_pull_mode(rx_gpio, GPIO_PULLUP_ONLY);
 
     /* Configure RMT RX channel */
     rmt_rx_channel_config_t rx_chan_config = {
         .clk_src = RMT_CLK_SRC_DEFAULT,
         .resolution_hz = IR_RMT_RX_RESOLUTION_HZ,
         .mem_block_symbols = IR_RMT_RX_MEM_BLOCK_SYMBOLS,
-        .gpio_num = IR_RX_GPIO,
+        .gpio_num = rx_gpio,
         .flags = {
             .invert_in = true, /* IR receiver module output is active-low */
             .with_dma = false,
@@ -183,7 +205,12 @@ void furi_hal_infrared_async_rx_start(void) {
 }
 
 void furi_hal_infrared_async_rx_stop(void) {
-    furi_check(ir_state == InfraredStateAsyncRx);
+    // If RX was never started (e.g. board has no IR RX pin), ir_state stays
+    // InfraredStateIdle — just return gracefully instead of crashing.
+    if(ir_state != InfraredStateAsyncRx) {
+        FURI_LOG_W("IR", "async_rx_stop called but RX not running (state=%d), ignoring", ir_state);
+        return;
+    }
 
     ir_state = InfraredStateIdle;
 
@@ -378,13 +405,19 @@ void furi_hal_infrared_async_tx_start(uint32_t freq, float duty_cycle) {
     ir_tx.carrier_freq = freq;
     ir_tx.duty_cycle = duty_cycle;
 
+    /* Route TX to the active pin — Grove (G2) or internal LED (G44) */
+    gpio_num_t tx_gpio = IR_TX_GPIO;
+    if(active_tx_pin == FuriHalInfraredTxPinExtPA7) {
+        tx_gpio = IR_GROVE_TX_GPIO; /* GPIO 2, Grove SDA = M5Unit IR input */
+    }
+
     /* Create RMT TX channel with carrier modulation */
     rmt_tx_channel_config_t tx_chan_config = {
         .clk_src = RMT_CLK_SRC_DEFAULT,
         .resolution_hz = IR_RMT_TX_RESOLUTION_HZ,
         .mem_block_symbols = 64,
         .trans_queue_depth = 4,
-        .gpio_num = IR_TX_GPIO,
+        .gpio_num = tx_gpio,
         .flags = {
             .invert_out = false,
             .with_dma = false,
@@ -415,7 +448,7 @@ void furi_hal_infrared_async_tx_start(uint32_t freq, float duty_cycle) {
     ir_state = InfraredStateAsyncTx;
 
     /* Start TX task */
-    xTaskCreate(ir_tx_task, "ir_tx", 4096, NULL, 15, NULL);
+    xTaskCreate(ir_tx_task, "ir_tx", 2048, NULL, 15, NULL);
 }
 
 void furi_hal_infrared_async_tx_wait_termination(void) {
@@ -469,11 +502,70 @@ bool furi_hal_infrared_is_busy(void) {
 }
 
 FuriHalInfraredTxPin furi_hal_infrared_detect_tx_output(void) {
-    /* ESP32 boards only have internal IR TX */
+    /*
+     * Hardware loopback probe for the M5Unit IR module on the Grove connector.
+     *
+     * Grove SDA (GPIO 2) → IR LED transmitter input
+     * Grove SCL (GPIO 1) → TSOP IR receiver output (active-LOW when signal received)
+     *
+     * We send ~20 cycles of 38 kHz on GPIO 2 and check if GPIO 1 goes LOW.
+     * If yes → module present → return FuriHalInfraredTxPinExtPA7 (Grove).
+     * If no  → no module    → return FuriHalInfraredTxPinInternal (G44).
+     */
+#if defined(BOARD_PIN_QWIIC_SDA) && defined(BOARD_PIN_QWIIC_SCL)
+    gpio_config_t tx_cfg = {
+        .pin_bit_mask = (1ULL << IR_GROVE_TX_GPIO),
+        .mode         = GPIO_MODE_OUTPUT,
+        .pull_up_en   = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type    = GPIO_INTR_DISABLE,
+    };
+    gpio_config(&tx_cfg);
+
+    gpio_config_t rx_cfg = {
+        .pin_bit_mask = (1ULL << IR_GROVE_RX_GPIO),
+        .mode         = GPIO_MODE_INPUT,
+        .pull_up_en   = GPIO_PULLUP_ENABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type    = GPIO_INTR_DISABLE,
+    };
+    gpio_config(&rx_cfg);
+
+    gpio_set_level(IR_GROVE_TX_GPIO, 0);
+    vTaskDelay(pdMS_TO_TICKS(2));
+
+    bool module_detected = false;
+    for(int i = 0; i < 20 && !module_detected; i++) {
+        gpio_set_level(IR_GROVE_TX_GPIO, 1);
+        esp_rom_delay_us(13);
+        gpio_set_level(IR_GROVE_TX_GPIO, 0);
+        esp_rom_delay_us(13);
+        if(gpio_get_level(IR_GROVE_RX_GPIO) == 0) {
+            module_detected = true;
+        }
+    }
+
+    /* Restore pins to Hi-Z so normal RX HAL can reclaim them */
+    gpio_config_t restore_cfg = {
+        .pin_bit_mask = (1ULL << IR_GROVE_TX_GPIO) | (1ULL << IR_GROVE_RX_GPIO),
+        .mode         = GPIO_MODE_INPUT,
+        .pull_up_en   = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type    = GPIO_INTR_DISABLE,
+    };
+    gpio_config(&restore_cfg);
+
+    if(module_detected) {
+        ESP_LOGI("IR", "M5Unit IR module detected on Grove (G2/G1) — using external TX");
+        return FuriHalInfraredTxPinExtPA7;
+    }
+    ESP_LOGI("IR", "No IR module on Grove — using internal LED (G44)");
+#endif
     return FuriHalInfraredTxPinInternal;
 }
 
 void furi_hal_infrared_set_tx_output(FuriHalInfraredTxPin tx_pin) {
-    /* Only internal pin supported, ignore */
-    (void)tx_pin;
+    if(tx_pin < FuriHalInfraredTxPinMax) {
+        active_tx_pin = tx_pin;
+    }
 }

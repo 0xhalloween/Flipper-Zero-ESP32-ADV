@@ -559,10 +559,13 @@ static ELFLoadSectionResult
     section->data = heap_caps_aligned_alloc(
         section_header->sh_addralign,
         section_header->sh_size,
-        MALLOC_CAP_SPIRAM);
+        MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
     if(!section->data) {
-        /* Fallback to any available memory */
-        section->data = aligned_malloc(section_header->sh_size, section_header->sh_addralign);
+        /* Fallback to default internal RAM */
+        section->data = heap_caps_aligned_alloc(
+            section_header->sh_addralign,
+            section_header->sh_size,
+            MALLOC_CAP_8BIT);
     }
 #else
     section->data = aligned_malloc(section_header->sh_size, section_header->sh_addralign);

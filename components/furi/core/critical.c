@@ -15,7 +15,7 @@ __FuriCriticalInfo __furi_critical_enter(void) {
     if(info.from_isr) {
         info.isrm = taskENTER_CRITICAL_FROM_ISR();
     } else if(info.kernel_running) {
-        taskENTER_CRITICAL(&furi_critical_mutex);
+        portENTER_CRITICAL_SAFE(&furi_critical_mutex);
     } else {
         portDISABLE_INTERRUPTS();
     }
@@ -27,7 +27,7 @@ void __furi_critical_exit(__FuriCriticalInfo info) {
     if(info.from_isr) {
         taskEXIT_CRITICAL_FROM_ISR(info.isrm);
     } else if(info.kernel_running) {
-        taskEXIT_CRITICAL(&furi_critical_mutex);
+        portEXIT_CRITICAL_SAFE(&furi_critical_mutex);
     } else {
         portENABLE_INTERRUPTS();
     }

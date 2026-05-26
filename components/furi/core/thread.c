@@ -200,6 +200,10 @@ void furi_thread_scrub(void) {
         furi_check(pvTaskGetThreadLocalStoragePointer(task, 0) == thread_to_scrub);
         vTaskSetThreadLocalStoragePointer(task, 0, NULL);
 
+        /* Wait for FreeRTOS IDLE task to remove the static task from xTasksWaitingTermination
+         * before we declare it stopped. This prevents list corruption if the task is recreated immediately. */
+        furi_delay_tick(10);
+
         furi_thread_set_state(thread_to_scrub, FuriThreadStateStopped);
     }
 }
@@ -299,17 +303,23 @@ void furi_thread_set_stack_size(FuriThread* thread, size_t stack_size) {
     }
 
     /* ESP32 needs larger stacks than STM32 (deeper SPI/FATFS call chains) */
-    if(stack_size < 4096) stack_size = 4096;
+    if(stack_size < 2048) stack_size = 2048;
 
     /* Prefer internal SRAM — flash/NVS writes disable the PSRAM cache and
        cause a DoubleException on a PSRAM-resident stack. For apps that do
        not write to flash/NVS (e.g. the Doom port, which only reads from
        the SD card on a separate SPI bus) we fall back to PSRAM when the
        internal heap cannot satisfy the request. */
+    // 1. Try to allocate in internal SRAM (Required for No-PSRAM builds)
     thread->stack_buffer = heap_caps_malloc(stack_size, MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+
+    // 2. Fallback (optional, usually for builds WITH PSRAM)
     if(!thread->stack_buffer) {
         thread->stack_buffer = heap_caps_malloc(stack_size, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
     }
+
+    // 3. Your new check (This is the valid part!)
+    furi_check(thread->stack_buffer);
     thread->stack_size = stack_size;
 }
 

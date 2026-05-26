@@ -5,6 +5,9 @@
 #include <lib/toolbox/path.h>
 #include <float_tools.h>
 #include "subghz_i.h"
+#include <furi_hal.h>
+#include <dialogs/dialogs.h>
+#include <assets_icons.h>
 
 #define TAG "SubGhzApp"
 
@@ -404,6 +407,17 @@ void subghz_free(SubGhz* subghz, bool alloc_for_tx_only) {
 }
 
 int32_t subghz_app(void* p) {
+    if(!furi_hal_subghz_is_connected()) {
+        DialogsApp* dialogs = furi_record_open(RECORD_DIALOGS);
+        DialogMessage* message = dialog_message_alloc();
+        dialog_message_set_header(message, "CC1101 not found", 64, 38, AlignCenter, AlignCenter);
+        dialog_message_set_icon(message, &I_Quest_7x8, 60, 22);
+        dialog_message_show(dialogs, message);
+        dialog_message_free(message);
+        furi_record_close(RECORD_DIALOGS);
+        return 0;
+    }
+
     bool alloc_for_tx;
     if(p && strlen(p)) {
         alloc_for_tx = true;

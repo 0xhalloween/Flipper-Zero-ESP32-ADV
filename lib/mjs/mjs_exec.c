@@ -3,6 +3,7 @@
  * All rights reserved
  */
 
+#include <math.h>
 #include "common/cs_file.h"
 #include "common/cs_varint.h"
 
@@ -18,6 +19,7 @@
 #include "mjs_tok.h"
 #include "mjs_util.h"
 #include "mjs_array_buf.h"
+#include <math.h>
 
 #if MJS_GENERATE_JSC && defined(CS_MMAP)
 #include <sys/mman.h>

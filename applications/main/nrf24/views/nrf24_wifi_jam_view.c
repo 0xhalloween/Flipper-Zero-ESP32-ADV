@@ -11,7 +11,8 @@
 static void truncate_ssid(char* dst, size_t dst_size, const char* src, size_t max_chars) {
     size_t src_len = strlen(src);
     if(src_len <= max_chars) {
-        snprintf(dst, dst_size, "%s", src);
+        strncpy(dst, src, dst_size - 1);
+        dst[dst_size - 1] = '\0';
         return;
     }
     if(max_chars >= 3) {

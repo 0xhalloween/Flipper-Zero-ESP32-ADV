@@ -169,11 +169,11 @@ static int32_t subghz_frequency_analyzer_worker_thread(void* context) {
 
         FURI_LOG_T(
             TAG,
-            "RSSI: avg %f, max %f at %lu, min %f",
-            (double)(rssi_avg / rssi_avg_samples),
-            (double)frequency_rssi.rssi_coarse,
+            "RSSI: avg %d, max %d at %lu, min %d",
+            (int)(rssi_avg / rssi_avg_samples),
+            (int)frequency_rssi.rssi_coarse,
             frequency_rssi.frequency_coarse,
-            (double)rssi_min);
+            (int)rssi_min);
 
         // Second stage: fine scan
         if(frequency_rssi.rssi_coarse > instance->trigger_level) {
@@ -201,7 +201,7 @@ static int32_t subghz_frequency_analyzer_worker_thread(void* context) {
 
                     rssi = furi_hal_subghz_get_rssi();
 
-                    FURI_LOG_T(TAG, "#:%lu:%f", frequency, (double)rssi);
+                    FURI_LOG_T(TAG, "#:%lu:%d", frequency, (int)rssi);
 
                     if(frequency_rssi.rssi_fine < rssi) {
                         frequency_rssi.rssi_fine = rssi;
@@ -214,7 +214,7 @@ static int32_t subghz_frequency_analyzer_worker_thread(void* context) {
         // Deliver results fine
         if(frequency_rssi.rssi_fine > instance->trigger_level) {
             FURI_LOG_D(
-                TAG, "=:%lu:%f", frequency_rssi.frequency_fine, (double)frequency_rssi.rssi_fine);
+                TAG, "=:%lu:%d", frequency_rssi.frequency_fine, (int)frequency_rssi.rssi_fine);
 
             instance->sample_hold_counter = 20;
             rssi_temp = frequency_rssi.rssi_fine;
@@ -238,9 +238,9 @@ static int32_t subghz_frequency_analyzer_worker_thread(void* context) {
             (instance->sample_hold_counter < 10)) {
             FURI_LOG_D(
                 TAG,
-                "~:%lu:%f",
+                "~:%lu:%d",
                 frequency_rssi.frequency_coarse,
-                (double)frequency_rssi.rssi_coarse);
+                (int)frequency_rssi.rssi_coarse);
 
             instance->sample_hold_counter = 20;
             rssi_temp = frequency_rssi.rssi_coarse;

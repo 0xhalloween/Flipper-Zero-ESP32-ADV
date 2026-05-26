@@ -1,5 +1,6 @@
 #include "receiver.h"
 #include "../subghz_i.h"
+#include <furi_hal.h>
 
 #include "types.h"
 #include <input/input.h>
@@ -270,6 +271,15 @@ static void subghz_view_rssi_draw(Canvas* canvas, SubGhzViewReceiverModel* model
 
 void subghz_view_receiver_draw(Canvas* canvas, SubGhzViewReceiverModel* model) {
     canvas_clear(canvas);
+    
+    if(!furi_hal_subghz_is_connected()) {
+        canvas_set_color(canvas, ColorBlack);
+        canvas_set_font(canvas, FontPrimary);
+        canvas_draw_icon(canvas, 60, 22, &I_Quest_7x8);
+        canvas_draw_str_aligned(canvas, 64, 38, AlignCenter, AlignCenter, "CC1101 not found");
+        return;
+    }
+
     canvas_set_color(canvas, ColorBlack);
     canvas_set_font(canvas, FontSecondary);
 

@@ -98,6 +98,9 @@ static FuriMutex* nfc_mutex = NULL;
 static FuriHalNfcMode nfc_current_mode = FuriHalNfcModeNum;
 static FuriHalNfcTech nfc_current_tech = FuriHalNfcTechInvalid;
 
+static bool ws1850s_is_ready = false;
+static bool st25r3916_is_ready = false;
+
 /* Event signaling — used by worker thread for poller/listener wait_event */
 static FuriEventFlag* nfc_event_flags = NULL;
 
@@ -139,6 +142,315 @@ static void crc_a_append(uint8_t* data, size_t len) {
     data[len + 1] = (uint8_t)(crc >> 8);
 }
 
+/* ──────────────────────────── WS1850S MFRC522 Registers ────────────────── */
+#define WS1850S_COMMAND_REG       0x01
+#define WS1850S_COM_IRQ_REG       0x04
+#define WS1850S_ERROR_REG         0x06
+#define WS1850S_STATUS2_REG       0x08
+#define WS1850S_FIFO_DATA_REG     0x09
+#define WS1850S_FIFO_LEVEL_REG    0x0A
+#define WS1850S_BIT_FRAMING_REG   0x0D
+#define WS1850S_MODE_REG          0x11
+#define WS1850S_TX_CONTROL_REG    0x14
+#define WS1850S_TX_ASK_REG        0x15
+#define WS1850S_RFC_FG_REG        0x26
+#define WS1850S_TMODE_REG         0x2A
+#define WS1850S_TPRESCALER_REG_L  0x2B
+#define WS1850S_TRELOAD_REG_H     0x2C
+#define WS1850S_TRELOAD_REG_L     0x2D
+#define WS1850S_VERSION_REG       0x37
+
+static bool is_ws1850s = false;
+
+static esp_err_t ws1850s_write_reg(uint8_t reg, uint8_t val) {
+    uint8_t data[2] = {reg, val};
+    return i2c_master_write_to_device(BOARD_NFC_I2C_PORT, BOARD_NFC_I2C_ADDR, data, 2, pdMS_TO_TICKS(100));
+}
+
+static esp_err_t ws1850s_read_reg(uint8_t reg, uint8_t* val) {
+    esp_err_t err = i2c_master_write_to_device(BOARD_NFC_I2C_PORT, BOARD_NFC_I2C_ADDR, &reg, 1, pdMS_TO_TICKS(100));
+    if(err != ESP_OK) return err;
+    return i2c_master_read_from_device(BOARD_NFC_I2C_PORT, BOARD_NFC_I2C_ADDR, val, 1, pdMS_TO_TICKS(100));
+}
+
+static esp_err_t ws1850s_write_fifo(const uint8_t* buf, size_t len) {
+    uint8_t data[len + 1];
+    data[0] = WS1850S_FIFO_DATA_REG;
+    memcpy(&data[1], buf, len);
+    return i2c_master_write_to_device(BOARD_NFC_I2C_PORT, BOARD_NFC_I2C_ADDR, data, len + 1, pdMS_TO_TICKS(100));
+}
+
+static esp_err_t ws1850s_read_fifo(uint8_t* buf, size_t len) {
+    uint8_t reg = WS1850S_FIFO_DATA_REG;
+    esp_err_t err = i2c_master_write_to_device(BOARD_NFC_I2C_PORT, BOARD_NFC_I2C_ADDR, &reg, 1, pdMS_TO_TICKS(100));
+    if(err != ESP_OK) return err;
+    return i2c_master_read_from_device(BOARD_NFC_I2C_PORT, BOARD_NFC_I2C_ADDR, buf, len, pdMS_TO_TICKS(100));
+}
+
+static bool ws1850s_init(void) {
+    uint8_t ver = 0;
+    if(ws1850s_read_reg(WS1850S_VERSION_REG, &ver) != ESP_OK) {
+        return false;
+    }
+    if(ver != 0x15 && ver != 0x91 && ver != 0x92 && ver != 0x88) {
+        FURI_LOG_E(TAG, "WS1850S: invalid version 0x%02X", ver);
+        return false;
+    }
+    
+    /* Soft reset */
+    ws1850s_write_reg(WS1850S_COMMAND_REG, 0x0F);
+    furi_delay_ms(50);
+    
+    ws1850s_write_reg(WS1850S_TMODE_REG, 0x80);
+    ws1850s_write_reg(WS1850S_TPRESCALER_REG_L, 0xA9);
+    ws1850s_write_reg(WS1850S_TRELOAD_REG_H, 0x03);
+    ws1850s_write_reg(WS1850S_TRELOAD_REG_L, 0xE8);
+    ws1850s_write_reg(WS1850S_TX_ASK_REG, 0x40);
+    ws1850s_write_reg(WS1850S_MODE_REG, 0x3D);
+    
+    /* Turn on antenna */
+    uint8_t tx_ctrl = 0;
+    ws1850s_read_reg(WS1850S_TX_CONTROL_REG, &tx_ctrl);
+    ws1850s_write_reg(WS1850S_TX_CONTROL_REG, tx_ctrl | 0x03);
+    
+    /* Set gain to max */
+    uint8_t rfc = 0;
+    ws1850s_read_reg(WS1850S_RFC_FG_REG, &rfc);
+    ws1850s_write_reg(WS1850S_RFC_FG_REG, (rfc & ~0x70) | (0x07 << 4));
+    
+    return true;
+}
+
+static bool ws1850s_request(uint16_t* atqa) {
+    ws1850s_write_reg(WS1850S_COMMAND_REG, 0x00);
+    ws1850s_write_reg(WS1850S_FIFO_LEVEL_REG, 0x80);
+    ws1850s_write_reg(WS1850S_COM_IRQ_REG, 0x7F);
+    
+    ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x07);
+    
+    uint8_t reqa = 0x26;
+    ws1850s_write_fifo(&reqa, 1);
+    
+    ws1850s_write_reg(WS1850S_COMMAND_REG, 0x0C);
+    ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x87);
+    
+    uint8_t irq = 0;
+    uint32_t start = furi_get_tick();
+    while((furi_get_tick() - start) < 30) {
+        ws1850s_read_reg(WS1850S_COM_IRQ_REG, &irq);
+        if(irq & (0x20 | 0x10 | 0x01)) break;
+        furi_delay_ms(1);
+    }
+    
+    ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x00);
+    
+    if(irq & 0x01) return false;
+    
+    uint8_t fifo_level = 0;
+    ws1850s_read_reg(WS1850S_FIFO_LEVEL_REG, &fifo_level);
+    if(fifo_level != 2) return false;
+    
+    uint8_t resp[2];
+    if(ws1850s_read_fifo(resp, 2) != ESP_OK) return false;
+    
+    *atqa = (resp[1] << 8) | resp[0];
+    return true;
+}
+
+static bool ws1850s_anticollision(uint8_t* uid, uint8_t* sak) {
+    ws1850s_write_reg(WS1850S_COMMAND_REG, 0x00);
+    ws1850s_write_reg(WS1850S_FIFO_LEVEL_REG, 0x80);
+    ws1850s_write_reg(WS1850S_COM_IRQ_REG, 0x7F);
+    
+    ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x00);
+    
+    uint8_t cmd[2] = {0x93, 0x20};
+    ws1850s_write_fifo(cmd, 2);
+    
+    ws1850s_write_reg(WS1850S_COMMAND_REG, 0x0C);
+    ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x80);
+    
+    uint8_t irq = 0;
+    uint32_t start = furi_get_tick();
+    while((furi_get_tick() - start) < 30) {
+        ws1850s_read_reg(WS1850S_COM_IRQ_REG, &irq);
+        if(irq & (0x20 | 0x10 | 0x01)) break;
+        furi_delay_ms(1);
+    }
+    ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x00);
+    
+    if(irq & 0x01) return false;
+    
+    uint8_t fifo_level = 0;
+    ws1850s_read_reg(WS1850S_FIFO_LEVEL_REG, &fifo_level);
+    if(fifo_level != 5) return false;
+    
+    uint8_t resp[5];
+    if(ws1850s_read_fifo(resp, 5) != ESP_OK) return false;
+    
+    uint8_t bcc = resp[0] ^ resp[1] ^ resp[2] ^ resp[3];
+    if(bcc != resp[4]) return false;
+    
+    uint8_t select_cmd[9];
+    select_cmd[0] = 0x93;
+    select_cmd[1] = 0x70;
+    memcpy(&select_cmd[2], resp, 5);
+    crc_a_append(select_cmd, 7);
+    
+    ws1850s_write_reg(WS1850S_COMMAND_REG, 0x00);
+    ws1850s_write_reg(WS1850S_FIFO_LEVEL_REG, 0x80);
+    ws1850s_write_reg(WS1850S_COM_IRQ_REG, 0x7F);
+    
+    ws1850s_write_fifo(select_cmd, 9);
+    ws1850s_write_reg(WS1850S_COMMAND_REG, 0x0C);
+    ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x80);
+    
+    start = furi_get_tick();
+    while((furi_get_tick() - start) < 30) {
+        ws1850s_read_reg(WS1850S_COM_IRQ_REG, &irq);
+        if(irq & (0x20 | 0x10 | 0x01)) break;
+        furi_delay_ms(1);
+    }
+    ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x00);
+    
+    if(irq & 0x01) return false;
+    
+    ws1850s_read_reg(WS1850S_FIFO_LEVEL_REG, &fifo_level);
+    if(fifo_level < 3) return false;
+    
+    uint8_t select_resp[3];
+    if(ws1850s_read_fifo(select_resp, 3) != ESP_OK) return false;
+    
+    if(resp[0] == 0x88) {
+        uint8_t uid1[3] = {resp[1], resp[2], resp[3]};
+        
+        ws1850s_write_reg(WS1850S_COMMAND_REG, 0x00);
+        ws1850s_write_reg(WS1850S_FIFO_LEVEL_REG, 0x80);
+        ws1850s_write_reg(WS1850S_COM_IRQ_REG, 0x7F);
+        
+        uint8_t cmd2[2] = {0x95, 0x20};
+        ws1850s_write_fifo(cmd2, 2);
+        
+        ws1850s_write_reg(WS1850S_COMMAND_REG, 0x0C);
+        ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x80);
+        
+        start = furi_get_tick();
+        while((furi_get_tick() - start) < 30) {
+            ws1850s_read_reg(WS1850S_COM_IRQ_REG, &irq);
+            if(irq & (0x20 | 0x10 | 0x01)) break;
+            furi_delay_ms(1);
+        }
+        ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x00);
+        
+        if(irq & 0x01) return false;
+        
+        ws1850s_read_reg(WS1850S_FIFO_LEVEL_REG, &fifo_level);
+        if(fifo_level != 5) return false;
+        
+        uint8_t resp2[5];
+        if(ws1850s_read_fifo(resp2, 5) != ESP_OK) return false;
+        
+        uint8_t bcc2 = resp2[0] ^ resp2[1] ^ resp2[2] ^ resp2[3];
+        if(bcc2 != resp2[4]) return false;
+        
+        uint8_t select_cmd2[9];
+        select_cmd2[0] = 0x95;
+        select_cmd2[1] = 0x70;
+        memcpy(&select_cmd2[2], resp2, 5);
+        crc_a_append(select_cmd2, 7);
+        
+        ws1850s_write_reg(WS1850S_COMMAND_REG, 0x00);
+        ws1850s_write_reg(WS1850S_FIFO_LEVEL_REG, 0x80);
+        ws1850s_write_reg(WS1850S_COM_IRQ_REG, 0x7F);
+        
+        ws1850s_write_fifo(select_cmd2, 9);
+        ws1850s_write_reg(WS1850S_COMMAND_REG, 0x0C);
+        ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x80);
+        
+        start = furi_get_tick();
+        while((furi_get_tick() - start) < 30) {
+            ws1850s_read_reg(WS1850S_COM_IRQ_REG, &irq);
+            if(irq & (0x20 | 0x10 | 0x01)) break;
+            furi_delay_ms(1);
+        }
+        ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x00);
+        
+        if(irq & 0x01) return false;
+        
+        ws1850s_read_reg(WS1850S_FIFO_LEVEL_REG, &fifo_level);
+        if(fifo_level < 3) return false;
+        
+        uint8_t select_resp2[3];
+        if(ws1850s_read_fifo(select_resp2, 3) != ESP_OK) return false;
+        
+        memcpy(uid, uid1, 3);
+        memcpy(uid + 3, resp2, 4);
+        *sak = select_resp2[0];
+        return true;
+    }
+    
+    memcpy(uid, resp, 4);
+    *sak = select_resp[0];
+    return true;
+}
+
+static bool ws1850s_transceive(
+    const uint8_t* tx_buf, size_t tx_len,
+    uint8_t* rx_buf, size_t* rx_len,
+    uint32_t timeout_ms) {
+    
+    ws1850s_write_reg(WS1850S_COMMAND_REG, 0x00);
+    ws1850s_write_reg(WS1850S_FIFO_LEVEL_REG, 0x80);
+    ws1850s_write_reg(WS1850S_COM_IRQ_REG, 0x7F);
+    
+    ws1850s_write_fifo(tx_buf, tx_len);
+    
+    ws1850s_write_reg(WS1850S_COMMAND_REG, 0x0C);
+    ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x80);
+    
+    uint8_t irq = 0;
+    uint32_t start = furi_get_tick();
+    while((furi_get_tick() - start) < timeout_ms) {
+        ws1850s_read_reg(WS1850S_COM_IRQ_REG, &irq);
+        if(irq & (0x20 | 0x10 | 0x01)) {
+            break;
+        }
+        furi_delay_ms(1);
+    }
+    
+    ws1850s_write_reg(WS1850S_BIT_FRAMING_REG, 0x00);
+    
+    if(irq & 0x01) {
+        return false;
+    }
+    
+    uint8_t err_reg = 0;
+    ws1850s_read_reg(WS1850S_ERROR_REG, &err_reg);
+    if(err_reg & 0x13) {
+        return false;
+    }
+    
+    uint8_t fifo_level = 0;
+    ws1850s_read_reg(WS1850S_FIFO_LEVEL_REG, &fifo_level);
+    
+    if(fifo_level == 0) {
+        return false;
+    }
+    
+    if(rx_buf && rx_len) {
+        if(fifo_level > *rx_len) {
+            fifo_level = *rx_len;
+        }
+        
+        if(ws1850s_read_fifo(rx_buf, fifo_level) != ESP_OK) {
+            return false;
+        }
+        
+        *rx_len = fifo_level;
+    }
+    return true;
+}
+
 /* Listener emulation state */
 static uint8_t listener_uid[10];
 static uint8_t listener_uid_len;
@@ -177,11 +489,295 @@ static void block_tx_timer_cb(void* arg) {
     }
 }
 
+/* ──────────────────────────── ST25R3916 Registers ───────────────────────── */
+#define ST25R3916_I2C_ADDR                     0x50
+
+#define ST25R3916_REG_IO_CONF1                 0x00
+#define ST25R3916_REG_IO_CONF2                 0x01
+#define ST25R3916_REG_OP_CONTROL               0x02
+#define ST25R3916_REG_MODE_DEF                 0x03
+#define ST25R3916_REG_BITRATE_DEF              0x04
+#define ST25R3916_REG_ISO14443A_SETTINGS       0x05
+#define ST25R3916_REG_AUXILIARY_DEF            0x0A
+#define ST25R3916_REG_RX_CONF1                 0x0B
+#define ST25R3916_REG_RX_CONF2                 0x0C
+#define ST25R3916_REG_RX_CONF3                 0x0D
+#define ST25R3916_REG_RX_CONF4                 0x0E
+#define ST25R3916_REG_NO_RESP_TIMER1           0x10
+#define ST25R3916_REG_NO_RESP_TIMER2           0x11
+#define ST25R3916_REG_TIMER_EMV_CONTROL        0x12
+#define ST25R3916_REG_MASK_MAIN_INT            0x16
+#define ST25R3916_REG_MAIN_INT                 0x1A
+#define ST25R3916_REG_TIMER_NFC_INT            0x1B
+#define ST25R3916_REG_FIFO_STATUS1             0x1E
+#define ST25R3916_REG_FIFO_STATUS2             0x1F
+#define ST25R3916_REG_COLLISION_DISPLAY        0x20
+#define ST25R3916_REG_NUM_TX_BYTES1            0x22
+#define ST25R3916_REG_NUM_TX_BYTES2            0x23
+#define ST25R3916_REG_IC_IDENTITY              0x3F
+
+#define ST25R3916_CMD_SET_DEFAULT              0xC1
+#define ST25R3916_CMD_STOP_ALL                 0xC2
+#define ST25R3916_CMD_TRANSMIT_WITH_CRC        0xC4
+#define ST25R3916_CMD_TRANSMIT_WITHOUT_CRC     0xC5
+#define ST25R3916_CMD_TRANSMIT_REQA            0xC6
+#define ST25R3916_CMD_TRANSMIT_WUPA            0xC7
+#define ST25R3916_CMD_NFC_INITIAL_FIELD_ON     0xC8
+#define ST25R3916_CMD_RESET_RX_GAIN            0xD5
+#define ST25R3916_CMD_ADJUST_REGULATORS        0xD6
+#define ST25R3916_CMD_CLEAR_FIFO               0xDB
+#define ST25R3916_CMD_TEST_ACCESS              0xFC
+
+#define ST25R3916_OP_READ_REG                  0x40
+#define ST25R3916_OP_WRITE_REG                 0x00
+#define ST25R3916_OP_LOAD_FIFO                 0x80
+#define ST25R3916_OP_READ_FIFO                 0x9F
+
+static bool is_st25r3916 = false;
+
+static esp_err_t st25r3916_write_reg(uint8_t reg, uint8_t val) {
+    uint8_t addr = (reg & 0x3F) | ST25R3916_OP_WRITE_REG;
+    uint8_t data[2] = {addr, val};
+    return i2c_master_write_to_device(BOARD_NFC_I2C_PORT, ST25R3916_I2C_ADDR, data, 2, pdMS_TO_TICKS(100));
+}
+
+static esp_err_t st25r3916_read_reg(uint8_t reg, uint8_t* val) {
+    uint8_t addr = (reg & 0x3F) | ST25R3916_OP_READ_REG;
+    esp_err_t err = i2c_master_write_to_device(BOARD_NFC_I2C_PORT, ST25R3916_I2C_ADDR, &addr, 1, pdMS_TO_TICKS(100));
+    if(err != ESP_OK) return err;
+    return i2c_master_read_from_device(BOARD_NFC_I2C_PORT, ST25R3916_I2C_ADDR, val, 1, pdMS_TO_TICKS(100));
+}
+
+static esp_err_t st25r3916_send_command(uint8_t cmd) {
+    return i2c_master_write_to_device(BOARD_NFC_I2C_PORT, ST25R3916_I2C_ADDR, &cmd, 1, pdMS_TO_TICKS(100));
+}
+
+static esp_err_t st25r3916_write_fifo(const uint8_t* buf, size_t len) {
+    uint8_t data[len + 1];
+    data[0] = ST25R3916_OP_LOAD_FIFO;
+    memcpy(&data[1], buf, len);
+    return i2c_master_write_to_device(BOARD_NFC_I2C_PORT, ST25R3916_I2C_ADDR, data, len + 1, pdMS_TO_TICKS(100));
+}
+
+static esp_err_t st25r3916_read_fifo(uint8_t* buf, size_t len) {
+    uint8_t addr = ST25R3916_OP_READ_FIFO;
+    esp_err_t err = i2c_master_write_to_device(BOARD_NFC_I2C_PORT, ST25R3916_I2C_ADDR, &addr, 1, pdMS_TO_TICKS(100));
+    if(err != ESP_OK) return err;
+    return i2c_master_read_from_device(BOARD_NFC_I2C_PORT, ST25R3916_I2C_ADDR, buf, len, pdMS_TO_TICKS(100));
+}
+
+static bool st25r3916_init(void) {
+    uint8_t id = 0;
+    if(st25r3916_read_reg(ST25R3916_REG_IC_IDENTITY, &id) != ESP_OK) {
+        return false;
+    }
+    uint8_t type = (id >> 3) & 0x1F;
+    if(type != 0x05) {
+        FURI_LOG_E(TAG, "ST25R3916: invalid chip identity type 0x%02X", type);
+        return false;
+    }
+
+    st25r3916_send_command(ST25R3916_CMD_SET_DEFAULT);
+    furi_delay_ms(10);
+
+    uint8_t prot_cmd[3] = {ST25R3916_CMD_TEST_ACCESS, 0x04, 0x10};
+    i2c_master_write_to_device(BOARD_NFC_I2C_PORT, ST25R3916_I2C_ADDR, prot_cmd, 3, pdMS_TO_TICKS(100));
+
+    st25r3916_write_reg(ST25R3916_REG_IO_CONF1, 0x07);
+    st25r3916_write_reg(ST25R3916_REG_IO_CONF2, 0x84 | 0x20);
+
+    st25r3916_write_reg(ST25R3916_REG_MASK_MAIN_INT, 0xFF);
+    st25r3916_send_command(ST25R3916_CMD_ADJUST_REGULATORS);
+    furi_delay_ms(10);
+    st25r3916_write_reg(ST25R3916_REG_MASK_MAIN_INT, 0x00);
+
+    st25r3916_write_reg(ST25R3916_REG_MODE_DEF, 0x09);
+    st25r3916_write_reg(ST25R3916_REG_BITRATE_DEF, 0x00);
+    st25r3916_write_reg(ST25R3916_REG_ISO14443A_SETTINGS, 0x00);
+
+    uint8_t aux = 0;
+    st25r3916_read_reg(ST25R3916_REG_AUXILIARY_DEF, &aux);
+    st25r3916_write_reg(ST25R3916_REG_AUXILIARY_DEF, aux & ~0x04);
+
+    st25r3916_write_reg(ST25R3916_REG_RX_CONF1, 0x01);
+    st25r3916_write_reg(ST25R3916_REG_RX_CONF2, 0x2D);
+    st25r3916_write_reg(ST25R3916_REG_RX_CONF3, 0xD8);
+    st25r3916_write_reg(ST25R3916_REG_RX_CONF4, 0x22);
+    st25r3916_send_command(ST25R3916_CMD_RESET_RX_GAIN);
+
+    st25r3916_send_command(ST25R3916_CMD_NFC_INITIAL_FIELD_ON);
+    furi_delay_ms(10);
+    st25r3916_write_reg(ST25R3916_REG_OP_CONTROL, 0xC8);
+
+    return true;
+}
+
+static bool st25r3916_request(uint16_t* atqa) {
+    st25r3916_write_reg(ST25R3916_REG_NO_RESP_TIMER1, 0x04);
+    st25r3916_write_reg(ST25R3916_REG_NO_RESP_TIMER2, 0x23);
+
+    st25r3916_write_reg(ST25R3916_REG_ISO14443A_SETTINGS, 0x01);
+    uint8_t aux = 0;
+    st25r3916_read_reg(ST25R3916_REG_AUXILIARY_DEF, &aux);
+    st25r3916_write_reg(ST25R3916_REG_AUXILIARY_DEF, aux | 0x80);
+
+    uint8_t dummy_int;
+    st25r3916_read_reg(ST25R3916_REG_MAIN_INT, &dummy_int);
+
+    st25r3916_send_command(ST25R3916_CMD_CLEAR_FIFO);
+    st25r3916_send_command(ST25R3916_CMD_TRANSMIT_REQA);
+
+    uint8_t main_irq = 0;
+    uint8_t nfc_irq = 0;
+    uint32_t start = furi_get_tick();
+    while((furi_get_tick() - start) < 30) {
+        st25r3916_read_reg(ST25R3916_REG_MAIN_INT, &main_irq);
+        st25r3916_read_reg(ST25R3916_REG_TIMER_NFC_INT, &nfc_irq);
+        if((main_irq & 0x10) || (nfc_irq & 0x40)) break;
+        furi_delay_ms(1);
+    }
+
+    st25r3916_read_reg(ST25R3916_REG_AUXILIARY_DEF, &aux);
+    st25r3916_write_reg(ST25R3916_REG_AUXILIARY_DEF, aux & ~0x80);
+    st25r3916_write_reg(ST25R3916_REG_ISO14443A_SETTINGS, 0x00);
+
+    if(nfc_irq & 0x40) return false;
+    if(!(main_irq & 0x10)) return false;
+
+    uint8_t fifo_level = 0;
+    st25r3916_read_reg(ST25R3916_REG_FIFO_STATUS1, &fifo_level);
+    if(fifo_level < 2) return false;
+
+    uint8_t resp[2];
+    if(st25r3916_read_fifo(resp, 2) != ESP_OK) return false;
+
+    *atqa = (resp[1] << 8) | resp[0];
+    return true;
+}
+
+static bool st25r3916_anticollision(uint8_t* uid, uint8_t* sak) {
+    st25r3916_write_reg(ST25R3916_REG_NO_RESP_TIMER1, 0x04);
+    st25r3916_write_reg(ST25R3916_REG_NO_RESP_TIMER2, 0x23);
+
+    st25r3916_write_reg(ST25R3916_REG_ISO14443A_SETTINGS, 0x01);
+    uint8_t aux = 0;
+    st25r3916_read_reg(ST25R3916_REG_AUXILIARY_DEF, &aux);
+    st25r3916_write_reg(ST25R3916_REG_AUXILIARY_DEF, aux | 0x80);
+
+    uint8_t anticoll_cmd[2] = {0x93, 0x20};
+    st25r3916_send_command(ST25R3916_CMD_CLEAR_FIFO);
+    st25r3916_write_fifo(anticoll_cmd, 2);
+
+    st25r3916_write_reg(ST25R3916_REG_NUM_TX_BYTES1, 0x00);
+    st25r3916_write_reg(ST25R3916_REG_NUM_TX_BYTES2, 0x10);
+
+    uint8_t dummy_int;
+    st25r3916_read_reg(ST25R3916_REG_MAIN_INT, &dummy_int);
+    st25r3916_send_command(ST25R3916_CMD_TRANSMIT_WITHOUT_CRC);
+
+    uint8_t main_irq = 0;
+    uint32_t start = furi_get_tick();
+    while((furi_get_tick() - start) < 30) {
+        st25r3916_read_reg(ST25R3916_REG_MAIN_INT, &main_irq);
+        if(main_irq & 0x10) break;
+        furi_delay_ms(1);
+    }
+    if(!(main_irq & 0x10)) return false;
+
+    uint8_t fifo_level = 0;
+    st25r3916_read_reg(ST25R3916_REG_FIFO_STATUS1, &fifo_level);
+    if(fifo_level < 5) return false;
+
+    uint8_t resp[5];
+    if(st25r3916_read_fifo(resp, 5) != ESP_OK) return false;
+
+    uint8_t bcc = resp[0] ^ resp[1] ^ resp[2] ^ resp[3];
+    if(bcc != resp[4]) return false;
+
+    memcpy(uid, resp, 4);
+
+    st25r3916_write_reg(ST25R3916_REG_ISO14443A_SETTINGS, 0x00);
+    st25r3916_read_reg(ST25R3916_REG_AUXILIARY_DEF, &aux);
+    st25r3916_write_reg(ST25R3916_REG_AUXILIARY_DEF, aux & ~0x80);
+
+    uint8_t select_cmd[7];
+    select_cmd[0] = 0x93;
+    select_cmd[1] = 0x70;
+    memcpy(&select_cmd[2], resp, 5);
+
+    st25r3916_send_command(ST25R3916_CMD_CLEAR_FIFO);
+    st25r3916_write_fifo(select_cmd, 7);
+
+    st25r3916_write_reg(ST25R3916_REG_NUM_TX_BYTES1, 0x00);
+    st25r3916_write_reg(ST25R3916_REG_NUM_TX_BYTES2, 0x38);
+
+    st25r3916_read_reg(ST25R3916_REG_MAIN_INT, &dummy_int);
+    st25r3916_send_command(ST25R3916_CMD_TRANSMIT_WITH_CRC);
+
+    main_irq = 0;
+    start = furi_get_tick();
+    while((furi_get_tick() - start) < 30) {
+        st25r3916_read_reg(ST25R3916_REG_MAIN_INT, &main_irq);
+        if(main_irq & 0x10) break;
+        furi_delay_ms(1);
+    }
+    if(!(main_irq & 0x10)) return false;
+
+    st25r3916_read_reg(ST25R3916_REG_FIFO_STATUS1, &fifo_level);
+    if(fifo_level < 1) return false;
+
+    if(st25r3916_read_fifo(sak, 1) != ESP_OK) return false;
+
+    return true;
+}
+
+static bool st25r3916_transceive(const uint8_t* tx_buf, size_t tx_len, uint8_t* rx_buf, size_t* rx_len, uint32_t timeout_ms) {
+    st25r3916_write_reg(ST25R3916_REG_NO_RESP_TIMER1, (timeout_ms >> 8) & 0xFF);
+    st25r3916_write_reg(ST25R3916_REG_NO_RESP_TIMER2, timeout_ms & 0xFF);
+
+    st25r3916_send_command(ST25R3916_CMD_CLEAR_FIFO);
+    if(tx_len > 0) {
+        st25r3916_write_fifo(tx_buf, tx_len);
+    }
+
+    uint16_t tx_bits = tx_len << 3;
+    st25r3916_write_reg(ST25R3916_REG_NUM_TX_BYTES1, (tx_bits >> 8) & 0xFF);
+    st25r3916_write_reg(ST25R3916_REG_NUM_TX_BYTES2, tx_bits & 0xFF);
+
+    uint8_t dummy_int;
+    st25r3916_read_reg(ST25R3916_REG_MAIN_INT, &dummy_int);
+    st25r3916_send_command(ST25R3916_CMD_TRANSMIT_WITH_CRC);
+
+    uint8_t main_irq = 0;
+    uint8_t nfc_irq = 0;
+    uint32_t start = furi_get_tick();
+    while((furi_get_tick() - start) < timeout_ms) {
+        st25r3916_read_reg(ST25R3916_REG_MAIN_INT, &main_irq);
+        st25r3916_read_reg(ST25R3916_REG_TIMER_NFC_INT, &nfc_irq);
+        if((main_irq & 0x10) || (nfc_irq & 0x40)) break;
+        furi_delay_ms(1);
+    }
+
+    if(nfc_irq & 0x40) return false;
+    if(!(main_irq & 0x10)) return false;
+
+    uint8_t fifo_level = 0;
+    st25r3916_read_reg(ST25R3916_REG_FIFO_STATUS1, &fifo_level);
+    if(fifo_level == 0) {
+        *rx_len = 0;
+        return true;
+    }
+
+    size_t to_read = (fifo_level < *rx_len) ? fifo_level : *rx_len;
+    if(st25r3916_read_fifo(rx_buf, to_read) != ESP_OK) return false;
+
+    *rx_len = to_read;
+    return true;
+}
+
 /* ──────────────────────────── PN532 I2C Low-Level ───────────────────────── */
 
 static esp_err_t pn532_i2c_init(void) {
-    /* I2C bus may already be initialized by furi_hal_power (shared QWIIC/NFC pins).
-     * Try to install; if already running, just reuse it. */
     i2c_config_t conf = {
         .mode = I2C_MODE_MASTER,
         .sda_io_num = BOARD_PIN_NFC_SDA,
@@ -191,11 +787,14 @@ static esp_err_t pn532_i2c_init(void) {
         .master.clk_speed = 100000,
     };
 
-    esp_err_t err = i2c_driver_install(BOARD_NFC_I2C_PORT, conf.mode, 0, 0, 0);
-    if(err == ESP_OK) {
-        /* Fresh install — configure pins */
-        i2c_param_config(BOARD_NFC_I2C_PORT, &conf);
-    } else {
+    /* In ESP-IDF, config must be set before installing the driver */
+    esp_err_t err = i2c_param_config(BOARD_NFC_I2C_PORT, &conf);
+    if(err != ESP_OK) {
+        FURI_LOG_E(TAG, "i2c_param_config failed");
+        return err;
+    }
+    err = i2c_driver_install(BOARD_NFC_I2C_PORT, conf.mode, 0, 0, 0);
+    if(err == ESP_ERR_INVALID_STATE) {
         /* Already installed (by power or touch) — reuse as-is */
         FURI_LOG_I(TAG, "I2C bus %d already initialized, reusing", BOARD_NFC_I2C_PORT);
         err = ESP_OK;
@@ -205,14 +804,16 @@ static esp_err_t pn532_i2c_init(void) {
 
 /** Wait for PN532 ready: IRQ pin LOW or I2C RDY byte polling */
 static bool pn532_wait_ready(uint32_t timeout_ms) {
-#ifdef BOARD_PIN_NFC_IRQ
-    uint32_t start = furi_get_tick();
-    while((furi_get_tick() - start) < timeout_ms) {
-        if(gpio_get_level(BOARD_PIN_NFC_IRQ) == 0) return true;
-        furi_delay_ms(2);
+    if(BOARD_PIN_NFC_IRQ != UINT16_MAX) {
+        /* Use hardware IRQ pin for fast ready detection */
+        uint32_t start = furi_get_tick();
+        while((furi_get_tick() - start) < timeout_ms) {
+            if(gpio_get_level(BOARD_PIN_NFC_IRQ) == 0) return true;
+            furi_delay_ms(2);
+        }
+        return false;
     }
-    return false;
-#else
+    /* No IRQ pin — poll PN532 over I2C for RDY byte */
     uint8_t status;
     uint32_t start = furi_get_tick();
     while((furi_get_tick() - start) < timeout_ms) {
@@ -222,7 +823,6 @@ static bool pn532_wait_ready(uint32_t timeout_ms) {
         furi_delay_ms(5);
     }
     return false;
-#endif
 }
 
 /** Read a PN532 I2C response frame.
@@ -353,74 +953,162 @@ FuriHalNfcError furi_hal_nfc_init(void) {
     esp_timer_create(&fwt_args, &fwt_timer);
     esp_timer_create(&btx_args, &block_tx_timer);
 
-    /* Configure IRQ pin */
-#ifdef BOARD_PIN_NFC_IRQ
-    gpio_config_t irq_conf = {
-        .pin_bit_mask = (1ULL << BOARD_PIN_NFC_IRQ),
-        .mode = GPIO_MODE_INPUT,
-        .pull_up_en = GPIO_PULLUP_ENABLE,
-    };
-    gpio_config(&irq_conf);
-#endif
+    /* Configure IRQ pin (only if a real GPIO is assigned) */
+    if(BOARD_PIN_NFC_IRQ != UINT16_MAX) {
+        gpio_config_t irq_conf = {
+            .pin_bit_mask = (1ULL << (uint32_t)BOARD_PIN_NFC_IRQ),
+            .mode = GPIO_MODE_INPUT,
+            .pull_up_en = GPIO_PULLUP_ENABLE,
+        };
+        gpio_config(&irq_conf);
+    }
 
     /* Ensure RST is HIGH (PN532 powered from board power-on) */
-#ifdef BOARD_PIN_NFC_RST
-    gpio_config_t rst_conf = {
-        .pin_bit_mask = (1ULL << BOARD_PIN_NFC_RST),
-        .mode = GPIO_MODE_OUTPUT,
-    };
-    gpio_config(&rst_conf);
-    gpio_set_level(BOARD_PIN_NFC_RST, 1);
-#endif
+    if(BOARD_PIN_NFC_RST != UINT16_MAX) {
+        gpio_config_t rst_conf = {
+            .pin_bit_mask = (1ULL << (uint32_t)BOARD_PIN_NFC_RST),
+            .mode = GPIO_MODE_OUTPUT,
+        };
+        gpio_config(&rst_conf);
+        gpio_set_level(BOARD_PIN_NFC_RST, 1);
+    }
 
-    /* Init I2C (bus likely already initialized by furi_hal_power) */
+    /* Init I2C for NFC on BOARD_NFC_I2C_PORT */
     esp_err_t err = pn532_i2c_init();
     if(err != ESP_OK) {
-        FURI_LOG_E(TAG, "I2C init failed: %s", esp_err_to_name(err));
-        return FuriHalNfcErrorCommunication;
+        FURI_LOG_E(TAG, "NFC I2C init failed on port %d (SDA=%d SCL=%d): %s",
+            BOARD_NFC_I2C_PORT, BOARD_PIN_NFC_SDA, BOARD_PIN_NFC_SCL, esp_err_to_name(err));
+        /* Don't hard-fail — NFC app will show "not available" */
+        FURI_LOG_W(TAG, "NFC HAL ready=false (I2C bus error)");
+        return FuriHalNfcErrorNone;
     }
+
+    FURI_LOG_I(TAG, "NFC I2C bus %d ready (SDA=%d SCL=%d)",
+        BOARD_NFC_I2C_PORT, BOARD_PIN_NFC_SDA, BOARD_PIN_NFC_SCL);
 
     furi_delay_ms(150);
 
-    /* Try to detect WS1850S (RFID2 Unit) on I2C */
+    /* ── Auto-detect connected NFC module ── */
+
+    /* Try WS1850S (M5Unit-RFID2) at 0x28 */
     uint8_t dummy;
     esp_err_t ws_err = i2c_master_read_from_device(
         BOARD_NFC_I2C_PORT, BOARD_NFC_I2C_ADDR, &dummy, 1, pdMS_TO_TICKS(50));
     if(ws_err == ESP_OK) {
-        FURI_LOG_W(TAG, "Found RFID2 Unit (WS1850S) at 0x%02X, but full MFRC522 driver is not yet implemented. Disabling NFC.", BOARD_NFC_I2C_ADDR);
-        return FuriHalNfcErrorCommunication;
+        FURI_LOG_I(TAG, "I2C device found at 0x%02X — trying WS1850S init...", BOARD_NFC_I2C_ADDR);
+        if(ws1850s_init()) {
+            is_ws1850s = true;
+            nfc_hal_ready = true;
+            pn532_target_number = 0;
+            FURI_LOG_I(TAG, "NFC HAL initialized with WS1850S (M5Unit-RFID2)");
+            return FuriHalNfcErrorNone;
+        } else {
+            FURI_LOG_W(TAG, "Device at 0x%02X responded but WS1850S init failed", BOARD_NFC_I2C_ADDR);
+        }
+    } else {
+        FURI_LOG_I(TAG, "No device at 0x%02X (WS1850S)", BOARD_NFC_I2C_ADDR);
     }
 
-    /* Fallback: Verify PN532 with GetFirmwareVersion */
+    /* Try ST25R3916 (M5Unit-NFC) at 0x50 */
+    esp_err_t st_err = i2c_master_read_from_device(
+        BOARD_NFC_I2C_PORT, ST25R3916_I2C_ADDR, &dummy, 1, pdMS_TO_TICKS(50));
+    if(st_err == ESP_OK) {
+        FURI_LOG_I(TAG, "I2C device found at 0x%02X — trying ST25R3916 init...", ST25R3916_I2C_ADDR);
+        if(st25r3916_init()) {
+            is_st25r3916 = true;
+            nfc_hal_ready = true;
+            pn532_target_number = 0;
+            FURI_LOG_I(TAG, "NFC HAL initialized with ST25R3916 (M5Unit-NFC)");
+            return FuriHalNfcErrorNone;
+        } else {
+            FURI_LOG_W(TAG, "Device at 0x%02X responded but ST25R3916 init failed", ST25R3916_I2C_ADDR);
+        }
+    } else {
+        FURI_LOG_I(TAG, "No device at 0x%02X (ST25R3916)", ST25R3916_I2C_ADDR);
+    }
+
+    /* Try PN532 at 0x24 */
     uint8_t cmd[] = {PN532_CMD_GETFIRMWAREVERSION};
     uint8_t resp[4];
     size_t resp_len = sizeof(resp);
     FuriHalNfcError nfc_err = pn532_send_command(cmd, sizeof(cmd), resp, &resp_len, 2000);
-    if(nfc_err != FuriHalNfcErrorNone) {
-        FURI_LOG_E(TAG, "No NFC module found (checked WS1850S and PN532)");
-        return FuriHalNfcErrorCommunication;
+    if(nfc_err == FuriHalNfcErrorNone) {
+        FURI_LOG_I(TAG, "PN532 IC=0x%02X FW=%d.%d Support=0x%02X", resp[0], resp[1], resp[2], resp[3]);
+
+        /* SAM Configuration: normal mode, timeout=0x14 (1s), use IRQ pin */
+        uint8_t sam_cmd[] = {PN532_CMD_SAMCONFIGURATION, 0x01, 0x14, 0x01};
+        nfc_err = pn532_send_command(sam_cmd, sizeof(sam_cmd), NULL, NULL, 1000);
+        if(nfc_err != FuriHalNfcErrorNone) {
+            FURI_LOG_E(TAG, "SAM config failed");
+            return FuriHalNfcErrorNone; /* Don't hard-fail */
+        }
+
+        /* Configure retries */
+        uint8_t retry_cmd[] = {PN532_CMD_RFCONFIGURATION, PN532_RFCFG_RETRIES, 0xFF, 0x01, 0xFF};
+        pn532_send_command(retry_cmd, sizeof(retry_cmd), NULL, NULL, 1000);
+
+        nfc_hal_ready = true;
+        pn532_target_number = 0;
+        FURI_LOG_I(TAG, "NFC HAL initialized with PN532");
+        return FuriHalNfcErrorNone;
     }
 
-    FURI_LOG_I(TAG, "PN532 IC=0x%02X FW=%d.%d Support=0x%02X", resp[0], resp[1], resp[2], resp[3]);
-
-    /* SAM Configuration: normal mode, timeout=0x14 (1s), use IRQ pin
-     * (matches Adafruit_PN532::SAMConfig) */
-    uint8_t sam_cmd[] = {PN532_CMD_SAMCONFIGURATION, 0x01, 0x14, 0x01};
-    nfc_err = pn532_send_command(sam_cmd, sizeof(sam_cmd), NULL, NULL, 1000);
-    if(nfc_err != FuriHalNfcErrorNone) {
-        FURI_LOG_E(TAG, "SAM config failed");
-        return FuriHalNfcErrorCommunication;
-    }
-
-    /* Configure retries: ATR_RES=0xFF, PSL_RES=0x01, passive_activation=0xFF
-     * (match PN532 defaults / Adafruit behavior for reliable detection) */
-    uint8_t retry_cmd[] = {PN532_CMD_RFCONFIGURATION, PN532_RFCFG_RETRIES, 0xFF, 0x01, 0xFF};
-    pn532_send_command(retry_cmd, sizeof(retry_cmd), NULL, NULL, 1000);
-
-    nfc_hal_ready = true;
-    pn532_target_number = 0;
-    FURI_LOG_I(TAG, "NFC HAL initialized");
+    FURI_LOG_W(TAG, "No NFC module detected on Grove port (checked 0x%02X/0x%02X/0x%02X). Connect M5Unit-RFID2 or M5Unit-NFC.",
+        BOARD_NFC_I2C_ADDR, ST25R3916_I2C_ADDR, PN532_I2C_ADDR);
+    /* nfc_hal_ready remains false — NFC app will show error */
     return FuriHalNfcErrorNone;
+}
+
+bool furi_hal_nfc_is_connected(void) {
+    if(nfc_hal_ready) {
+        /* Only probe if the HAL is not currently acquired by an app */
+        if(furi_mutex_acquire(nfc_mutex, 0) == FuriStatusOk) {
+            uint8_t dummy;
+            esp_err_t err = ESP_FAIL;
+            if(is_ws1850s) {
+                err = i2c_master_read_from_device(BOARD_NFC_I2C_PORT, BOARD_NFC_I2C_ADDR, &dummy, 1, pdMS_TO_TICKS(10));
+            } else if(is_st25r3916) {
+                err = i2c_master_read_from_device(BOARD_NFC_I2C_PORT, ST25R3916_I2C_ADDR, &dummy, 1, pdMS_TO_TICKS(10));
+            } else {
+                err = i2c_master_read_from_device(BOARD_NFC_I2C_PORT, PN532_I2C_ADDR, &dummy, 1, pdMS_TO_TICKS(10));
+            }
+            if(err != ESP_OK) {
+                nfc_hal_ready = false;
+                is_ws1850s = false;
+                is_st25r3916 = false;
+            }
+            furi_mutex_release(nfc_mutex);
+        }
+    }
+
+    if(!nfc_hal_ready) {
+        /* Ensure I2C bus is initialized for hot-plugging */
+        pn532_i2c_init();
+
+        uint8_t dummy;
+        if(i2c_master_read_from_device(BOARD_NFC_I2C_PORT, BOARD_NFC_I2C_ADDR, &dummy, 1, pdMS_TO_TICKS(50)) == ESP_OK) {
+            if(ws1850s_init()) {
+                is_ws1850s = true;
+                nfc_hal_ready = true;
+            }
+        } else if(i2c_master_read_from_device(BOARD_NFC_I2C_PORT, ST25R3916_I2C_ADDR, &dummy, 1, pdMS_TO_TICKS(50)) == ESP_OK) {
+            if(st25r3916_init()) {
+                is_st25r3916 = true;
+                nfc_hal_ready = true;
+            }
+        } else {
+            uint8_t cmd[] = {PN532_CMD_GETFIRMWAREVERSION};
+            uint8_t resp[4];
+            size_t resp_len = sizeof(resp);
+            if(pn532_send_command(cmd, sizeof(cmd), resp, &resp_len, 2000) == FuriHalNfcErrorNone) {
+                uint8_t sam_cmd[] = {PN532_CMD_SAMCONFIGURATION, 0x01, 0x14, 0x01};
+                if(pn532_send_command(sam_cmd, sizeof(sam_cmd), NULL, NULL, 1000) == FuriHalNfcErrorNone) {
+                    nfc_hal_ready = true;
+                }
+            }
+        }
+    }
+    return nfc_hal_ready;
 }
 
 FuriHalNfcError furi_hal_nfc_is_hal_ready(void) {
@@ -440,6 +1128,20 @@ FuriHalNfcError furi_hal_nfc_release(void) {
 
 FuriHalNfcError furi_hal_nfc_low_power_mode_start(void) {
     if(!nfc_hal_ready) return FuriHalNfcErrorNone;
+    if(is_ws1850s) {
+        uint8_t tx_ctrl = 0;
+        ws1850s_read_reg(WS1850S_TX_CONTROL_REG, &tx_ctrl);
+        ws1850s_write_reg(WS1850S_TX_CONTROL_REG, tx_ctrl & ~0x03);
+        pn532_target_number = 0;
+        return FuriHalNfcErrorNone;
+    }
+    if(is_st25r3916) {
+        uint8_t op = 0;
+        st25r3916_read_reg(ST25R3916_REG_OP_CONTROL, &op);
+        st25r3916_write_reg(ST25R3916_REG_OP_CONTROL, op & ~0x48);
+        pn532_target_number = 0;
+        return FuriHalNfcErrorNone;
+    }
     /* Turn off RF field */
     uint8_t cmd[] = {PN532_CMD_RFCONFIGURATION, PN532_RFCFG_FIELD, 0x00};
     pn532_send_command(cmd, sizeof(cmd), NULL, NULL, 500);
@@ -449,6 +1151,18 @@ FuriHalNfcError furi_hal_nfc_low_power_mode_start(void) {
 
 FuriHalNfcError furi_hal_nfc_low_power_mode_stop(void) {
     if(!nfc_hal_ready) return FuriHalNfcErrorNone;
+    if(is_ws1850s) {
+        uint8_t tx_ctrl = 0;
+        ws1850s_read_reg(WS1850S_TX_CONTROL_REG, &tx_ctrl);
+        ws1850s_write_reg(WS1850S_TX_CONTROL_REG, tx_ctrl | 0x03);
+        return FuriHalNfcErrorNone;
+    }
+    if(is_st25r3916) {
+        uint8_t op = 0;
+        st25r3916_read_reg(ST25R3916_REG_OP_CONTROL, &op);
+        st25r3916_write_reg(ST25R3916_REG_OP_CONTROL, op | 0x48);
+        return FuriHalNfcErrorNone;
+    }
     /* Wake up: SAM config ensures normal mode */
     uint8_t cmd[] = {PN532_CMD_SAMCONFIGURATION, 0x01, 0x00, 0x01};
     return pn532_send_command(cmd, sizeof(cmd), NULL, NULL, 1000);
@@ -529,6 +1243,18 @@ bool furi_hal_nfc_field_is_present(void) {
 
 FuriHalNfcError furi_hal_nfc_poller_field_on(void) {
     if(!nfc_hal_ready) return FuriHalNfcErrorCommunication;
+    if(is_ws1850s) {
+        uint8_t tx_ctrl = 0;
+        ws1850s_read_reg(WS1850S_TX_CONTROL_REG, &tx_ctrl);
+        ws1850s_write_reg(WS1850S_TX_CONTROL_REG, tx_ctrl | 0x03);
+        return FuriHalNfcErrorNone;
+    }
+    if(is_st25r3916) {
+        uint8_t op = 0;
+        st25r3916_read_reg(ST25R3916_REG_OP_CONTROL, &op);
+        st25r3916_write_reg(ST25R3916_REG_OP_CONTROL, op | 0x08);
+        return FuriHalNfcErrorNone;
+    }
     uint8_t cmd[] = {PN532_CMD_RFCONFIGURATION, PN532_RFCFG_FIELD, 0x01};
     return pn532_send_command(cmd, sizeof(cmd), NULL, NULL, 1000);
 }
@@ -782,7 +1508,19 @@ FuriHalNfcError furi_hal_nfc_poller_tx(const uint8_t* tx_data, size_t tx_bits) {
 
     /* === 3. HALT interception (0x50 0x00) → release target === */
     if(tx_bytes >= 2 && tx_data[0] == 0x50 && tx_data[1] == 0x00) {
-        if(pn532_target_number > 0) {
+        if(is_ws1850s) {
+            uint8_t halt_cmd[4] = {0x50, 0x00, 0x00, 0x00};
+            crc_a_append(halt_cmd, 2);
+            size_t rx_len = 0;
+            ws1850s_transceive(halt_cmd, 4, NULL, &rx_len, 10);
+            pn532_target_number = 0;
+        } else if(is_st25r3916) {
+            uint8_t halt_cmd[4] = {0x50, 0x00, 0x00, 0x00};
+            crc_a_append(halt_cmd, 2);
+            size_t rx_len = 0;
+            st25r3916_transceive(halt_cmd, 4, NULL, &rx_len, 10);
+            pn532_target_number = 0;
+        } else if(pn532_target_number > 0) {
             uint8_t rel_cmd[] = {0x52, 0x00}; /* InRelease all targets */
             pn532_send_command(rel_cmd, sizeof(rel_cmd), NULL, NULL, 200);
             pn532_target_number = 0;
@@ -804,6 +1542,62 @@ FuriHalNfcError furi_hal_nfc_poller_tx(const uint8_t* tx_data, size_t tx_bits) {
             furi_event_flag_set(nfc_event_flags,
                 FuriHalNfcEventTxEnd | FuriHalNfcEventRxStart | FuriHalNfcEventRxEnd);
         return FuriHalNfcErrorNone;
+    }
+
+    /* If ST25R3916 is used, transceive data directly */
+    if(is_st25r3916) {
+        size_t st_payload_len = tx_bytes;
+        if(st_payload_len >= 2) {
+            st_payload_len -= 2; /* strip CRC since ST25R3916 transceive automatically handles CRC */
+        }
+        
+        uint8_t resp[253];
+        size_t resp_len = sizeof(resp);
+        bool success = st25r3916_transceive(tx_data, st_payload_len, resp, &resp_len, 1000);
+        if(success) {
+            if(resp_len > sizeof(pn532_rx_buf) - 2) resp_len = sizeof(pn532_rx_buf) - 2;
+            if(resp_len > 0) memcpy(pn532_rx_buf, resp, resp_len);
+            crc_a_append(pn532_rx_buf, resp_len);
+            pn532_rx_bits = (resp_len + 2) * 8;
+            if(nfc_event_flags)
+                furi_event_flag_set(nfc_event_flags,
+                    FuriHalNfcEventTxEnd | FuriHalNfcEventRxStart | FuriHalNfcEventRxEnd);
+            return FuriHalNfcErrorNone;
+        } else {
+            if(nfc_event_flags)
+                furi_event_flag_set(nfc_event_flags,
+                    FuriHalNfcEventTxEnd | FuriHalNfcEventTimerFwtExpired);
+            return FuriHalNfcErrorCommunicationTimeout;
+        }
+    }
+
+    /* If WS1850S is used, transceive data directly */
+    if(is_ws1850s) {
+        size_t ws_payload_len = tx_bytes;
+        if(ws_payload_len >= 2) {
+            ws_payload_len -= 2; /* strip CRC since MFRC522 transceive automatically handles CRC */
+        }
+        
+        uint8_t resp[253];
+        size_t resp_len = sizeof(resp);
+        bool success = ws1850s_transceive(tx_data, ws_payload_len, resp, &resp_len, 1000);
+        if(success) {
+            if(resp_len > sizeof(pn532_rx_buf) - 2) resp_len = sizeof(pn532_rx_buf) - 2;
+            if(resp_len > 0) memcpy(pn532_rx_buf, resp, resp_len);
+            crc_a_append(pn532_rx_buf, resp_len);
+            pn532_rx_bits = (resp_len + 2) * 8;
+            
+            pn532_cache_time_us = esp_timer_get_time();
+            if(nfc_event_flags)
+                furi_event_flag_set(nfc_event_flags,
+                    FuriHalNfcEventTxEnd | FuriHalNfcEventRxStart | FuriHalNfcEventRxEnd);
+            return FuriHalNfcErrorNone;
+        } else {
+            if(nfc_event_flags)
+                furi_event_flag_set(nfc_event_flags,
+                    FuriHalNfcEventTxEnd | FuriHalNfcEventTimerFwtExpired);
+            return FuriHalNfcErrorCommunicationTimeout;
+        }
     }
 
     /* === 5. Data exchange via InDataExchange === */
@@ -1178,6 +1972,106 @@ FuriHalNfcError furi_hal_nfc_iso14443a_poller_trx_short_frame(FuriHalNfcaShortFr
         if(nfc_event_flags)
             furi_event_flag_set(nfc_event_flags,
                 FuriHalNfcEventTxEnd | FuriHalNfcEventRxStart | FuriHalNfcEventRxEnd);
+        return FuriHalNfcErrorNone;
+    }
+
+    if(is_ws1850s) {
+        uint16_t atqa = 0;
+        if(!ws1850s_request(&atqa)) {
+            pn532_target_number = 0;
+            if(nfc_event_flags)
+                furi_event_flag_set(nfc_event_flags,
+                    FuriHalNfcEventTxEnd | FuriHalNfcEventTimerFwtExpired);
+            return FuriHalNfcErrorCommunicationTimeout;
+        }
+        
+        uint8_t uid[10] = {0};
+        uint8_t sak = 0;
+        if(!ws1850s_anticollision(uid, &sak)) {
+            pn532_target_number = 0;
+            if(nfc_event_flags)
+                furi_event_flag_set(nfc_event_flags,
+                    FuriHalNfcEventTxEnd | FuriHalNfcEventTimerFwtExpired);
+            return FuriHalNfcErrorCommunicationTimeout;
+        }
+        
+        pn532_target_atqa[0] = atqa & 0xFF;
+        pn532_target_atqa[1] = (atqa >> 8) & 0xFF;
+        pn532_target_sak = sak;
+        if(uid[4] != 0 || uid[5] != 0 || uid[6] != 0) {
+            pn532_target_uid_len = 7;
+        } else {
+            pn532_target_uid_len = 4;
+        }
+        memcpy(pn532_target_uid, uid, pn532_target_uid_len);
+        pn532_target_number = 1;
+        pn532_iso_dep_active = false;
+        pn532_iso_dep_mode = false;
+        pn532_cached_ats_len = 0;
+        
+        pn532_rx_buf[0] = pn532_target_atqa[0];
+        pn532_rx_buf[1] = pn532_target_atqa[1];
+        pn532_rx_bits = 16;
+        pn532_cache_time_us = esp_timer_get_time();
+        
+        FURI_LOG_I(TAG, "WS1850S Tag: ATQA=%02X%02X SAK=%02X UID=%dB",
+            pn532_target_atqa[0], pn532_target_atqa[1], pn532_target_sak,
+            pn532_target_uid_len);
+            
+        if(nfc_event_flags) {
+            furi_event_flag_set(nfc_event_flags,
+                FuriHalNfcEventTxEnd | FuriHalNfcEventRxStart | FuriHalNfcEventRxEnd);
+        }
+        return FuriHalNfcErrorNone;
+    }
+
+    if(is_st25r3916) {
+        uint16_t atqa = 0;
+        if(!st25r3916_request(&atqa)) {
+            pn532_target_number = 0;
+            if(nfc_event_flags)
+                furi_event_flag_set(nfc_event_flags,
+                    FuriHalNfcEventTxEnd | FuriHalNfcEventTimerFwtExpired);
+            return FuriHalNfcErrorCommunicationTimeout;
+        }
+        
+        uint8_t uid[10] = {0};
+        uint8_t sak = 0;
+        if(!st25r3916_anticollision(uid, &sak)) {
+            pn532_target_number = 0;
+            if(nfc_event_flags)
+                furi_event_flag_set(nfc_event_flags,
+                    FuriHalNfcEventTxEnd | FuriHalNfcEventTimerFwtExpired);
+            return FuriHalNfcErrorCommunicationTimeout;
+        }
+        
+        pn532_target_atqa[0] = atqa & 0xFF;
+        pn532_target_atqa[1] = (atqa >> 8) & 0xFF;
+        pn532_target_sak = sak;
+        if(uid[4] != 0 || uid[5] != 0 || uid[6] != 0) {
+            pn532_target_uid_len = 7;
+        } else {
+            pn532_target_uid_len = 4;
+        }
+        memcpy(pn532_target_uid, uid, pn532_target_uid_len);
+        pn532_target_number = 1;
+        pn532_iso_dep_active = false;
+        pn532_iso_dep_mode = false;
+        pn532_cached_ats_len = 0;
+        
+        pn532_rx_buf[0] = pn532_target_atqa[0];
+        pn532_rx_buf[1] = pn532_target_atqa[1];
+        pn532_rx_bits = 16;
+        pn532_cache_time_us = esp_timer_get_time();
+        
+        FURI_LOG_I(TAG, "ST25R3916 Tag: ATQA=%02X%02X SAK=%02X UID=%dB",
+            pn532_target_atqa[0], pn532_target_atqa[1], pn532_target_sak,
+            pn532_target_uid_len);
+            
+        if(nfc_event_flags) {
+            furi_event_flag_set(nfc_event_flags,
+                FuriHalNfcEventTxEnd | FuriHalNfcEventRxStart | FuriHalNfcEventRxEnd);
+        }
         return FuriHalNfcErrorNone;
     }
 

@@ -10,18 +10,18 @@ if(NOT EXISTS "/home/kupito/Downloads/esp-idf-5.4.1/components/bootloader/subpro
   file(MAKE_DIRECTORY "/home/kupito/Downloads/esp-idf-5.4.1/components/bootloader/subproject")
 endif()
 file(MAKE_DIRECTORY
-  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/bootloader"
-  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/bootloader-prefix"
-  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/bootloader-prefix/tmp"
-  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/bootloader-prefix/src/bootloader-stamp"
-  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/bootloader-prefix/src"
-  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/bootloader-prefix/src/bootloader-stamp"
+  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/bootloader"
+  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/bootloader-prefix"
+  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/bootloader-prefix/tmp"
+  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/bootloader-prefix/src/bootloader-stamp"
+  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/bootloader-prefix/src"
+  "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "/home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()

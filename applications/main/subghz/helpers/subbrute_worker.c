@@ -25,7 +25,7 @@ SubBruteWorker* subbrute_worker_alloc(const SubGhzDevice* radio_device) {
 
     instance->thread = furi_thread_alloc();
     furi_thread_set_name(instance->thread, "SubBruteAttackWorker");
-    furi_thread_set_stack_size(instance->thread, 2048);
+    furi_thread_set_stack_size(instance->thread, 4096);
     furi_thread_set_context(instance->thread, instance);
     furi_thread_set_callback(instance->thread, subbrute_worker_thread);
 

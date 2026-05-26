@@ -1,15 +1,22 @@
 #include "../subghz_i.h"
 #include "../helpers/subghz_custom_event.h"
 
-void subghz_scene_need_saving_callback(GuiButtonType result, InputType type, void* context) {
+static bool subghz_scene_need_saving_widget_input_callback(InputEvent* event, void* context) {
     furi_assert(context);
     SubGhz* subghz = context;
 
-    if((result == GuiButtonTypeRight) && (type == InputTypeShort)) {
-        view_dispatcher_send_custom_event(subghz->view_dispatcher, SubGhzCustomEventSceneStay);
-    } else if((result == GuiButtonTypeLeft) && (type == InputTypeShort)) {
-        view_dispatcher_send_custom_event(subghz->view_dispatcher, SubGhzCustomEventSceneExit);
+    if(event->type == InputTypePress || event->type == InputTypeShort) {
+        if(event->key == InputKeyOk) {
+            // OK/Enter = Stay
+            view_dispatcher_send_custom_event(subghz->view_dispatcher, SubGhzCustomEventSceneStay);
+            return true;
+        } else if(event->key == InputKeyBack) {
+            // ESC/DEL = Exit
+            view_dispatcher_send_custom_event(subghz->view_dispatcher, SubGhzCustomEventSceneExit);
+            return true;
+        }
     }
+    return false;
 }
 
 void subghz_scene_need_saving_on_enter(void* context) {
@@ -27,9 +34,13 @@ void subghz_scene_need_saving_on_enter(void* context) {
         "All unsaved data\nwill be lost!");
 
     widget_add_button_element(
-        subghz->widget, GuiButtonTypeRight, "Stay", subghz_scene_need_saving_callback, subghz);
+        subghz->widget, GuiButtonTypeCenter, "Stay", NULL, subghz);
     widget_add_button_element(
-        subghz->widget, GuiButtonTypeLeft, "Exit", subghz_scene_need_saving_callback, subghz);
+        subghz->widget, GuiButtonTypeLeft, "Exit", NULL, subghz);
+
+    view_set_input_callback(
+        widget_get_view(subghz->widget), subghz_scene_need_saving_widget_input_callback);
+    view_set_context(widget_get_view(subghz->widget), subghz);
 
     view_dispatcher_switch_to_view(subghz->view_dispatcher, SubGhzViewIdWidget);
 }
@@ -37,8 +48,8 @@ void subghz_scene_need_saving_on_enter(void* context) {
 bool subghz_scene_need_saving_on_event(void* context, SceneManagerEvent event) {
     SubGhz* subghz = context;
     if(event.type == SceneManagerEventTypeBack) {
-        subghz_rx_key_state_set(subghz, SubGhzRxKeyStateBack);
-        scene_manager_previous_scene(subghz->scene_manager);
+        // On Cardputer, "Back" in this menu should act as "Exit without saving"
+        view_dispatcher_send_custom_event(subghz->view_dispatcher, SubGhzCustomEventSceneExit);
         return true;
     } else if(event.type == SceneManagerEventTypeCustom) {
         if(event.event == SubGhzCustomEventSceneStay) {

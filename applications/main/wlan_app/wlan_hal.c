@@ -232,6 +232,17 @@ static void wlan_worker_fn(void* arg) {
             // CB immer setzen (auch auf NULL), sonst bleibt ein zuvor
             // installierter RX-Callback aus einem anderen Subsystem aktiv.
             esp_wifi_set_promiscuous_rx_cb(cmd.set_promisc.enable ? cmd.set_promisc.cb : NULL);
+            if(cmd.set_promisc.enable) {
+                // esp_wifi_set_promiscuous(true) calls ic_enable_sniffer() which
+                // dereferences the internal promiscuous filter pointer at offset +8.
+                // If esp_wifi_set_promiscuous_filter() was never called that pointer
+                // is NULL → StoreProhibited crash (EXCVADDR 0x00000008).
+                // Always set a valid filter struct first to prevent this.
+                wifi_promiscuous_filter_t flt = {
+                    .filter_mask = WIFI_PROMIS_FILTER_MASK_ALL,
+                };
+                esp_wifi_set_promiscuous_filter(&flt);
+            }
             esp_wifi_set_promiscuous(cmd.set_promisc.enable);
             break;
 
@@ -564,6 +575,12 @@ static void beacon_spam_task(void* param) {
     srand((unsigned)esp_log_timestamp());
 
     // Promiscuous (cb=NULL) erlaubt 80211_tx auf STA-Interface.
+    // Always set a filter first — ic_enable_sniffer dereferences the internal
+    // filter pointer at offset +8; it is NULL until set_promiscuous_filter is called.
+    wifi_promiscuous_filter_t bflt = {
+        .filter_mask = WIFI_PROMIS_FILTER_MASK_ALL,
+    };
+    esp_wifi_set_promiscuous_filter(&bflt);
     esp_wifi_set_promiscuous(true);
 
     while(s_beacon_active) {

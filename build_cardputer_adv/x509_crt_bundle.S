@@ -1,4 +1,4 @@
-/* * Data converted from /home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-Port-main/build_cardputer_adv/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /home/kupito/Downloads/cardputer_port/Flipper-Zero-ESP32-ADV/build_cardputer_adv/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)

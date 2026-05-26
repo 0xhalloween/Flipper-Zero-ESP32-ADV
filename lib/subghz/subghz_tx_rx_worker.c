@@ -209,7 +209,7 @@ SubGhzTxRxWorker* subghz_tx_rx_worker_alloc(void) {
     SubGhzTxRxWorker* instance = malloc(sizeof(SubGhzTxRxWorker));
 
     instance->thread =
-        furi_thread_alloc_ex("SubGhzTxRxWorker", 2048, subghz_tx_rx_worker_thread, instance);
+        furi_thread_alloc_ex("SubGhzTxRxWorker", 4096, subghz_tx_rx_worker_thread, instance);
     instance->stream_tx =
         furi_stream_buffer_alloc(sizeof(uint8_t) * SUBGHZ_TXRX_WORKER_BUF_SIZE, sizeof(uint8_t));
     instance->stream_rx =

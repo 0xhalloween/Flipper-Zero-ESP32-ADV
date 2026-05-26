@@ -128,7 +128,11 @@ static uint32_t jammer_adjust_frequency_to_valid(uint32_t frequency, bool up) {
 
 static int32_t jammer_tx_thread_callback(void* context) {
     SubGhzJammer* instance = context;
-    uint8_t jam_data[JAMMER_MESSAGE_MAX_LEN];
+    uint8_t* jam_data = malloc(JAMMER_MESSAGE_MAX_LEN);
+    if(!jam_data) {
+        FURI_LOG_E(TAG, "Failed to allocate jam_data");
+        return -1;
+    }
 
     int mode;
     with_view_model(
@@ -218,6 +222,7 @@ static int32_t jammer_tx_thread_callback(void* context) {
         furi_delay_ms(10);
     }
 
+    free(jam_data);
     FURI_LOG_I(TAG, "TX Thread exiting");
     return 0;
 }
@@ -237,7 +242,7 @@ static void jammer_start_tx(SubGhzJammer* instance) {
     instance->tx_running = true;
     instance->tx_thread = furi_thread_alloc();
     furi_thread_set_name(instance->tx_thread, "JammerTX");
-    furi_thread_set_stack_size(instance->tx_thread, 2048);
+    furi_thread_set_stack_size(instance->tx_thread, 4096);
     furi_thread_set_context(instance->tx_thread, instance);
     furi_thread_set_callback(instance->tx_thread, jammer_tx_thread_callback);
     furi_thread_start(instance->tx_thread);

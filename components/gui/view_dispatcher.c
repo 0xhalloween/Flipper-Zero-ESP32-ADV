@@ -1,4 +1,5 @@
 #include "view_dispatcher_i.h"
+#include <boards/board.h>
 
 #define TAG "ViewDispatcher"
 
@@ -273,6 +274,7 @@ void view_dispatcher_handle_input(ViewDispatcher* view_dispatcher, InputEvent* e
     }
 
     // Remap encoder input based on view's input mode
+#if BOARD_HAS_ENCODER
     if(view_dispatcher->current_view &&
        event->sequence_source == INPUT_SEQUENCE_SOURCE_HARDWARE) {
         ViewInputMode mode = view_get_input_mode(view_dispatcher->current_view);
@@ -283,6 +285,7 @@ void view_dispatcher_handle_input(ViewDispatcher* view_dispatcher, InputEvent* e
             else if(event->key == InputKeyRight) event->key = InputKeyUp;
         }
     }
+#endif
 
     // Deliver event
     if(view_dispatcher->current_view &&

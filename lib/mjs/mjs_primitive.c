@@ -3,6 +3,7 @@
  * All rights reserved
  */
 
+#include <math.h>
 #include "mjs_core.h"
 #include "mjs_internal.h"
 #include "mjs_primitive.h"

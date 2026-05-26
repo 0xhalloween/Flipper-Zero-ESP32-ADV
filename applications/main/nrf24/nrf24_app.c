@@ -1,5 +1,10 @@
 #include "nrf24_app.h"
 #include <stdlib.h>
+#include <furi.h>
+#include <furi_hal.h>
+#include <dialogs/dialogs.h>
+#include <assets_icons.h>
+#include "nrf24_hw.h"
 
 static bool nrf24_app_custom_event_callback(void* context, uint32_t event) {
     furi_assert(context);
@@ -122,8 +127,25 @@ static void nrf24_app_free(Nrf24App* app) {
     free(app);
 }
 
-int32_t nrf24_app(void* args) {
-    UNUSED(args);
+int32_t nrf24_app(void* p) {
+    UNUSED(p);
+
+    nrf24_hw_init();
+    nrf24_hw_acquire();
+    bool ok = nrf24_hw_probe();
+    nrf24_hw_release();
+
+    if(!ok) {
+        DialogsApp* dialogs = furi_record_open(RECORD_DIALOGS);
+        DialogMessage* message = dialog_message_alloc();
+        dialog_message_set_header(message, "NRF24 not found", 64, 38, AlignCenter, AlignCenter);
+        dialog_message_set_icon(message, &I_Quest_7x8, 60, 22);
+        dialog_message_show(dialogs, message);
+        dialog_message_free(message);
+        furi_record_close(RECORD_DIALOGS);
+        nrf24_hw_deinit();
+        return 0;
+    }
 
     Nrf24App* app = nrf24_app_alloc();
 

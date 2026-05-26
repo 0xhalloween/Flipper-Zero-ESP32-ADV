@@ -83,7 +83,7 @@ SubGhzWorker* subghz_worker_alloc(void) {
     SubGhzWorker* instance = calloc(1, sizeof(SubGhzWorker));
 
     instance->thread =
-        furi_thread_alloc_ex("SubGhzWorker", 3072, subghz_worker_thread_callback, instance);
+        furi_thread_alloc_ex("SubGhzWorker", 6144, subghz_worker_thread_callback, instance);
 
     instance->stream =
         furi_stream_buffer_alloc(sizeof(LevelDuration) * 4096, sizeof(LevelDuration));

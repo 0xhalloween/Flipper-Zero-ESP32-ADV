@@ -1,10 +1,11 @@
 #include "../infrared_app_i.h"
 
 static const char* infrared_scene_gpio_settings_pin_text[] = {
-    "Flipper",
-    "2 (A7)",
+    "Internal (G44)",
+    "Grove (G2)",
     "Detect",
 };
+
 
 static const char* infrared_scene_gpio_settings_otg_text[] = {
     "OFF",

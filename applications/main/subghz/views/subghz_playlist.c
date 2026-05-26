@@ -644,7 +644,7 @@ static bool subghz_playlist_input_callback(InputEvent* event, void* context) {
 
             instance->worker_thread = furi_thread_alloc();
             furi_thread_set_name(instance->worker_thread, "PlaylistWorker");
-            furi_thread_set_stack_size(instance->worker_thread, 2048);
+            furi_thread_set_stack_size(instance->worker_thread, 4096);
             furi_thread_set_context(instance->worker_thread, instance);
             furi_thread_set_callback(instance->worker_thread, playlist_worker_thread);
             furi_thread_start(instance->worker_thread);

@@ -3,6 +3,7 @@
  * All rights reserved
  */
 
+#include <math.h>
 #include "common/cs_varint.h"
 #include "common/frozen/frozen.h"
 #include "mjs_array.h"
@@ -16,6 +17,7 @@
 #include "mjs_tok.h"
 #include "mjs_array_buf.h"
 #include <furi.h>
+#include <math.h>
 
 const char* mjs_typeof(mjs_val_t v) {
     return mjs_stringify_type(mjs_get_type(v));

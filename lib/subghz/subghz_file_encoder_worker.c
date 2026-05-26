@@ -103,7 +103,6 @@ LevelDuration subghz_file_encoder_worker_get_level_duration(void* context) {
             level_duration = level_duration_make(true, duration);
         } else if(duration == 0) { //-V547
             level_duration = level_duration_reset();
-            FURI_LOG_I(TAG, "Stop transmission");
             instance->worker_stopping = true;
         }
         return level_duration;
@@ -175,9 +174,13 @@ static int32_t subghz_file_encoder_worker_thread(void* context) {
     }
 
     FURI_LOG_I(TAG, "End transmission");
+    bool callback_called = false;
     while(instance->worker_running) {
         if(instance->worker_stopping) {
-            if(instance->callback_end) instance->callback_end(instance->context_end);
+            if(!callback_called) {
+                if(instance->callback_end) instance->callback_end(instance->context_end);
+                callback_called = true;
+            }
         }
         furi_delay_ms(50);
     }
@@ -191,7 +194,7 @@ SubGhzFileEncoderWorker* subghz_file_encoder_worker_alloc(void) {
     SubGhzFileEncoderWorker* instance = malloc(sizeof(SubGhzFileEncoderWorker));
 
     instance->thread =
-        furi_thread_alloc_ex("SubGhzFEWorker", 2048, subghz_file_encoder_worker_thread, instance);
+        furi_thread_alloc_ex("SubGhzFEWorker", 4096, subghz_file_encoder_worker_thread, instance);
     instance->stream = furi_stream_buffer_alloc(sizeof(int32_t) * 2048, sizeof(int32_t));
 
     instance->storage = furi_record_open(RECORD_STORAGE);

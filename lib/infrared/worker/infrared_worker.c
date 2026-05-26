@@ -276,7 +276,13 @@ void infrared_worker_rx_start(InfraredWorker* instance) {
 
 void infrared_worker_rx_stop(InfraredWorker* instance) {
     furi_check(instance);
-    furi_check(instance->state == InfraredWorkerStateRunRx);
+
+    /* Guard: if RX was never started (e.g. board has no IR RX pin and
+     * infrared_worker_rx_start() returned early), instance->state remains Idle.
+     * Calling stop on an idle worker would crash the furi_check below. */
+    if(instance->state != InfraredWorkerStateRunRx) {
+        return;
+    }
 
     furi_hal_infrared_async_rx_set_timeout_isr_callback(NULL, NULL);
     furi_hal_infrared_async_rx_set_capture_isr_callback(NULL, NULL);

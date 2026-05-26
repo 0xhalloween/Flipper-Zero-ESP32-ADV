@@ -3,6 +3,7 @@
  * All rights reserved
  */
 
+#include <math.h>
 #include "common/cs_varint.h"
 
 #include "mjs_bcode.h"
@@ -11,6 +12,7 @@
 #include "mjs_parser.h"
 #include "mjs_string.h"
 #include "mjs_tok.h"
+#include <math.h>
 
 #ifndef MAX_TOKS_IN_EXPR
 #define MAX_TOKS_IN_EXPR 40

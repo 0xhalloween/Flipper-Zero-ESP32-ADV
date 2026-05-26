@@ -4,6 +4,7 @@
 
 #include <dolphin/dolphin.h>
 #include <loader/firmware_api/firmware_api.h>
+#include <assets_icons.h>
 
 bool nfc_custom_event_callback(void* context, uint32_t event) {
     furi_assert(context);
@@ -458,14 +459,12 @@ void nfc_append_filename_string_when_present(NfcApp* instance, FuriString* strin
 }
 
 static bool nfc_is_hal_ready(void) {
-    if(furi_hal_nfc_is_hal_ready() != FuriHalNfcErrorNone) {
+    if(!furi_hal_nfc_is_connected()) {
         // No connection to the chip, show an error screen
         DialogsApp* dialogs = furi_record_open(RECORD_DIALOGS);
         DialogMessage* message = dialog_message_alloc();
-        dialog_message_set_header(message, "Error: NFC Chip Failed", 64, 0, AlignCenter, AlignTop);
-        dialog_message_set_text(
-            message, "Send error photo via\nsupport.flipper.net", 0, 63, AlignLeft, AlignBottom);
-        //dialog_message_set_icon(message, &I_err_09, 128 - 25, 64 - 25);
+        dialog_message_set_header(message, "NFC not found", 64, 38, AlignCenter, AlignCenter);
+        dialog_message_set_icon(message, &I_Quest_7x8, 60, 22);
         dialog_message_show(dialogs, message);
         dialog_message_free(message);
         furi_record_close(RECORD_DIALOGS);

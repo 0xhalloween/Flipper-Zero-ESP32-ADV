@@ -94,6 +94,13 @@ typedef enum {
 } FuriHalNfcTech;
 
 /**
+ * @brief Check if NFC chip is detected
+ *
+ * @return      bool true if connected
+ */
+bool furi_hal_nfc_is_connected(void);
+
+/**
  * @brief Initialise the NFC HAL and associated hardware.
  *
  * This function is called automatically during the firmware initialisation,

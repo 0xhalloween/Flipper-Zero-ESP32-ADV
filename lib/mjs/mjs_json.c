@@ -316,7 +316,7 @@ struct json_parse_ctx {
 /* Allocate JSON parse frame */
 static struct json_parse_frame* alloc_json_frame(struct json_parse_ctx* ctx, mjs_val_t v) {
     struct json_parse_frame* frame =
-        (struct json_parse_frame*)calloc(sizeof(struct json_parse_frame), 1);
+        (struct json_parse_frame*)calloc(1, sizeof(struct json_parse_frame));
     frame->val = v;
     mjs_own(ctx->mjs, &frame->val);
     return frame;
@@ -434,7 +434,7 @@ static void frozen_cb(
 }
 
 MJS_PRIVATE mjs_err_t mjs_json_parse(struct mjs* mjs, const char* str, size_t len, mjs_val_t* res) {
-    struct json_parse_ctx* ctx = (struct json_parse_ctx*)calloc(sizeof(struct json_parse_ctx), 1);
+    struct json_parse_ctx* ctx = (struct json_parse_ctx*)calloc(1, sizeof(struct json_parse_ctx));
     int json_res;
     enum mjs_err rcode = MJS_OK;
 

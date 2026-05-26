@@ -3,7 +3,7 @@
 
 #include <furi.h>
 
-#define SUBGHZ_HISTORY_MAX       55
+#define SUBGHZ_HISTORY_MAX       30
 #define SUBGHZ_HISTORY_FREE_HEAP 20480
 #define TAG                      "SubGhzHistory"
 
