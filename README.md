@@ -1,34 +1,5 @@
 > WARNING: I do not take responsibility if you damage your board or property. This guide is for educational purposes only — proceed at your own risk.
 
-# Flipper Zero ESP32 Port
-
-A port of the [Flipper Zero](https://flipperzero.one/) firmware to ESP32-based development boards. This project brings the Flipper Zero UI, services, and application framework to affordable ESP32 hardware — no Flipper Zero required.
-
-## Discord
-
-Join the [Flipper Zero meets ESP32 - Discord](https://discord.gg/5DnAqFXaBC) for support and announcements.
-
-## Supported Boards
-
-![img](pic1.jpg)
-
-| Board | MCU | Display | Input | SubGHz | NFC | IR | SD Card |
-|---|---|---|---|---|---|---|---|
-| **LilyGo T-Embed CC1101** | ESP32-S3 (Xtensa LX7) | ST7789 320×170 | Rotary encoder + button | CC1101 | PN532 (I2C) | RMT TX + RX | SPI |
-| **M5Stack Cardputer** | ESP32-S3 (Xtensa LX7) | ST7789V2 240×135 | 56-key keyboard (74HC138) | — | — | RMT TX | SPI3 |
-| **M5Stack Cardputer-ADV** | ESP32-S3 (Xtensa LX7) | ST7789V2 240×135 | 56-key keyboard (TCA8418) | — | — | RMT TX | SPI3 |
-| **Waveshare ESP32-C6-LCD-1.9** | ESP32-C6 (RISC-V) | ST7789V2 320×172 | CST816S touch | — | — | — | SPI |
-
-![img](pic2.jpg)
-
-## How to Flash
-
-The easiest way is the **web flasher** — no toolchain required, just a Chrome/Edge browser and a USB cable:
-
-**[Flash via Browser](https://sor3nt.github.io/interface.html)**
-
-Connect your board, click flash, done. After flashing, copy the contents of [`sdcard/`](sdcard/) onto a FAT32 SD card and insert it — most apps need files there to function.
-
 ## Apps
 
 ### 📡 Wireless / RF
